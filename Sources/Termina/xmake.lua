@@ -11,7 +11,6 @@ target("Termina")
         "CGLTF",
         "GLFW",
         "GLM",
-        "Im3D",
         "ImGui",
         "Jolt",
         "JSON",

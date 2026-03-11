@@ -21,7 +21,7 @@ elseif is_plat("macosx") then
 end
 
 -- Other defines
-add_defines("GLM_FORCE_DEPTH_ZERO_TO_ONE", "VK_NO_PROTOTYPES", { public = true })
+add_defines("GLM_FORCE_DEPTH_ZERO_TO_ONE", "VK_NO_PROTOTYPES", "GLM_ENABLE_EXPERIMENTAL", { public = true })
 
 -- Modes
 if is_mode("debug") then

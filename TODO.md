@@ -25,7 +25,6 @@
 
 ## DAY 2
 
-- Dockspace setup for editor
 - World system
 - Cube renderer with entities from the world
 - Asset system
