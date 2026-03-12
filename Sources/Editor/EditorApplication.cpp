@@ -16,6 +16,7 @@
 #include "Termina/Platform/LaunchProcess.hpp"
 #include "Termina/Scripting/ScriptSystem.hpp"
 #include "Termina/World/ComponentRegistry.hpp"
+#include "Termina/World/World.hpp"
 #include "Termina/World/WorldSystem.hpp"
 
 EditorApplication::EditorApplication()
@@ -34,6 +35,21 @@ EditorApplication::EditorApplication()
     RegisterPanel<ContentViewerPanel>();
 
     Termina::ComponentRegistry::Get().Report();
+
+    Termina::World* world = GetSystem<Termina::WorldSystem>()->GetCurrentWorld();
+    // Create 4096 entities in a 3D grid
+    int gridSize = 20;
+    for (int x = 0; x < gridSize; ++x) {
+        for (int y = 0; y < gridSize; ++y) {
+            for (int z = 0; z < gridSize; ++z) {
+                auto actor = world->SpawnActor();
+                actor->SetName("Cube " + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z));
+                
+                Termina::Transform& transform = actor->AddComponent<Termina::Transform>();
+                transform.SetPosition({ x * 2.0f, y * 2.0f, z * 2.0f });
+            }
+        }
+    }
 }
 
 EditorApplication::~EditorApplication()

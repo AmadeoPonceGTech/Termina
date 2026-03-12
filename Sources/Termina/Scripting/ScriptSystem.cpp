@@ -14,7 +14,8 @@ namespace Termina {
 
     ScriptSystem::~ScriptSystem()
     {
-
+        for (auto& [name, path] : ScriptModuleManager::Get().GetLoadedModules())
+            ScriptModuleManager::Get().Unload(name);
     }
 
     void ScriptSystem::Compile()

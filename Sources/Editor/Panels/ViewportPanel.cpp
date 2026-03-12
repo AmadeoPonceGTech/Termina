@@ -82,7 +82,8 @@ void ViewportPanel::OnImGuiRender()
 
         glm::mat4 view = renderer->GetCurrentCamera().View;
         glm::mat4 projection = renderer->GetCurrentCamera().Projection;
-        projection[1][1] *= -1.0f; // Negate Y for ImGuizmo's expected coordinate system
+        for (int col = 0; col < 4; col++)
+            view[col][1] = -view[col][1];
 
         if (ImGuizmo::Manipulate(glm::value_ptr(view),
                              glm::value_ptr(projection),
