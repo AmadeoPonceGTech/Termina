@@ -11,7 +11,7 @@ namespace Termina {
         if (!allocate) return;
         m_CommandBuffer = [device->GetCommandQueue() commandBuffer];
 
-        m_AB = new MetalAB(device, 1000);
+        m_AB = new MetalAB(device, 65536);
     }
 
     MetalRenderContext::~MetalRenderContext()
@@ -21,7 +21,7 @@ namespace Termina {
 
     void MetalRenderContext::Reset()
     {
-        if (!m_AB) m_AB = new MetalAB(m_ParentDevice, 2048);
+        if (!m_AB) m_AB = new MetalAB(m_ParentDevice, 65536);
         m_AB->Reset();
         m_CommandBuffer = [m_ParentDevice->GetCommandQueue() commandBuffer];
         [m_ParentDevice->GetResidencySet() commit];

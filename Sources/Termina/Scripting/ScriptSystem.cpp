@@ -12,9 +12,9 @@ namespace Termina {
 #if defined(TRMN_LINUX)
         std::string libName = "libGameAssembly.so";
 #elif defined(TRMN_WINDOWS)
-        std::string libName = "libGameAssembly.dylib";
-#elif defined(TRMN_MACOS)
         std::string libName = "GameAssembly.dll";
+#elif defined(TRMN_MACOS)
+        std::string libName = "libGameAssembly.dylib";
 #endif
 
         ScriptModuleManager::Get().Load("Game", libName);
