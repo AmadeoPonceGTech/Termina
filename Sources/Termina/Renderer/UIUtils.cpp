@@ -10,6 +10,8 @@ namespace Termina {
         ImGuiIO& io = ImGui::GetIO();
         sData.RegularFont = io.Fonts->AddFontFromFileTTF("Assets/Fonts/PlayfairDisplay-Regular.ttf", 20.0f);
         sData.CapitalFont = io.Fonts->AddFontFromFileTTF("Assets/Fonts/UnifrakturMaguntia-Regular.ttf", 24.0f);
+
+        SetTheme();
     }
 
     void UIUtils::DrawStylizedText(const char* text, ImVec2 offset)
@@ -43,7 +45,7 @@ namespace Termina {
             float titleBarHeight = ImGui::GetFrameHeight();
             ImVec2 windowPos = ImGui::GetWindowPos();
             float windowWidth = ImGui::GetWindowWidth();
-        
+
             ImDrawList* dl = ImGui::GetWindowDrawList();
 
             dl->PushClipRect(
@@ -51,42 +53,43 @@ namespace Termina {
                 ImVec2(windowPos.x + windowWidth, windowPos.y + ImGui::GetWindowHeight()),
                 false // false = don't intersect with current cliprect, replace it
             );
-        
+
             dl->AddRectFilled(
                 windowPos,
                 ImVec2(windowPos.x + windowWidth, windowPos.y + titleBarHeight),
                 IM_COL32(255, 255, 255, 255)
             );
-        
+
             dl->AddLine(
                 ImVec2(windowPos.x, windowPos.y + titleBarHeight),
                 ImVec2(windowPos.x + windowWidth, windowPos.y + titleBarHeight),
-                IM_COL32(90, 75, 60, 200), 1.0f
+                IM_COL32(0, 0, 0, 255), 1.0f
             );
-        
+
             // Draw text directly via drawlist, bypassing cursor/clip issues
             ImVec2 textPos = ImVec2(windowPos.x + 8, windowPos.y + ImGui::GetStyle().FramePadding.y);
-        
+
             // Capital letter with Unifraktur
             int cmdCountBefore = dl->CmdBuffer.Size;
             dl->AddText(sData.CapitalFont, capitalFontSize,
                 textPos,
-                IM_COL32(40, 35, 30, 255),
+                IM_COL32(0, 0, 0, 255),
                 title, title + 1
             );
-        
+
             // Rest with IM Fell — advance x by the capital glyph width
             float capWidth = sData.CapitalFont->CalcTextSizeA(capitalFontSize, FLT_MAX, 0, title, title + 1).x;
             dl->AddText(sData.RegularFont, regularFontSize,
                 ImVec2(textPos.x + (capWidth + 2), textPos.y),
-                IM_COL32(40, 35, 30, 255),
+                IM_COL32(0, 0, 0, 255),
                 title + 1
             );
 
 
             dl->PopClipRect();
-        
+
             ImGui::SetCursorPosY(titleBarHeight + ImGui::GetStyle().ItemSpacing.y);
+            ImGui::Dummy(ImVec2(0, 0));
         }
 
         return visible;
@@ -153,10 +156,10 @@ namespace Termina {
 
         ImVec4* c = style.Colors;
 
-        // Aged newsprint cream — stark, high contrast
-        c[ImGuiCol_WindowBg]             = ImVec4(0.96f, 0.94f, 0.91f, 1.00f);
-        c[ImGuiCol_ChildBg]              = ImVec4(0.93f, 0.91f, 0.87f, 1.00f);
-        c[ImGuiCol_PopupBg]              = ImVec4(0.98f, 0.97f, 0.95f, 1.00f);
+        // Pure monochromatic black and white
+        c[ImGuiCol_WindowBg]             = ImVec4(0.95f, 0.95f, 0.95f, 1.00f);
+        c[ImGuiCol_ChildBg]              = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
+        c[ImGuiCol_PopupBg]              = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
 
         // Borders — hard black
         c[ImGuiCol_Border]               = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
@@ -169,44 +172,44 @@ namespace Termina {
 
         // Frames — white fill, border provides visual weight
         c[ImGuiCol_FrameBg]              = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-        c[ImGuiCol_FrameBgHovered]       = ImVec4(0.90f, 0.88f, 0.84f, 1.00f);
-        c[ImGuiCol_FrameBgActive]        = ImVec4(0.80f, 0.78f, 0.74f, 1.00f);
+        c[ImGuiCol_FrameBgHovered]       = ImVec4(0.85f, 0.85f, 0.85f, 1.00f);
+        c[ImGuiCol_FrameBgActive]        = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
 
         // Scrollbar
-        c[ImGuiCol_ScrollbarBg]          = ImVec4(0.93f, 0.91f, 0.87f, 1.00f);
+        c[ImGuiCol_ScrollbarBg]          = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
         c[ImGuiCol_ScrollbarGrab]        = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
         c[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
         c[ImGuiCol_ScrollbarGrabActive]  = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
 
         // Headers (TreeNode, CollapsingHeader, Selectable)
-        c[ImGuiCol_Header]               = ImVec4(0.85f, 0.83f, 0.79f, 1.00f);
-        c[ImGuiCol_HeaderHovered]        = ImVec4(0.75f, 0.73f, 0.68f, 1.00f);
-        c[ImGuiCol_HeaderActive]         = ImVec4(0.60f, 0.58f, 0.53f, 1.00f);
+        c[ImGuiCol_Header]               = ImVec4(0.82f, 0.82f, 0.82f, 1.00f);
+        c[ImGuiCol_HeaderHovered]        = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
+        c[ImGuiCol_HeaderActive]         = ImVec4(0.55f, 0.55f, 0.55f, 1.00f);
 
         // Buttons — white fill, black border carries the weight
         c[ImGuiCol_Button]               = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-        c[ImGuiCol_ButtonHovered]        = ImVec4(0.88f, 0.86f, 0.82f, 1.00f);
-        c[ImGuiCol_ButtonActive]         = ImVec4(0.70f, 0.68f, 0.63f, 1.00f);
+        c[ImGuiCol_ButtonHovered]        = ImVec4(0.85f, 0.85f, 0.85f, 1.00f);
+        c[ImGuiCol_ButtonActive]         = ImVec4(0.65f, 0.65f, 0.65f, 1.00f);
 
         // Tabs
-        c[ImGuiCol_Tab]                  = ImVec4(0.88f, 0.86f, 0.82f, 1.00f);
-        c[ImGuiCol_TabHovered]           = ImVec4(0.75f, 0.73f, 0.68f, 1.00f);
-        c[ImGuiCol_TabActive]            = ImVec4(0.96f, 0.94f, 0.91f, 1.00f); // matches WindowBg — feels "open"
-        c[ImGuiCol_TabUnfocused]         = ImVec4(0.90f, 0.88f, 0.84f, 1.00f);
-        c[ImGuiCol_TabUnfocusedActive]   = ImVec4(0.93f, 0.91f, 0.87f, 1.00f);
+        c[ImGuiCol_Tab]                  = ImVec4(0.85f, 0.85f, 0.85f, 1.00f);
+        c[ImGuiCol_TabHovered]           = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
+        c[ImGuiCol_TabActive]            = ImVec4(0.95f, 0.95f, 0.95f, 1.00f); // matches WindowBg — feels "open"
+        c[ImGuiCol_TabUnfocused]         = ImVec4(0.88f, 0.88f, 0.88f, 1.00f);
+        c[ImGuiCol_TabUnfocusedActive]   = ImVec4(0.92f, 0.92f, 0.92f, 1.00f);
 
         // Docking
         c[ImGuiCol_DockingPreview]       = ImVec4(0.00f, 0.00f, 0.00f, 0.50f);
-        c[ImGuiCol_DockingEmptyBg]       = ImVec4(0.93f, 0.91f, 0.87f, 1.00f);
+        c[ImGuiCol_DockingEmptyBg]       = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
 
         // Selection / highlight — ink stamp
-        c[ImGuiCol_CheckMark]            = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
+        c[ImGuiCol_CheckMark]            = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
         c[ImGuiCol_SliderGrab]           = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
         c[ImGuiCol_SliderGrabActive]     = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
 
-        // Text — near-black on cream
-        c[ImGuiCol_Text]                 = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
-        c[ImGuiCol_TextDisabled]         = ImVec4(0.45f, 0.43f, 0.40f, 1.00f);
+        // Text — pure black on white
+        c[ImGuiCol_Text]                 = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
+        c[ImGuiCol_TextDisabled]         = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
         c[ImGuiCol_TextSelectedBg]       = ImVec4(0.00f, 0.00f, 0.00f, 0.25f);
 
         // Separator — ruled line
@@ -223,11 +226,11 @@ namespace Termina {
         c[ImGuiCol_MenuBarBg]            = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
 
         // Modal overlay
-        c[ImGuiCol_ModalWindowDimBg]     = ImVec4(0.04f, 0.04f, 0.04f, 0.50f);
+        c[ImGuiCol_ModalWindowDimBg]     = ImVec4(0.00f, 0.00f, 0.00f, 0.50f);
 
         // Nav highlight
-        c[ImGuiCol_NavHighlight]         = ImVec4(0.04f, 0.04f, 0.04f, 1.00f);
-        c[ImGuiCol_NavWindowingHighlight]= ImVec4(0.04f, 0.04f, 0.04f, 0.70f);
-        c[ImGuiCol_NavWindowingDimBg]    = ImVec4(0.04f, 0.04f, 0.04f, 0.20f);
+        c[ImGuiCol_NavHighlight]         = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
+        c[ImGuiCol_NavWindowingHighlight]= ImVec4(0.00f, 0.00f, 0.00f, 0.70f);
+        c[ImGuiCol_NavWindowingDimBg]    = ImVec4(0.00f, 0.00f, 0.00f, 0.20f);
     }
 }

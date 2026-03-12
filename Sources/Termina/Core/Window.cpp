@@ -15,6 +15,9 @@ namespace Termina {
         m_Window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         TN_ASSERT(m_Window, "Failed to create GLFW window");
 
+        glfwGetWindowSize(m_Window, &m_Width, &m_Height);
+        glfwGetFramebufferSize(m_Window, &m_PixelWidth, &m_PixelHeight);
+
         TN_INFO("Created window of size (%d, %d)", width, height);
     }
 
@@ -34,5 +37,6 @@ namespace Termina {
         glfwPollEvents();
 
         glfwGetWindowSize(m_Window, &m_Width, &m_Height);
+        glfwGetFramebufferSize(m_Window, &m_PixelWidth, &m_PixelHeight);
     }
 }

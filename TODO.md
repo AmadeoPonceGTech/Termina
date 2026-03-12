@@ -26,8 +26,6 @@
 ## TODO
 
 - PassIO, editor renders to viewport, runtime renders to backbuffer
-- World system to handle transitions
-- World serialization/deserialization (JSON)
 - Simple HDR forward pass + tonemap via PassIO + debug renderer
 - Cube renderer with entities from the world
 - Asset system (ref counting/caching)

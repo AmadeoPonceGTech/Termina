@@ -17,11 +17,17 @@ namespace Termina {
 
         int32 GetWidth() const { return m_Width; }
         int32 GetHeight() const { return m_Height; }
+
+        int32 GetPixelWidth() const { return m_PixelWidth; }
+        int32 GetPixelHeight() const { return m_PixelHeight; }
+
         GLFWwindow* GetHandle() const { return m_Window; }
     private:
         GLFWwindow* m_Window;
 
         int32 m_Width;
         int32 m_Height;
+        int32 m_PixelWidth;
+        int32 m_PixelHeight;
     };
 }

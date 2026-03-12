@@ -10,6 +10,7 @@
 #include "GPUUploader.h"
 #include "ResourceViewCache.h"
 #include "SamplerCache.h"
+#include "Termina/Renderer/PassIO.hpp"
 
 namespace Termina {
     using RenderCallback = std::function<void(RendererDevice*, RendererSurface*, float)>;
@@ -40,6 +41,7 @@ namespace Termina {
         GPUUploader* GetGPUUploader() const { return m_GPUUploader; }
         ResourceViewCache* GetResourceViewCache() const { return m_ResourceViewCache; }
         SamplerCache* GetSamplerCache() const { return m_SamplerCache; }
+        PassIO* GetPassIO() { return &m_PassIO; }
     private:
         void BakeTimeline();
 
@@ -59,5 +61,6 @@ namespace Termina {
         GPUUploader* m_GPUUploader = nullptr;
         ResourceViewCache* m_ResourceViewCache = nullptr;
         SamplerCache* m_SamplerCache = nullptr;
+        PassIO m_PassIO;
     };
 }

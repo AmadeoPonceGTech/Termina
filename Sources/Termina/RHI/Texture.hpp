@@ -94,7 +94,8 @@ namespace Termina {
         virtual ~RendererTexture() = default;
     
         virtual void SetName(const std::string& name) = 0;
-    
+        virtual void Resize(uint32 width, uint32 height) = 0;
+
         const TextureDesc& GetDesc() const { return m_Desc; }
     
         TextureLayout GetCurrentLayout() const { return m_CurrentLayout; }

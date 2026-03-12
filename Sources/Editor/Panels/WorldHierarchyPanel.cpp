@@ -29,9 +29,30 @@ void WorldHierarchyPanel::DrawActorNode(Termina::Actor* actor)
     if (!actor->IsActive())
         ImGui::PopStyleColor();
 
+    // Drag source
+    if (ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload("ACTOR", &actor, sizeof(actor));
+        ImGui::Text("%s", actor->GetName().c_str());
+        ImGui::EndDragDropSource();
+    }
+
+    // Drop target: reparent dragged actor as child of this one
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ACTOR"))
+        {
+            Termina::Actor* dragged = *(Termina::Actor**)payload->Data;
+            if (dragged != actor && !actor->IsDescendantOf(dragged))
+                actor->AttachChild(dragged);
+        }
+        ImGui::EndDragDropTarget();
+    }
+
     if (ImGui::IsItemClicked())
         m_Context.SelectedActor = actor;
 
+    bool shouldDestroy = false;
     if (ImGui::BeginPopupContextItem())
     {
         if (ImGui::MenuItem("Spawn Child"))
@@ -43,12 +64,17 @@ void WorldHierarchyPanel::DrawActorNode(Termina::Actor* actor)
         {
             if (m_Context.SelectedActor == actor)
                 m_Context.SelectedActor = nullptr;
-            actor->GetParentWorld()->DestroyActor(actor);
-            if (open) ImGui::TreePop();
-            ImGui::EndPopup();
-            return;
+            shouldDestroy = true;
         }
         ImGui::EndPopup();
+    }
+
+    // Destroy and TreePop must happen outside the popup's window context.
+    if (shouldDestroy)
+    {
+        actor->GetParentWorld()->DestroyActor(actor);
+        if (open) ImGui::TreePop();
+        return;
     }
 
     if (open)
@@ -74,19 +100,39 @@ void WorldHierarchyPanel::OnImGuiRender()
     }
 
     ImGui::TextDisabled("%s", world->GetName().c_str());
+
+    ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Create").x - ImGui::GetStyle().FramePadding.x * 2.0f);
+    Termina::UIUtils::PushStylized();
+    if (ImGui::Button("Create"))
+        ImGui::OpenPopup("##create_actor");
+    Termina::UIUtils::PopStylized();
+
+    if (ImGui::BeginPopup("##create_actor"))
+    {
+        if (ImGui::MenuItem("Empty"))
+            world->SpawnActor();
+        ImGui::EndPopup();
+    }
+
     ImGui::Separator();
 
     for (auto* root : world->GetRootActors())
         DrawActorNode(root);
 
-    // Right-click on empty space to spawn a root actor.
-    if (ImGui::BeginPopupContextWindow(
-            "##hierarchy_ctx",
-            ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+    // Drop target on empty space: demote dragged actor to root level.
+    ImVec2 remaining = ImGui::GetContentRegionAvail();
+    if (remaining.y > 0.0f)
     {
-        if (ImGui::MenuItem("Spawn Actor"))
-            world->SpawnActor();
-        ImGui::EndPopup();
+        ImGui::InvisibleButton("##root_drop", remaining);
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ACTOR"))
+            {
+                Termina::Actor* dragged = *(Termina::Actor**)payload->Data;
+                dragged->DetachFromParent();
+            }
+            ImGui::EndDragDropTarget();
+        }
     }
 
     Termina::UIUtils::EndEditorWindow();

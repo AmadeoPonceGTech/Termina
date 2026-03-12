@@ -14,6 +14,7 @@ namespace Termina {
         ~VulkanTexture() override;
     
         void SetName(const std::string& name) override;
+        void Resize(uint32 width, uint32 height) override;
     
         vma::Allocation GetAllocation() const { return m_Allocation; }
         vk::Image GetImage() const { return m_Image; }

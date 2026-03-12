@@ -1,10 +1,13 @@
 #include "Renderer.hpp"
 
+#include "Core/Application.hpp"
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_glfw.h"
+#include "Renderer/Passes/CubesPass.hpp"
 #include "Renderer/Passes/ImGuiPass.hpp"
 #include "Renderer/Passes/TrianglePass.hpp"
 #include "Renderer/UIUtils.hpp"
+#include "World/WorldSystem.hpp"
 
 namespace Termina {
     RendererSystem::RendererSystem(Window* window)
@@ -75,15 +78,18 @@ namespace Termina {
     void RendererSystem::Render(float deltaTime)
     {
         if (m_Window->GetWidth() != m_CurrentWidth || m_Window->GetHeight() != m_CurrentHeight) {
-            m_Surface->Resize(m_Window->GetWidth(), m_Window->GetHeight());
+            m_Device->WaitIdle();
             m_CurrentWidth = m_Window->GetWidth();
             m_CurrentHeight = m_Window->GetHeight();
+
+            m_Surface->Resize(m_Window->GetWidth(), m_Window->GetHeight());
+            for (auto& pass : m_RenderPasses) {
+                pass->Resize(m_CurrentWidth, m_CurrentHeight);
+            }
         }
 
-        int fbWidth, fbHeight;
-        glfwGetFramebufferSize(m_Window->GetHandle(), &fbWidth, &fbHeight);
-
-        ImGui::Render();
+        int32 pixelWidth = m_Window->GetPixelWidth();
+        int32 pixelHeight = m_Window->GetPixelHeight();
 
         uint32 frameIndex = m_Surface->GetFrameIndex();
 
@@ -92,9 +98,6 @@ namespace Termina {
         m_GPUUploader->RecordUploads(context);
         m_GPUAllocator->Reset();
 
-        for (const auto& callback : m_RenderCallbacks) {
-            callback(m_Device, m_Surface, deltaTime);
-        }
         for (RenderPass* pass : m_RenderPasses) {
             RenderPassExecuteInfo info = {
                 .Device = m_Device,
@@ -104,12 +107,17 @@ namespace Termina {
                 .Allocator = m_GPUAllocator,
                 .ViewCache = m_ResourceViewCache,
                 .SampCache = m_SamplerCache,
+                .IO = &m_PassIO,
+                .World = Application::GetSystem<WorldSystem>()->GetCurrentWorld(),
 
                 .FrameIndex = frameIndex,
-                .Width = fbWidth,
-                .Height = fbHeight
+                .Width = pixelWidth,
+                .Height = pixelHeight
             };
             pass->Execute(info);
+        }
+        for (const auto& callback : m_RenderCallbacks) {
+            callback(m_Device, m_Surface, deltaTime);
         }
         m_Surface->EndFrame();
     }
@@ -117,7 +125,7 @@ namespace Termina {
     void RendererSystem::BakeTimeline()
     {
         m_RenderPasses = {
-            new TrianglePass(),
+            new CubesPass(),
             new ImGuiPass()
         };
     }

@@ -162,7 +162,7 @@ namespace Termina {
                 if (clip_max.x <= clip_min.x || clip_max.y <= clip_min.y)
                     continue;
 
-                pushConstants.TextureIndex = (int32)pcmd->GetTexID();
+                pushConstants.TextureIndex = static_cast<int32>(pcmd->GetTexID());
                 pushConstants.VertexOffset = pcmd->VtxOffset + global_vtx_offset;
 
                 // Apply scissor/clipping rectangle, bind, draw

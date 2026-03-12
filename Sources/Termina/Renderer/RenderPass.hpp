@@ -2,11 +2,13 @@
 
 #include <Termina/RHI/Device.hpp>
 #include <Termina/RHI/RenderContext.hpp>
+#include <Termina/World/World.hpp>
 
 #include "GPUBumpAllocator.h"
 #include "GPUUploader.h"
 #include "ResourceViewCache.h"
 #include "SamplerCache.h"
+#include "PassIO.hpp"
 
 namespace Termina {
     struct RenderPassExecuteInfo
@@ -18,6 +20,8 @@ namespace Termina {
         GPUBumpAllocator* Allocator;
         ResourceViewCache* ViewCache;
         SamplerCache* SampCache;
+        PassIO* IO;
+        World* World;
 
         uint FrameIndex;
         int32 Width;

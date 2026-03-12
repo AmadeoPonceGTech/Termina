@@ -15,6 +15,7 @@ namespace Termina {
         ~MetalTexture() override;
 
         void SetName(const std::string& name) override;
+        void Resize(uint32 width, uint32 height) override;
 
         id<MTLTexture> GetTexture() const { return m_Texture; }
 

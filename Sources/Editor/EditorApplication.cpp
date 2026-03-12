@@ -20,7 +20,7 @@ EditorApplication::EditorApplication()
     m_SystemManager.AddSystem<Termina::WorldSystem>();
     m_SystemManager.AddSystem<Termina::RendererSystem>(m_Window);
     m_SystemManager.AddSystem<Termina::ShaderManager>();
-    auto audioSystem = m_SystemManager.AddSystem<Termina::AudioSystem>();
+    m_SystemManager.AddSystem<Termina::AudioSystem>();
 
     RegisterPanel<ViewportPanel>();
     RegisterPanel<WorldHierarchyPanel>();

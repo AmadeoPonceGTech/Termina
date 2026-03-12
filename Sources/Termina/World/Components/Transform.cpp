@@ -1,5 +1,6 @@
 #include "Transform.hpp"
 
+#include <ImGui/imgui.h>
 #include <Termina/World/Actor.hpp>
 #include <Termina/World/ComponentRegistry.hpp>
 
@@ -248,8 +249,41 @@ namespace Termina {
 
     void Transform::Inspect()
     {
-        Component::Inspect();
-        // This can be extended with ImGui inspector calls if needed
+        const float resetButtonWidth = ImGui::CalcTextSize("R").x + ImGui::GetStyle().FramePadding.x * 2.0f;
+        const float fieldWidth = ImGui::GetContentRegionAvail().x - resetButtonWidth - ImGui::GetStyle().ItemSpacing.x;
+
+        // Position
+        glm::vec3 pos = GetLocalPosition();
+        ImGui::SetNextItemWidth(fieldWidth);
+        if (ImGui::DragFloat3("##pos", &pos.x, 0.1f))
+            SetLocalPosition(pos);
+        ImGui::SameLine();
+        if (ImGui::SmallButton("R##pos"))
+            SetLocalPosition(glm::vec3(0.0f));
+        ImGui::SameLine();
+        ImGui::TextUnformatted("Position");
+
+        // Rotation — edit as euler degrees, store as quaternion
+        glm::vec3 euler = GetEulerAngles();
+        ImGui::SetNextItemWidth(fieldWidth);
+        if (ImGui::DragFloat3("##rot", &euler.x, 0.5f))
+            SetEulerAngles(euler);
+        ImGui::SameLine();
+        if (ImGui::SmallButton("R##rot"))
+            SetEulerAngles(glm::vec3(0.0f));
+        ImGui::SameLine();
+        ImGui::TextUnformatted("Rotation");
+
+        // Scale
+        glm::vec3 scale = GetLocalScale();
+        ImGui::SetNextItemWidth(fieldWidth);
+        if (ImGui::DragFloat3("##scale", &scale.x, 0.01f))
+            SetLocalScale(scale);
+        ImGui::SameLine();
+        if (ImGui::SmallButton("R##scale"))
+            SetLocalScale(glm::vec3(1.0f));
+        ImGui::SameLine();
+        ImGui::TextUnformatted("Scale");
     }
 
     // Private helpers
