@@ -5,6 +5,10 @@ target("Termina")
     set_group("Termina")
 
     add_files("**.cpp")
+    if is_plat("macosx") then
+        add_files("**.mm")
+    end
+
     add_headerfiles("**.hpp")
     add_includedirs(".")
     add_deps(
@@ -21,3 +25,7 @@ target("Termina")
         "Volk",
         "Vulkan"
     )
+
+    if is_plat("macosx") then
+        add_deps("MetalShaderConverter")
+    end

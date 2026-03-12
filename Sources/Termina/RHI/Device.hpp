@@ -16,7 +16,7 @@ namespace Termina {
     enum class RendererBackend
     {
         Vulkan,
-        Metal4,
+        Metal,
         D3D12
     };
 

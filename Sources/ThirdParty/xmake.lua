@@ -13,3 +13,6 @@ includes("GLM")
 includes("GLFW")
 includes("CGLTF")
 includes("DXC")
+if is_plat("macosx") then
+    includes("MetalShaderConverter")
+end

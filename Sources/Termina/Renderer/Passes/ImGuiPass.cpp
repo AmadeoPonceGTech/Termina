@@ -130,7 +130,7 @@ namespace Termina {
         RenderPipeline* pipeline = server.GetPipeline("Assets/Shaders/ImGui.hlsl");
 
         RenderEncoderInfo encoderInfo = RenderEncoderInfo().AddColorAttachment(info.Surface->GetCurrentTextureView(), false)
-                                                           .SetDimensions(info.Width, info.Height)
+                                                           .SetDimensions((int)(data->DisplaySize.x * data->FramebufferScale.x), (int)(data->DisplaySize.y * data->FramebufferScale.y))
                                                            .SetName("ImGui Pass");
 
         RenderEncoder* encoder = info.Ctx->CreateRenderEncoder(encoderInfo);

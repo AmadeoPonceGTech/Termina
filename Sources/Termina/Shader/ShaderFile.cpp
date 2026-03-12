@@ -3,6 +3,10 @@
 #include <Termina/Core/FileSystem.hpp>
 #include <Termina/Core/Logger.hpp>
 
+#if defined(TRMN_MACOS)
+    #include "Metal/Metal_ShaderConverter.hpp"
+#endif
+
 namespace Termina {
     bool ShaderFile::Load(const std::string& path)
     {
@@ -53,7 +57,7 @@ namespace Termina {
                 args.Source = preprocessResult.ProcessedSource; // Use processed source without pragmas
                 args.Type = type;
                 args.Defines = combination;
-    #if defined(PLATFORM_MACOS)
+    #if defined(TRMN_MACOS)
                 args.PostProcessCallback = MetalShaderConverter::Convert;
     #endif
 

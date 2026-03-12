@@ -5,12 +5,12 @@
 #include <Termina/Core/Application.hpp>
 #include <Termina/Core/Logger.hpp>
 
-#if defined(TRMN_LINUX)
+#if !defined(TRMN_WINDOWS)
     #include <DXC/WinAdapter.h>
 #else
     #include <Windows.h>
 #endif
-#include <DXC//dxcapi.h>
+#include <DXC/dxcapi.h>
 
 namespace Termina {
     typedef HRESULT (*PFN_DxcCreateInstance)(REFCLSID rclsid, REFIID riid, LPVOID *ppv);
@@ -96,6 +96,8 @@ namespace Termina {
         if (hasRaytracing) {
             compileArgs.push_back(L"-DRAYTRACING");
         }
+
+#if !defined(TRMN_MACOS)
         compileArgs.push_back(L"-DVULKAN");
         compileArgs.push_back(L"-spirv");
         compileArgs.push_back(L"-fspv-extension=SPV_EXT_mesh_shader");
@@ -110,6 +112,9 @@ namespace Termina {
         compileArgs.push_back(L"-fvk-bind-sampler-heap");
         compileArgs.push_back(L"1");
         compileArgs.push_back(L"0");
+#else
+        compileArgs.push_back(L"-DMETAL");
+#endif
 
         for (const std::string& define : args.Defines) {
             wideDefines.push_back(L"-D" + std::wstring(define.begin(), define.end()));

@@ -10,7 +10,8 @@ namespace Termina {
         ShaderServer& server = Application::GetSystem<ShaderManager>()->GetShaderServer();
 
         RenderPipelineDesc rpDesc = RenderPipelineDesc().AddColorAttachmentFormat(TextureFormat::BGRA8_UNORM)
-                                                                      .SetName("Triangle Pipeline");
+                                                        .SetName("Triangle Pipeline")
+                                                        .SetCullMode(PipelineCullMode::NONE);
         server.WatchPipeline("Assets/Shaders/Triangle.hlsl", rpDesc, PipelineType::Graphics);
     }
 

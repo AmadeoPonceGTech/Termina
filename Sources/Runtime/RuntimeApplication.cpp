@@ -1,8 +1,5 @@
 #include "RuntimeApplication.hpp"
 #include "ImGui/imgui.h"
-#include "Termina/RHI/RenderContext.hpp"
-#include "Termina/RHI/RenderPipeline.hpp"
-#include "Termina/RHI/Texture.hpp"
 
 #include <Termina/Renderer/Renderer.hpp>
 #include <Termina/Shader/ShaderManager.hpp>

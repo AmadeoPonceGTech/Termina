@@ -14,10 +14,12 @@ elseif is_plat("linux") then
     add_defines("TRMN_LINUX", { public = true })
     add_rpathdirs("Binaries/Linux", { public = true })
 elseif is_plat("macosx") then
-    add_defines("TMRN_MACOS", { public = true })
+    add_defines("TRMN_MACOS", { public = true })
     add_cflags("-x objective-c", "-fno-objc-arc", { public = true })
     add_cxxflags("-x objective-c++", "-fno-objc-arc", { public = true })
     add_mflags("-fno-objc-arc", { public = true })
+    add_rpathdirs("Binaries/Mac", { public = true })
+    add_links("Binaries/Mac/libmetalirconverter.dylib", { public = true })
 end
 
 -- Other defines
@@ -40,7 +42,7 @@ else
 end
 
 -- Post link
-after_link(function (target)
+after_link( function (target)
     if is_plat("windows") then
         os.cp("Binaries/Windows/*", "$(builddir)/$(plat)/$(arch)/$(mode)/")
     end

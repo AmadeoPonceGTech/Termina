@@ -1,8 +1,16 @@
-#include "Vulkan/VulkanDevice.hpp"
+#if !defined(TRMN_MACOS)
+    #include "Vulkan/VulkanDevice.hpp"
+#else
+    #include "Metal/MetalDevice.hpp"
+#endif
 
 namespace Termina {
     RendererDevice* RendererDevice::Create()
     {
-        return new VulkanDevice();
+        #if !defined(TRMN_MACOS)
+            return new VulkanDevice();
+        #else
+            return new MetalDevice();
+        #endif
     }
 }

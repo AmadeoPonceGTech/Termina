@@ -80,6 +80,11 @@ namespace Termina {
             m_CurrentHeight = m_Window->GetHeight();
         }
 
+        int fbWidth, fbHeight;
+        glfwGetFramebufferSize(m_Window->GetHandle(), &fbWidth, &fbHeight);
+
+        ImGui::Render();
+
         uint32 frameIndex = m_Surface->GetFrameIndex();
 
         RenderContext* context = m_Surface->BeginFrame();
@@ -101,8 +106,8 @@ namespace Termina {
                 .SampCache = m_SamplerCache,
 
                 .FrameIndex = frameIndex,
-                .Width = m_CurrentWidth,
-                .Height = m_CurrentHeight
+                .Width = fbWidth,
+                .Height = fbHeight
             };
             pass->Execute(info);
         }

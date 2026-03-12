@@ -9,6 +9,8 @@ namespace Termina {
         std::string libraryPath = "dxcompiler.dll";
     #if defined(TRMN_LINUX)
         libraryPath = "libdxcompiler.so";
+    #elif defined(TRMN_MACOS)
+        libraryPath = "libdxcompiler.dylib";
     #endif
 
         m_Library.Load(libraryPath.c_str());
