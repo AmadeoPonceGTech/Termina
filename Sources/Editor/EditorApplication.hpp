@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Termina/Core/Application.hpp>
+#include <Termina/Audio/AudioSource.hpp>
 
 #include "EditorContext.hpp"
 #include "Panel.hpp"
@@ -12,7 +13,7 @@ class EditorApplication : public Termina::Application
 {
 public:
     EditorApplication();
-    ~EditorApplication() = default;
+    ~EditorApplication();
 
     void OnUpdate(float dt) override;
 

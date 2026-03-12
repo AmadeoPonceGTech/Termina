@@ -17,12 +17,19 @@ EditorApplication::EditorApplication()
 {
     m_SystemManager.AddSystem<Termina::RendererSystem>(m_Window);
     m_SystemManager.AddSystem<Termina::ShaderManager>();
-    m_SystemManager.AddSystem<Termina::AudioSystem>();
+    auto audioSystem = m_SystemManager.AddSystem<Termina::AudioSystem>();
 
     RegisterPanel<ViewportPanel>();
     RegisterPanel<WorldHierarchyPanel>();
     RegisterPanel<InspectorPanel>();
     RegisterPanel<ContentViewerPanel>();
+}
+
+EditorApplication::~EditorApplication()
+{
+    m_AudioSource->Stop();
+    delete m_AudioSource;
+    delete m_AudioData;
 }
 
 void EditorApplication::OnUpdate(float dt)
