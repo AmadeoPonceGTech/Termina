@@ -1,8 +1,12 @@
 #pragma once
 
 #include <ImGui/imgui.h>
+#include <string>
+#include <functional>
 
 namespace Termina {
+    class Actor;
+
     /// Utility functions for UI rendering.
     class UIUtils
     {
@@ -30,6 +34,14 @@ namespace Termina {
         static bool BeginMenu(const char* label, bool enabled = true);
         static void EndMenu();
         static bool MenuItem(const char* label, const char* shortcut = nullptr, bool selected = false, bool enabled = true);
+
+        // Drag and drop — assets (path-based)
+        static void AssetPickerSource(const std::string& path);
+        static bool TryReceiveAsset(const std::function<void(const std::string&)>& callback);
+
+        // Drag and drop — actors (pointer-based)
+        static void ActorPickerSource(Actor* actor);
+        static bool TryReceiveActor(const std::function<void(Actor*)>& callback);
 
     private:
         static void SetTheme();

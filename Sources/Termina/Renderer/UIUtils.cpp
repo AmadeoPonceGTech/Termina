@@ -1,6 +1,7 @@
 #include "UIUtils.hpp"
 #include "Core/Logger.hpp"
 #include "ImGui/imgui.h"
+#include <string>
 
 namespace Termina {
     UIUtils::Data UIUtils::sData;
@@ -130,6 +131,59 @@ namespace Termina {
     bool UIUtils::BeginMenu(const char* label, bool enabled)            { return ImGui::BeginMenu(label, enabled); }
     void UIUtils::EndMenu()                                             { ImGui::EndMenu(); }
     bool UIUtils::MenuItem(const char* label, const char* shortcut, bool selected, bool enabled) { return ImGui::MenuItem(label, shortcut, selected, enabled); }
+
+    void UIUtils::AssetPickerSource(const std::string& path)
+    {
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+        {
+            ImGui::SetDragDropPayload("ASSET_PATH", path.c_str(), path.size() + 1);
+            ImGui::Text("%s", path.c_str());
+            ImGui::EndDragDropSource();
+        }
+    }
+
+    bool UIUtils::TryReceiveAsset(const std::function<void(const std::string&)>& callback)
+    {
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSET_PATH"))
+            {
+                const char* path = static_cast<const char*>(payload->Data);
+                if (path && path[0] != '\0')
+                    callback(path);
+                ImGui::EndDragDropTarget();
+                return true;
+            }
+            ImGui::EndDragDropTarget();
+        }
+        return false;
+    }
+
+    void UIUtils::ActorPickerSource(Actor* actor)
+    {
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID))
+        {
+            ImGui::SetDragDropPayload("ACTOR_PTR", &actor, sizeof(Actor*));
+            ImGui::EndDragDropSource();
+        }
+    }
+
+    bool UIUtils::TryReceiveActor(const std::function<void(Actor*)>& callback)
+    {
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ACTOR_PTR"))
+            {
+                Actor* actor = *static_cast<Actor**>(payload->Data);
+                if (actor)
+                    callback(actor);
+                ImGui::EndDragDropTarget();
+                return true;
+            }
+            ImGui::EndDragDropTarget();
+        }
+        return false;
+    }
 
     void UIUtils::SetTheme()
     {
