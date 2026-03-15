@@ -1,8 +1,10 @@
 ## TODO
 
 ## Sunday
-- Temporal anti-aliasing
-- Point and spot shadows with shadow atlas
+- Bloom
+- Procedural sky
+- SSAO
+- Cinematic pass
 
 ## Monday
 - Walk around demo, change levels, pick up item, scripted particle system
