@@ -140,28 +140,32 @@ namespace Termina {
 
         // --- Global scene buffers ---
         // SHADER_READ | TRANSFER → eCpuToGpu: host-visible + GPU-readable as storage buffer.
-        // Persistently mapped; written each frame without staging.
-        m_InstanceBuffer = device->CreateBuffer(BufferDesc()
-            .SetSize(sizeof(GPUInstance) * MAX_INSTANCES)
-            .SetStride(sizeof(GPUInstance))
-            .SetUsage(BufferUsage::SHADER_READ | BufferUsage::TRANSFER));
-        m_InstanceBuffer->SetName("Instance Buffer");
-        m_InstanceMapped = m_InstanceBuffer->Map();
+        // One buffer per frame-in-flight so the CPU can write frame N+1 while the GPU
+        // is still reading frame N, avoiding the data race that caused flickering on Windows.
+        for (int i = 0; i < FRAMES_IN_FLIGHT; ++i)
+        {
+            m_InstanceBuffer[i] = device->CreateBuffer(BufferDesc()
+                .SetSize(sizeof(GPUInstance) * MAX_INSTANCES)
+                .SetStride(sizeof(GPUInstance))
+                .SetUsage(BufferUsage::SHADER_READ | BufferUsage::TRANSFER));
+            m_InstanceBuffer[i]->SetName("Instance Buffer");
+            m_InstanceMapped[i] = m_InstanceBuffer[i]->Map();
 
-        m_InstanceBufView = device->CreateBufferView(BufferViewDesc()
-            .SetBuffer(m_InstanceBuffer)
-            .SetType(BufferViewType::SHADER_READ));
+            m_InstanceBufView[i] = device->CreateBufferView(BufferViewDesc()
+                .SetBuffer(m_InstanceBuffer[i])
+                .SetType(BufferViewType::SHADER_READ));
 
-        m_MaterialBuffer = device->CreateBuffer(BufferDesc()
-            .SetSize(sizeof(GPUMaterial) * MAX_MATERIALS)
-            .SetStride(sizeof(GPUMaterial))
-            .SetUsage(BufferUsage::SHADER_READ | BufferUsage::TRANSFER));
-        m_MaterialBuffer->SetName("Material Buffer");
-        m_MaterialMapped = m_MaterialBuffer->Map();
+            m_MaterialBuffer[i] = device->CreateBuffer(BufferDesc()
+                .SetSize(sizeof(GPUMaterial) * MAX_MATERIALS)
+                .SetStride(sizeof(GPUMaterial))
+                .SetUsage(BufferUsage::SHADER_READ | BufferUsage::TRANSFER));
+            m_MaterialBuffer[i]->SetName("Material Buffer");
+            m_MaterialMapped[i] = m_MaterialBuffer[i]->Map();
 
-        m_MaterialBufView = device->CreateBufferView(BufferViewDesc()
-            .SetBuffer(m_MaterialBuffer)
-            .SetType(BufferViewType::SHADER_READ));
+            m_MaterialBufView[i] = device->CreateBufferView(BufferViewDesc()
+                .SetBuffer(m_MaterialBuffer[i])
+                .SetType(BufferViewType::SHADER_READ));
+        }
 
         // --- Pipeline ---
         RenderPipelineDesc rpDesc = RenderPipelineDesc()
@@ -188,13 +192,16 @@ namespace Termina {
 
     GBufferPass::~GBufferPass()
     {
-        m_InstanceBuffer->Unmap();
-        m_MaterialBuffer->Unmap();
+        for (int i = 0; i < FRAMES_IN_FLIGHT; ++i)
+        {
+            m_InstanceBuffer[i]->Unmap();
+            m_MaterialBuffer[i]->Unmap();
 
-        delete m_InstanceBufView;
-        delete m_MaterialBufView;
-        delete m_InstanceBuffer;
-        delete m_MaterialBuffer;
+            delete m_InstanceBufView[i];
+            delete m_MaterialBufView[i];
+            delete m_InstanceBuffer[i];
+            delete m_MaterialBuffer[i];
+        }
 
         delete m_Sampler;
         delete m_AlbedoTexture;
@@ -237,8 +244,10 @@ namespace Termina {
         ExtractFrustumPlanes(cullVP, frustumPlanes);
 
         // --- Build instance and material lists, writing directly into mapped buffers ---
-        GPUInstance* instanceDst = static_cast<GPUInstance*>(m_InstanceMapped);
-        GPUMaterial* materialDst = static_cast<GPUMaterial*>(m_MaterialMapped);
+        // Select the slot for this frame so we never overwrite a buffer the GPU is still reading.
+        const int frameSlot = static_cast<int>(info.FrameIndex % FRAMES_IN_FLIGHT);
+        GPUInstance* instanceDst = static_cast<GPUInstance*>(m_InstanceMapped[frameSlot]);
+        GPUMaterial* materialDst = static_cast<GPUMaterial*>(m_MaterialMapped[frameSlot]);
 
         int32 instanceCount = 0;
         int32 materialCount = 0;
@@ -387,8 +396,8 @@ namespace Termina {
             int32     _pad;                 //  4 bytes
         };                                  // Total: 80 bytes
 
-        const int32 instBufIdx = m_InstanceBufView->GetBindlessHandle();
-        const int32 matBufIdx  = m_MaterialBufView->GetBindlessHandle();
+        const int32 instBufIdx = m_InstanceBufView[frameSlot]->GetBindlessHandle();
+        const int32 matBufIdx  = m_MaterialBufView[frameSlot]->GetBindlessHandle();
 
         for (const DrawCall& dc : draws)
         {
@@ -414,8 +423,8 @@ namespace Termina {
         info.IO->RegisterTexture("GBuffer_Emissive",      m_EmissiveTexture);
         info.IO->RegisterTexture("GBuffer_MotionVectors", m_MotionVecTexture);
         info.IO->RegisterTexture("GBuffer_Depth",         m_DepthTexture);
-        info.IO->RegisterBuffer("Scene_InstanceBuffer",   m_InstanceBuffer);
-        info.IO->RegisterBuffer("Scene_MaterialBuffer",   m_MaterialBuffer);
+        info.IO->RegisterBuffer("Scene_InstanceBuffer",   m_InstanceBuffer[frameSlot]);
+        info.IO->RegisterBuffer("Scene_MaterialBuffer",   m_MaterialBuffer[frameSlot]);
 
         // Transition color targets to shader-readable
         auto colorBarrier = [&](RendererTexture* tex) {

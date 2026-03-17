@@ -4,6 +4,7 @@
 #include <Termina/RHI/Buffer.hpp>
 #include <Termina/RHI/BufferView.hpp>
 #include <Termina/RHI/Sampler.hpp>
+#include <Termina/RHI/Surface.hpp>
 #include <Termina/Renderer/Camera.hpp>
 #include <GLM/glm.hpp>
 
@@ -37,14 +38,15 @@ namespace Termina {
         RendererTexture* m_DepthTexture        = nullptr; // D32_FLOAT
         Sampler*         m_Sampler             = nullptr;
 
-        // Global scene buffers (eCpuToGpu, persistently mapped)
-        RendererBuffer*  m_InstanceBuffer      = nullptr;
-        BufferView*      m_InstanceBufView     = nullptr;
-        void*            m_InstanceMapped      = nullptr;
+        // Global scene buffers — one copy per frame-in-flight to avoid CPU/GPU races
+        // on the persistently-mapped host-visible memory.
+        RendererBuffer*  m_InstanceBuffer[FRAMES_IN_FLIGHT]  = {};
+        BufferView*      m_InstanceBufView[FRAMES_IN_FLIGHT] = {};
+        void*            m_InstanceMapped[FRAMES_IN_FLIGHT]  = {};
 
-        RendererBuffer*  m_MaterialBuffer      = nullptr;
-        BufferView*      m_MaterialBufView     = nullptr;
-        void*            m_MaterialMapped      = nullptr;
+        RendererBuffer*  m_MaterialBuffer[FRAMES_IN_FLIGHT]  = {};
+        BufferView*      m_MaterialBufView[FRAMES_IN_FLIGHT] = {};
+        void*            m_MaterialMapped[FRAMES_IN_FLIGHT]  = {};
 
         // Frustum culling
         bool             m_FreezeFrustum       = false;

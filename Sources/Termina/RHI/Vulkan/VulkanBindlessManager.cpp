@@ -115,7 +115,7 @@ namespace Termina {
     
         // Pipeline layout
         vk::PushConstantRange pushConstantRange;
-        pushConstantRange.setStageFlags(vk::ShaderStageFlagBits::eAll);
+        pushConstantRange.setStageFlags(vk::ShaderStageFlagBits::eAll | vk::ShaderStageFlagBits::eCompute);
         pushConstantRange.setOffset(0);
         pushConstantRange.setSize(128);
     
