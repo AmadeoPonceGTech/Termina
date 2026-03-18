@@ -23,6 +23,8 @@ protected:
     float currentHealth;
     float maxHealth; // calculated depending on the level
 
+    float shield;
+
     float baseAttackDamage;
     float currentAttackDamage;
     float maxAttackDamage;
@@ -41,13 +43,46 @@ protected:
 
     float speed;
 
+    int CD1;
+    int CD2;
+    int CD3;
+    int CD4;
+
 public:
     virtual ~Entity() = default;
 
-    Entity() = default;
+    Entity();
 
-    virtual void firstAbility(bool isPassive) = 0;
-    virtual void secondAbility(bool isPassive) = 0;
-    virtual void thirdAbility(bool isPassive) = 0;
-    virtual void fourthAbility(bool isPassive) = 0;
+#pragma region Getters
+
+    float getCurrentHealth();
+    float getShield();
+    float getCurrentAttackDamage();
+    float getCurrentAttackPower();
+    float getCurrentArmor();
+    float getCurrentPowerResist();
+
+    int getCD1();
+    int getCD2();
+    int getCD3();
+    int getCD4();
+
+#pragma endregion
+
+#pragma region Setters
+
+    void setCurrentHealth(float newHealth);
+    void setShield(float newShield);
+    void setCurrentAttackDamage(float newDamage);
+    void setCurrentAttackPower(float newPower);
+    void setCurrentArmor(float newArmor);
+    void setCurrentPowerResist(float newPowerResist);
+
+    void setCD1(int newCD1);
+    void setCD2(int newCD2);
+    void setCD3(int newCD3);
+    void setCD4(int newCD4);
+
+#pragma endregion
+
 };
