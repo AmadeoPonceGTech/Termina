@@ -5,10 +5,12 @@
 #include "ParticleSystem.hpp"
 #include "PhysicsTestComponent.hpp"
 #include "Character.h"
+#include "Game.h"
 
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
     REGISTER_COMPONENT(ParticleSystemComponent, "Particle System")
     REGISTER_COMPONENT(PhysicsTestComponent, "Physics Test")
     REGISTER_COMPONENT(Character, "Character")
+    REGISTER_COMPONENT(Game, "Game")
 COMPONENT_MODULE_END()
