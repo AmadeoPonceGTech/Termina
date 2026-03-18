@@ -4,7 +4,7 @@
 #include "FlyCamComponent.hpp"
 #include "ParticleSystem.hpp"
 #include "PhysicsTestComponent.hpp"
-#include "Character.h"
+#include "Entities/Characters/Character.h"
 
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
