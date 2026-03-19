@@ -6,6 +6,7 @@
 #include "PhysicsTestComponent.hpp"
 
 #include "Entities/Characters/Diane.h"
+#include "Entities/Characters/Alex.h"
 
 #include "Entities/Enemies/Rat.h"
 
@@ -16,6 +17,7 @@ COMPONENT_MODULE_BEGIN()
 
     //Characters
     REGISTER_COMPONENT(Diane, "Diane")
+    REGISTER_COMPONENT(Alex, "Alex")
 
     //Enemies
     REGISTER_COMPONENT(Rat, "Rat")

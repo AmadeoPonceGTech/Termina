@@ -22,6 +22,11 @@ int Entity::getCD2() { return CD2; }
 int Entity::getCD3() { return CD3; }
 int Entity::getCD4() { return CD4; }
 
+bool Entity::getFirstAbilityUp() { return firstAbilityUp; }
+bool Entity::getSecondAbilityUp() { return secondAbilityUp; }
+bool Entity::getThirdAbilityUp() { return thirdAbilityUp; }
+bool Entity::getFourthAbilityUp() { return fourthAbilityUp; }
+
 bool Entity::getIsPoisoned() { return isPoisoned; }
 bool Entity::getIsBurned() { return isBurned; }
 bool Entity::getIsTaunt() { return isTaunt; }

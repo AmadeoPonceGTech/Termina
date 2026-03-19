@@ -8,13 +8,14 @@ using namespace TerminaScript;
 
 class Enemy;
 
-class Diane : public Character, public TerminaScript::ScriptableComponent
+class Alex : public Character, public TerminaScript::ScriptableComponent
 {
 private :
+    bool isParring;
 
 public :
-    Diane();
-    Diane(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+    Alex();
+    Alex(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
@@ -25,7 +26,10 @@ public :
     void checkAbilities() override;
 
     float firstAbility(Enemy &target);
-    void secondAbility(Enemy &target, Enemy &target2);
-    void thirdAbility(Character &target);
-    void fourthAbility(Character &target, Character &target2, Character &target3);
+    void secondAbility();
+    float thirdAbility(Enemy &target);
+    void fourthAbility();
+
+    bool getIsParring();
+    void setIsParring(bool value);
 };
