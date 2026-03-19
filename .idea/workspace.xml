@@ -28,10 +28,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="Added start &amp; endturn for managing CD on abilities and to check leveling up for characters">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Rat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Rat.cpp" afterDir="false" />
@@ -39,6 +42,7 @@
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +90,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="3B9recwax946HPCmu8iIaT2LxVO" />
+  <component name="ProjectStatusUIService"><![CDATA[{
+  "uiKindId": "Widget"
+}]]></component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -135,11 +142,35 @@
       <option name="presentableId" value="Default" />
       <updated>1773912224860</updated>
       <workItem from="1773912226663" duration="476000" />
-      <workItem from="1773912917409" duration="1488000" />
+      <workItem from="1773912917409" duration="8165000" />
     </task>
+    <task id="LOCAL-00001" summary="Added start &amp; endturn for managing CD on abilities and to check leveling up for characters">
+      <option name="closed" value="true" />
+      <created>1773914810109</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1773914810109</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added start &amp; endturn for managing CD on abilities and to check leveling up for characters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added start &amp; endturn for managing CD on abilities and to check leveling up for characters" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h</url>
+          <line>88</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

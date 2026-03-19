@@ -15,7 +15,12 @@ float Entity::getCurrentAttackDamage() { return currentAttackDamage; }
 float Entity::getCurrentAttackPower() { return currentAttackPower; }
 float Entity::getCurrentArmor() { return currentArmor; }
 float Entity::getCurrentPowerResist() { return currentPowerResist; }
+
 float Entity::getMaxHealth() { return maxHealth; }
+float Entity::getMaxAttackDamage() { return maxAttackDamage; }
+float Entity::getMaxAttackPower() { return maxAttackPower; }
+float Entity::getMaxArmor() { return maxArmor; }
+float Entity::getMaxPowerResist() { return maxPowerResist; }
 
 int Entity::getCD1() { return CD1; }
 int Entity::getCD2() { return CD2; }

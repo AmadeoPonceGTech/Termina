@@ -95,6 +95,10 @@ public:
     float getCurrentArmor();
     float getCurrentPowerResist();
     float getMaxHealth();
+    float getMaxAttackDamage();
+    float getMaxAttackPower();
+    float getMaxArmor();
+    float getMaxPowerResist();
 
     int getCD1();
     int getCD2();

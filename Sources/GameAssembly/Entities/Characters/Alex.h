@@ -25,9 +25,9 @@ public :
 
     void checkAbilities() override;
 
-    float firstAbility(Enemy &target);
+    void firstAbility(Enemy &target);
     void secondAbility();
-    float thirdAbility(Enemy &target);
+    void thirdAbility(Enemy &target);
     void fourthAbility();
 
     bool getIsParring();

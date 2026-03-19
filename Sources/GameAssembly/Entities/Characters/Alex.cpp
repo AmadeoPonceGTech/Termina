@@ -18,8 +18,8 @@ Alex::Alex()
 
     baseAttackPower = 0;
     finalAP = 0;
-    maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
-    currentAttackPower = baseAttackPower;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
     baseArmor = 3;
     finalArmor = 30;
@@ -34,10 +34,10 @@ Alex::Alex()
     speed = 90;
 }
 
-float Alex::firstAbility(Enemy &target)
+void Alex::firstAbility(Enemy &target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target.getCurrentArmor() / 100);
-    return dmgDealt;
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
 }
 
 void Alex::secondAbility()
@@ -45,10 +45,10 @@ void Alex::secondAbility()
     isParring = true;
 }
 
-float Alex::thirdAbility(Enemy &target)
+void Alex::thirdAbility(Enemy &target)
 {
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target.getCurrentArmor() / 100);
-    return dmgDealt;
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
 }
 
 void Alex::fourthAbility()
@@ -131,12 +131,20 @@ void Alex::checkAbilities()
 
 }
 
-void Alex::startTurn() {
-    fourthAbility();
+void Alex::startTurn()
+{
+    if (CD1 == 0) { firstAbilityUp = true; } else { firstAbilityUp = false; }
+    if (CD2 == 0 && level >= 5) { secondAbilityUp = true; } else { secondAbilityUp = false; }
+    if (CD3 == 0 && level >= 15) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
+    if (level >= 30) fourthAbility();
 }
 
 void Alex::endTurn() {
     if (currentXP >= XPNeeded) { levelUp(); }
+
+    if (CD1 > 0) { CD1--; }
+    if (CD2 > 0) { CD2--; }
+    if (CD3 > 0) { CD3--; }
 }
 
 void Alex::Start()
