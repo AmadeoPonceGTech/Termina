@@ -6,6 +6,7 @@
 
 void Game::Start()
 {
+
 }
 
 void Game::Update(float deltaTime)
@@ -21,13 +22,13 @@ void Game::Update(float deltaTime)
     switch (gameState) {
 
         case GameRun :
-            std::cout << "Game Run" << std::endl;
+            std::cout << "GamePlay" << std::endl;
             break;
         case GameMenu :
             std::cout << "Game Menu" << std::endl;
             break;
         case GameCharacterStats :
-            std::cout << "Game Character Stats" << std::endl;
+            //std::cout << "Game Character Stats" << std::endl;
             break;
 
         default:

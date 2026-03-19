@@ -6,9 +6,9 @@
 #include "PhysicsTestComponent.hpp"
 
 #include "Entities/Characters/Diane.h"
-
 #include "Entities/Enemies/Rat.h"
 #include "Game.h"
+
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
     REGISTER_COMPONENT(ParticleSystemComponent, "Particle System")
