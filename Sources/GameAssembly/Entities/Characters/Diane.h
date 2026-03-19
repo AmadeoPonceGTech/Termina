@@ -8,7 +8,7 @@ using namespace TerminaScript;
 
 class Enemy;
 
-class Diane : public Character
+class Diane : public Character, public TerminaScript::ScriptableComponent
 {
 private :
 

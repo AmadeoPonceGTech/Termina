@@ -40,6 +40,10 @@ float Diane::firstAbility(Enemy &target)
     return dmgDealt;
 }
 
+void Diane::secondAbility() {
+
+}
+
 void Diane::thirdAbility(Character &target)
 {
     shield += currentAttackPower;
@@ -62,4 +66,8 @@ void Diane::Start()
 void Diane::Update(float deltaTime)
 {
     if (currentXP >= XPNeeded) { levelUp(); }
+}
+
+void Diane::checkAbilities() {
+
 }

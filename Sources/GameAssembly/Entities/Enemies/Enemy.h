@@ -4,12 +4,14 @@
 class Enemy : public Entity
 {
 public:
-    Enemy() = default;
+    Enemy();
+
+    float currentXP;
+    float XPNeeded;
+
+    float finalArmor;
+    float finalPR;
 
     virtual void dropArtefacts() = 0;
-
-    void firstAbility(bool isPassive) override;
-    void secondAbility(bool isPassive) override;
-    void thirdAbility(bool isPassive) override;
-    void fourthAbility(bool isPassive) override;
+    virtual void checkAbilities() = 0;
 };
