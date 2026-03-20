@@ -51,19 +51,19 @@ void Claire::firstAbility(Enemy &target)
         float choice = dist(rng);
 
         if (choice == 1) {
-            target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - 10.0f));
+            target.setCurrentAttackDamage(target.getCurrentAttackDamage() - target.getCurrentAttackDamage() * 0.05);
         }
         else if (choice == 2) {
-            target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - 10.0f));
+            target.setCurrentAttackPower(target.getCurrentAttackPower() - target.getCurrentAttackPower() * 0.05);
         }
         else if (choice == 3) {
-            target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - 10.0f));
+            target.setCurrentArmor(target.getCurrentArmor() - target.getCurrentArmor() * 0.05);
         }
         else if (choice == 4) {
-            target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - 10.0f));
+            target.setCurrentPowerResist(target.getCurrentPowerResist() - target.getCurrentPowerResist() * 0.05);
         }
         else if (choice == 5) {
-            target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() - 10.0f));
+            target.setCurrentSpeed(target.getCurrentSpeed() - currentAttackPower);
         }
     }
 
