@@ -5,6 +5,7 @@
 #include "ParticleSystem.hpp"
 #include "PhysicsTestComponent.hpp"
 
+#include "Game.h"
 #include "Entities/Characters/Diane.h"
 #include "Entities/Characters/Alex.h"
 #include "Entities/Characters/Marcus.h"
@@ -20,8 +21,7 @@ COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
     REGISTER_COMPONENT(ParticleSystemComponent, "Particle System")
     REGISTER_COMPONENT(PhysicsTestComponent, "Physics Test")
-
-REGISTER_COMPONENT(Game, "Game")
+    REGISTER_COMPONENT(Game, "Game")
     //Characters
     REGISTER_COMPONENT(Diane, "Diane")
     REGISTER_COMPONENT(Alex, "Alex")
