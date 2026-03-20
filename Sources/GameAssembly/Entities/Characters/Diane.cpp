@@ -31,7 +31,7 @@ Diane::Diane()
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 
-    speed = 100;
+    baseSpeed = 100;
 }
 
 void Diane::firstAbility(Enemy &target)

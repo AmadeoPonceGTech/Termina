@@ -31,7 +31,7 @@ Marcus::Marcus()
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 
-    speed = 85;
+    baseSpeed = 85;
 }
 
 void Marcus::firstAbility(Character &target)

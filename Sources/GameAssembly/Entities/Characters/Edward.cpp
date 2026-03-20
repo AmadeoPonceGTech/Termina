@@ -31,7 +31,7 @@ Edward::Edward()
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 
-    speed = 75;
+    baseSpeed = 75;
 }
 
 void Edward::firstAbility(Enemy &target)

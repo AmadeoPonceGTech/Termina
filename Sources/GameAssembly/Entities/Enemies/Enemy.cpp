@@ -8,10 +8,3 @@ Enemy::Enemy() {
     CD4 = 0;
 }
 
-void Enemy::startTurn(int floor) {
-
-}
-
-void Enemy::endTurn() {
-
-}
