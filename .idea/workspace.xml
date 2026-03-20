@@ -5,6 +5,8 @@
   </component>
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="CMakePresetLoader">{
   &quot;useNewFormat&quot;: true
@@ -26,23 +28,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="">
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="Continuing Edward + added set and get for CD of statement">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Bear.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Bear.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Hawk.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Hawk.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Alex.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Diane.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Rat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Rat.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Wolf.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Wolf.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +51,11 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -68,9 +70,6 @@
     &quot;accountId&quot;: &quot;ff272a15-d4e0-4649-be0d-234e6e11a02f&quot;
   }
 }</component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" root0="FORCE_HIGHLIGHTING" />
-  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="loG5Zv0R" />
   </component>
@@ -88,6 +87,12 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="3B9recwax946HPCmu8iIaT2LxVO" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectStatusUIService">{
+  &quot;uiKindId&quot;: &quot;Widget&quot;
+}</component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -107,7 +112,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;branch__event__architecture&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Enemies&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -117,11 +122,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\aponce\Documents\GitHub\Termina\Sources\GameAssembly" />
-    </key>
-  </component>
   <component name="RunManager">
     <configuration name="EndlessRogue" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="EndlessRogue" TARGET_NAME="EndlessRogue" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="EndlessRogue" RUN_TARGET_NAME="EndlessRogue">
       <method v="2">
@@ -137,7 +137,57 @@
       <option name="presentableId" value="Default" />
       <updated>1773912224860</updated>
       <workItem from="1773912226663" duration="476000" />
+      <workItem from="1773992385118" duration="847000" />
     </task>
+    <task id="LOCAL-00001" summary="added all abilities to Rat">
+      <option name="closed" value="true" />
+      <created>1773913637345</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1773913637345</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update Rat -&gt; added start and end, remove checkAbilities()">
+      <option name="closed" value="true" />
+      <created>1773914654937</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773914654937</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added EnemyManager">
+      <option name="closed" value="true" />
+      <created>1773918245221</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773918245221</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added destroyEnemy to EnemyManager">
+      <option name="closed" value="true" />
+      <created>1773919291371</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773919291371</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed from merge">
+      <option name="closed" value="true" />
+      <created>1773995084318</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773995084318</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Continuing Edward + added set and get for CD of statement">
+      <option name="closed" value="true" />
+      <created>1773995830614</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773995830614</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,10 +198,42 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Enemies" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added all abilities to Rat" />
+    <MESSAGE value="update Rat -&gt; added start and end, remove checkAbilities()" />
+    <MESSAGE value="added EnemyManager" />
+    <MESSAGE value="added destroyEnemy to EnemyManager" />
+    <MESSAGE value="fixed from merge" />
+    <MESSAGE value="Continuing Edward + added set and get for CD of statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Continuing Edward + added set and get for CD of statement" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Marcus.cpp</url>
+          <line>62</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

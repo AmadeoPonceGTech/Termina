@@ -1,12 +1,9 @@
 #pragma once
 #include "Character.h"
-#include "../Enemies/Enemy.h"
 
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 
 using namespace TerminaScript;
-
-class Enemy;
 
 class Marcus : public Character, public TerminaScript::ScriptableComponent
 {

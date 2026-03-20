@@ -12,7 +12,6 @@ class Enemy : public Entity
 public:
     Enemy();
 
-
     float baseExpDrop;
     float currentExpDrop;
     float maxExpDrop;
@@ -25,4 +24,5 @@ public:
     Biome biome;
 
     virtual void dropArtefacts() = 0;
+
 };

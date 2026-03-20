@@ -9,6 +9,7 @@
 EnemyManager::EnemyManager() {}
 
 void EnemyManager::clearEnemies() { enemies.clear(); }
+
 void EnemyManager::deleteEnemy(Enemy& enemy) {
     enemies.erase(
         std::remove_if(

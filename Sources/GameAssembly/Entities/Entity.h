@@ -14,22 +14,6 @@ enum class EClass {
     SUPPORT
 };
 
-enum class Poison {
-    NOT_POISONED = 0,
-    FIRST_TURN = 15,
-    SECOND_TURN = 12,
-    THIRD_TURN = 8,
-    FOURTH_TURN = 5,
-    FIFTH_TURN = 3
-};
-
-enum class Burn {
-    NOT_BURNED = 0,
-    FIRST_TURN = 15,
-    SECOND_TURN = 12,
-    THIRD_TURN = 8
-};
-
 class Entity
 {
 protected:
@@ -72,17 +56,19 @@ protected:
     int CD3;
     int CD4;
 
+    int poisonCD;
+    int burnCD;
+    int tauntCD;
+
     bool firstAbilityUp;
     bool secondAbilityUp;
     bool thirdAbilityUp;
     bool fourthAbilityUp;
 
     bool isPoisoned;
-    bool isBurned;
+    bool isBurnt;
     bool isTaunt;
-
-    Poison poison;
-    Burn burn;
+    bool isStun;
 
 public:
     virtual ~Entity() = default;
@@ -92,37 +78,42 @@ public:
     virtual void startTurn() = 0;
     virtual void endTurn() = 0;
 
+    void manageStatusEffect();
+    void resetState();
+
 #pragma region Getters
 
-    std::string getName() const ;
-    float getCurrentHealth();
-    float getShield();
-    float getCurrentAttackDamage();
-    float getCurrentAttackPower();
-    float getCurrentArmor();
-    float getCurrentPowerResist();
-    float getMaxHealth();
-    float getMaxAttackDamage();
-    float getMaxAttackPower();
-    float getMaxArmor();
-    float getMaxPowerResist();
+    float getCurrentHealth() const;
+    float getShield() const;
+    float getCurrentAttackDamage() const;
+    float getCurrentAttackPower() const;
+    float getCurrentArmor() const;
+    float getCurrentPowerResist() const;
+    float getMaxHealth() const;
+    float getMaxAttackDamage() const;
+    float getMaxAttackPower() const;
+    float getMaxArmor() const;
+    float getMaxPowerResist() const;
+    float getCurrentSpeed() const;
 
-    int getCD1();
-    int getCD2();
-    int getCD3();
-    int getCD4();
+    int getCD1() const;
+    int getCD2() const;
+    int getCD3() const;
+    int getCD4() const;
 
-    bool getFirstAbilityUp();
-    bool getSecondAbilityUp();
-    bool getThirdAbilityUp();
-    bool getFourthAbilityUp();
+    int getPoisonCD() const;
+    int getBurnCD() const;
+    int getTauntCD() const;
 
-    bool getIsPoisoned();
-    bool getIsBurned();
-    bool getIsTaunt();
+    bool getFirstAbilityUp() const;
+    bool getSecondAbilityUp() const;
+    bool getThirdAbilityUp() const;
+    bool getFourthAbilityUp() const;
 
-    float getPoison();
-    float getBurn();
+    bool getIsPoisoned() const;
+    bool getIsBurnt() const;
+    bool getIsTaunt() const;
+    bool getIsStun() const;
 
 #pragma endregion
 
@@ -134,15 +125,21 @@ public:
     void setCurrentAttackPower(float newPower);
     void setCurrentArmor(float newArmor);
     void setCurrentPowerResist(float newPowerResist);
+    void setCurrentSpeed(float newSpeed);
 
     void setCD1(int newCD1);
     void setCD2(int newCD2);
     void setCD3(int newCD3);
     void setCD4(int newCD4);
 
+    void setPoisonCD(int newPoisonCD);
+    void setBurnCD(int newBurnCD);
+    void setTauntCD(int newTauntCD);
+
     void setIsPoisoned(bool newIsPoisoned);
-    void setIsBurned(bool newIsBurned);
+    void setIsBurnt(bool newIsBurnt);
     void setIsTaunt(bool newIsTaunt);
+    void setIsStun(bool newIsStun);
 
 #pragma endregion
 
