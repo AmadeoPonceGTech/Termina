@@ -40,6 +40,8 @@ void Marcus::firstAbility(Character &target)
 
     target.setCurrentHealth(target.getCurrentHealth() + HPHealed);
     if (target.getCurrentHealth() > target.getMaxHealth()) { target.setCurrentHealth(target.getMaxHealth()); }
+
+    CD1 = 1;
 }
 
 void Marcus::secondAbility(Character &target, Character &target2, Character &target3)
@@ -54,28 +56,33 @@ void Marcus::secondAbility(Character &target, Character &target2, Character &tar
     if (target2.getCurrentHealth() > target2.getMaxHealth()) { target2.setCurrentHealth(target2.getMaxHealth()); }
     target3.setCurrentHealth(target3.getCurrentHealth() + HPHealed);
     if (target3.getCurrentHealth() > target3.getMaxHealth()) { target3.setCurrentHealth(target3.getMaxHealth()); }
+
+    CD2 = 4;
 }
 
 void Marcus::thirdAbility(Character &target)
 {
-    if (target.getIsPoisoned() or getIsBurned()) //TODO -> make a debuff bool
+    if (target.getIsPoisoned() or getIsBurnt()) //TODO -> make a debuff bool
     {
-        target.setIsBurned(false);
+        target.setIsBurnt(false);
+        target.setBurnCD(0);
         target.setIsPoisoned(false);
+        target.setPoisonCD(0);
+        target.setIsStun(false);
         target.setCurrentAttackPower(target.getMaxAttackPower());
         target.setCurrentAttackDamage(target.getMaxAttackDamage());
         target.setCurrentArmor(target.getMaxArmor());
         target.setCurrentPowerResist(target.getMaxPowerResist());
     }
+
+    CD3 = 3;
 }
 
 void Marcus::fourthAbility(Character &target)
 {
     target.setCurrentHealth(target.getMaxHealth() / 2);
-}
 
-void Marcus::checkAbilities() {
-
+    CD4 = 9;
 }
 
 void Marcus::startTurn()
@@ -88,12 +95,12 @@ void Marcus::startTurn()
 
 void Marcus::endTurn()
 {
-    if (currentXP >= XPNeeded) { levelUp(); }
-
     if (CD1 > 0) { CD1--; }
     if (CD2 > 0) { CD2--; }
     if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
+
+    manageStatusEffect();
 }
 
 void Marcus::Start()

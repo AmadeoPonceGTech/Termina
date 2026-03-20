@@ -40,17 +40,23 @@ void Alex::firstAbility(Enemy &target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target.getCurrentArmor() / 100);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    CD1 = 1;
 }
 
 void Alex::secondAbility()
 {
     isParring = true;
+
+    CD2 = 3;
 }
 
 void Alex::thirdAbility(Enemy &target)
 {
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target.getCurrentArmor() / 100);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    CD3 = 3;
 }
 
 void Alex::fourthAbility()
@@ -128,25 +134,23 @@ void Alex::fourthAbility()
     }
 }
 
-void Alex::checkAbilities()
-{
-
-}
-
 void Alex::startTurn()
 {
+    if (isParring) { isParring = false; }
+
     if (CD1 == 0) { firstAbilityUp = true; } else { firstAbilityUp = false; }
     if (CD2 == 0 && level >= 5) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     if (CD3 == 0 && level >= 15) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
     if (level >= 30) fourthAbility();
 }
 
-void Alex::endTurn() {
-    if (currentXP >= XPNeeded) { levelUp(); }
-
+void Alex::endTurn()
+{
     if (CD1 > 0) { CD1--; }
     if (CD2 > 0) { CD2--; }
     if (CD3 > 0) { CD3--; }
+
+    manageStatusEffect();
 }
 
 void Alex::Start()
@@ -160,4 +164,3 @@ void Alex::Update(float deltaTime)
 }
 
 bool Alex::getIsParring() { return isParring; }
-void Alex::setIsParring(bool value) { isParring = value; }

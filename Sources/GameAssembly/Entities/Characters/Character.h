@@ -18,6 +18,7 @@ protected :
 public:
     Character();
 
-    virtual void checkAbilities() = 0;
     void levelUp();
+    bool manageXP();
+    void endRun();
 };

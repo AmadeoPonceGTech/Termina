@@ -17,8 +17,6 @@ public :
     void Start() override;
     void Update(float deltaTime) override;
 
-    void checkAbilities() override;
-
     void firstAbility(Character &target);
     void secondAbility(Character &target, Character &target2, Character &target3);
     void thirdAbility(Character &target);
