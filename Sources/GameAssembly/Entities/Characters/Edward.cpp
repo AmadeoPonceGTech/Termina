@@ -51,7 +51,6 @@ void Edward::secondAbility(Enemy &target)
 void Edward::thirdAbility(Enemy &target)
 {
     target.setIsStun(true);
-    target.setStunCD(2);
 }
 
 void Edward::fourthAbility(Enemy &target)

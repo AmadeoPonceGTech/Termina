@@ -58,9 +58,9 @@ void Marcus::secondAbility(Character &target, Character &target2, Character &tar
 
 void Marcus::thirdAbility(Character &target)
 {
-    if (target.getIsPoisoned() or getIsBurned()) //TODO -> make a debuff bool
+    if (target.getIsPoisoned() or getIsBurnt()) //TODO -> make a debuff bool
     {
-        target.setIsBurned(false);
+        target.setIsBurnt(false);
         target.setIsPoisoned(false);
         target.setCurrentAttackPower(target.getMaxAttackPower());
         target.setCurrentAttackDamage(target.getMaxAttackDamage());

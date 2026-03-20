@@ -80,6 +80,9 @@ public:
 
     void manageStatusEffect();
 
+    virtual void startFight() = 0;
+    virtual void endFight() = 0;
+
 #pragma region Getters
 
     float getCurrentHealth() const;

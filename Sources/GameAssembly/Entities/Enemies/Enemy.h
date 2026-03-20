@@ -24,4 +24,5 @@ public:
     Biome biome;
 
     virtual void dropArtefacts() = 0;
+
 };

@@ -41,8 +41,10 @@ Rat::Rat(int floor) {
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 
-    poison = Poison::NOT_POISONED;
-    burn = Burn::NOT_BURNED;
+    poisonCD = 0;
+    burnCD = 0;
+    tauntCD = 0;
+    isStun = false;
 }
 
 void Rat::Start() {}
@@ -58,19 +60,9 @@ void Rat::startTurn() {
 
 void Rat::endTurn() {
     if (CD2 > 0) { CD2--; }
-    if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
 
-    if (isPoisoned) {
-        poison = Poison::FIRST_TURN;
-        isPoisoned = false;
-    }
-
-    if (isBurned) {
-        burn = Burn::FIRST_TURN;
-        isBurned = false;
-    }
-
+    manageStatusEffect();
 }
 
 void Rat::dropArtefacts() {
@@ -88,20 +80,26 @@ void Rat::firstAbility(Character& target) {
 
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    if (target.getIsPoisoned()) { thirdAbility(target); }
 }
 
 void Rat::secondAbility(Character& target) {
     target.setIsPoisoned(true);
 
-    CD2 = 2;
+    CD2 = 3;
 }
 
 void Rat::thirdAbility(Character& target) {
-    float percent = target.getPoison();
+    float cd = target.getPoisonCD();
+    float percent = 0;
+    if (cd == 5) { percent = 15.0f; }
+    if (cd == 4) { percent = 12.0f; }
+    if (cd == 3) { percent = 8.0f; }
+    if (cd == 2) { percent = 5.0f; }
+    if (cd == 1) { percent = 3.0f; }
     float dmgDealt = target.getMaxHealth() * percent / 100.0f;
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
-
-    CD3 = 0;
 }
 
 void Rat::fourthAbility(const std::vector<Character*>& targets) {
@@ -110,7 +108,9 @@ void Rat::fourthAbility(const std::vector<Character*>& targets) {
         target->setIsPoisoned(true);
         float dmgDealt = currentAttackDamage * (1.0f - target->getCurrentArmor() / 100.0f);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+
+        if (target->getIsPoisoned()) { thirdAbility(*target); }
     }
 
-    CD4 = 4;
+    CD4 = 5;
 }

@@ -41,17 +41,30 @@ Wolf::Wolf(int floor) {
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 
-    poison = Poison::NOT_POISONED;
-    burn = Burn::NOT_BURNED;
+    poisonCD = 0;
+    burnCD = 0;
+    tauntCD = 0;
+    isStun = false;
 }
 
 void Wolf::Start() {}
 
 void Wolf::Update(float deltaTime) {}
 
-void Wolf::startTurn() {}
+void Wolf::startTurn() {
+    firstAbilityUp = true;
+    if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
+    if (CD3 == 0 && level > 30) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
+    if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
+}
 
-void Wolf::endTurn() {}
+void Wolf::endTurn() {
+    if (CD2 > 0) { CD2--; }
+    if (CD3 > 0) { CD3--; }
+    if (CD4 > 0) { CD4--; }
+
+    manageStatusEffect();
+}
 
 void Wolf::dropArtefacts() {
 
@@ -65,9 +78,11 @@ void Wolf::firstAbility(Character& target) { // powerAbilityOne=0.9f
 void Wolf::secondAbility(Character& target) { // powerAbilityTwo=1.1f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityTwo));
+
+    CD2 = 3;
 }
 
-void Wolf::thirdAbility(int numberOfWolf) { //While there is another wolf in the fight improve their speed and attack
+void Wolf::thirdAbility(int numberOfWolf) { // While there is another wolf in the fight improve their speed and attack
     int allies = std::max(0, numberOfWolf - 1);
 
     float attackBuff = 1.0f + 0.05f * allies;
@@ -75,6 +90,8 @@ void Wolf::thirdAbility(int numberOfWolf) { //While there is another wolf in the
 
     currentAttackDamage = baseAttackDamage * attackBuff;
     currentSpeed = baseSpeed * speedBuff;
+
+    CD3 = 0;
 }
 
 void Wolf::fourthAbility(Character& target, int numberOfWolf) { // Every Wolf attack a target with claw
@@ -83,4 +100,6 @@ void Wolf::fourthAbility(Character& target, int numberOfWolf) { // Every Wolf at
     for (int i = 0; i < attacks; i++) {
         firstAbility(target);
     }
+
+    CD4 = 4;
 }
