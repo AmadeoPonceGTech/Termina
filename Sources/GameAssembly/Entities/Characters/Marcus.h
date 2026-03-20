@@ -1,12 +1,9 @@
 #pragma once
 #include "Character.h"
-#include "../Enemies/Enemy.h"
 
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 
 using namespace TerminaScript;
-
-class Enemy;
 
 class Marcus : public Character, public TerminaScript::ScriptableComponent
 {
@@ -22,7 +19,7 @@ public :
 
     void checkAbilities() override;
 
-    float firstAbility(Character &target);
+    void firstAbility(Character &target);
     void secondAbility(Character &target, Character &target2, Character &target3);
     void thirdAbility(Character &target);
     void fourthAbility(Character &target);

@@ -27,6 +27,11 @@ int Entity::getCD2() { return CD2; }
 int Entity::getCD3() { return CD3; }
 int Entity::getCD4() { return CD4; }
 
+int Entity::getPoisonCD() { return poisonCD; }
+int Entity::getBurnCD() { return burnCD; }
+int Entity::getTauntCD() { return tauntCD; }
+int Entity::getStunCD() { return stunCD; }
+
 bool Entity::getFirstAbilityUp() { return firstAbilityUp; }
 bool Entity::getSecondAbilityUp() { return secondAbilityUp; }
 bool Entity::getThirdAbilityUp() { return thirdAbilityUp; }
@@ -35,6 +40,7 @@ bool Entity::getFourthAbilityUp() { return fourthAbilityUp; }
 bool Entity::getIsPoisoned() { return isPoisoned; }
 bool Entity::getIsBurned() { return isBurned; }
 bool Entity::getIsTaunt() { return isTaunt; }
+bool Entity::getIsStun() { return isStun; }
 
 float Entity::getPoison() {
     switch (poison) {
@@ -85,4 +91,5 @@ void Entity::setCD4(int newCD4) { CD4 = newCD4; }
 void Entity::setIsPoisoned(bool newIsPoisoned) { isPoisoned = newIsPoisoned; }
 void Entity::setIsBurned(bool newIsBurned) { isBurned = newIsBurned; }
 void Entity::setIsTaunt(bool newIsTaunt) { isTaunt = newIsTaunt; }
+void Entity::setIsStun(bool newIsStun) { isStun = newIsStun; }
 
