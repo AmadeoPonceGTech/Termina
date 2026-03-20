@@ -44,7 +44,7 @@ void Edward::secondAbility(Enemy &target)
 {
     float dmgDealt = currentAttackPower * 2 - currentAttackPower * (target.getCurrentPowerResist() / 100);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
-    target.setIsBurned(true);
+    target.setIsBurnt(true);
     target.setBurnCD(3);
 }
 
@@ -54,12 +54,12 @@ void Edward::thirdAbility(Enemy &target)
     target.setStunCD(2);
 }
 
-void Edward::fourthAbility(Character &target, Character &target2, Character &target3)
+void Edward::fourthAbility(Enemy &target)
 {
-    currentArmor = currentArmor * 1.2;
-    target.setCurrentArmor(target.getCurrentArmor() * 1.2);
-    target2.setCurrentArmor(target.getCurrentArmor() * 1.2);
-    target3.setCurrentArmor(target.getCurrentArmor() * 1.2);
+    float dmgDealt = currentAttackPower * 4 - currentAttackPower * (target.getCurrentPowerResist() / 100);
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+    target.setIsBurnt(true);
+    target.setBurnCD(3);
 }
 
 void Edward::checkAbilities() {

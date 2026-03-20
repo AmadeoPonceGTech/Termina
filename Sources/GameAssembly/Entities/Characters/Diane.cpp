@@ -79,6 +79,7 @@ void Diane::endTurn()
     if (CD2 > 0) { CD2--; }
     if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
+
 }
 
 void Diane::Start()
