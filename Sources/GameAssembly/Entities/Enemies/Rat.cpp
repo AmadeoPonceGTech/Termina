@@ -70,12 +70,31 @@ void Rat::dropArtefacts() {
 }
 
 void Rat::firstAbility(Character& target) {
-    static std::random_device rd;   // seed unique
-    static std::mt19937 rng(rd());  // moteur aléatoire
-    std::uniform_int_distribution<int> dist(1, 10); // 1 à 10
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> chance(1, 100);
+    std::uniform_int_distribution<int> dist(1, 5);
 
-    if (dist(rng) == 1) { // 1 chance sur 10
-        target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - 10));
+    if (chance(rng) <= 10)
+    {
+        int choice = dist(rng);
+        float debuff = 5.0f;
+
+        if (choice == 1) {
+            target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - debuff));
+        }
+        else if (choice == 2) {
+            target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - debuff));
+        }
+        else if (choice == 3) {
+            target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - debuff));
+        }
+        else if (choice == 4) {
+            target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - debuff));
+        }
+        else if (choice == 5) {
+            target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() - debuff));
+        }
     }
 
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);

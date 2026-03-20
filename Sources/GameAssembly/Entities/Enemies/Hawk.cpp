@@ -70,29 +70,37 @@ void Hawk::dropArtefacts() {
 }
 
 void Hawk::firstAbility(Character& target) {
-    static std::random_device rd;   // seed unique
-    static std::mt19937 rng(rd());  // moteur aléatoire
-    std::uniform_int_distribution<int> dist(1, 50); // 1 à 10
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> chance(1, 100);
+    std::uniform_int_distribution<int> dist(1, 5);
 
-    if (dist(rng) == 1) { // 1 chance sur 50
-        target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - 10.0f));
-    }
-    if (dist(rng) == 2) { // 1 chance sur 50
-        target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - 10.0f));
-    }
-    if (dist(rng) == 3) { // 1 chance sur 50
-        target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - 10.0f));
-    }
-    if (dist(rng) == 4) { // 1 chance sur 50
-        target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - 10.0f));
-    }
-    if (dist(rng) == 5) { // 1 chance sur 50
-        target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() - 10.0f));
+    if (chance(rng) <= 10)
+    {
+        int choice = dist(rng);
+        float debuff = 5.0f;
+
+        if (choice == 1) {
+            target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - debuff));
+        }
+        else if (choice == 2) {
+            target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - debuff));
+        }
+        else if (choice == 3) {
+            target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - debuff));
+        }
+        else if (choice == 4) {
+            target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - debuff));
+        }
+        else if (choice == 5) {
+            target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() - debuff));
+        }
     }
 }
 
 void Hawk::secondAbility(Enemy& target) {
     target.setCurrentAttackDamage(target.getCurrentAttackDamage() + target.getCurrentAttackDamage() * 0.10f);
+    target.setCurrentSpeed(target.getCurrentSpeed() + target.getCurrentSpeed() * 0.10f);
     CD2 = 4;
 }
 
@@ -101,6 +109,7 @@ void Hawk::thirdAbility(Enemy& target) {
 }
 
 void Hawk::fourthAbility(Enemy& target1, Enemy& target2) {
-
+    target1.setCurrentSpeed(target1.getCurrentSpeed() + target1.getCurrentSpeed() * 0.10f);
+    target2.setCurrentSpeed(target2.getCurrentSpeed() + target2.getCurrentSpeed() * 0.10f);
     CD4 = 5;
 }
