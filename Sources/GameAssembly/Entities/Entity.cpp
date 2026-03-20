@@ -72,6 +72,25 @@ void Entity::manageStatusEffect()
     }
 }
 
+void Entity::resetState() {
+    currentHealth = maxHealth;
+    currentAttackPower = maxAttackPower;
+    currentAttackDamage = maxAttackDamage;
+    currentArmor = maxArmor;
+    currentPowerResist = maxPowerResist;
+    currentSpeed = baseSpeed;
+
+    isPoisoned = false;
+    isBurnt = false;
+    isTaunt = false;
+    isStun = false;
+
+    CD1 = 0;
+    CD2 = 0;
+    CD3 = 0;
+    CD4 = 0;
+}
+
 #pragma region Getters
 
 float Entity::getCurrentHealth() const { return currentHealth; }
@@ -80,6 +99,7 @@ float Entity::getCurrentAttackDamage() const { return currentAttackDamage; }
 float Entity::getCurrentAttackPower() const { return currentAttackPower; }
 float Entity::getCurrentArmor() const { return currentArmor; }
 float Entity::getCurrentPowerResist() const { return currentPowerResist; }
+float Entity::getCurrentSpeed() const { return currentSpeed; }
 
 float Entity::getMaxHealth() const { return maxHealth; }
 float Entity::getMaxAttackDamage() const { return maxAttackDamage; }
@@ -116,6 +136,7 @@ void Entity::setCurrentAttackDamage(float const newDamage) { currentAttackDamage
 void Entity::setCurrentAttackPower(float const newPower) { currentAttackPower = newPower; }
 void Entity::setCurrentArmor(float const newArmor) { currentArmor = newArmor; }
 void Entity::setCurrentPowerResist(float const newPowerResist) { currentPowerResist = newPowerResist; }
+void Entity::setCurrentSpeed(float const newSpeed) { currentSpeed = newSpeed; }
 
 void Entity::setCD1(int const newCD1) { CD1 = newCD1; }
 void Entity::setCD2(int const newCD2) { CD2 = newCD2; }

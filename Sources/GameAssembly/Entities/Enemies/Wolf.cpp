@@ -54,7 +54,7 @@ void Wolf::Update(float deltaTime) {}
 void Wolf::startTurn() {
     firstAbilityUp = true;
     if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
-    if (CD3 == 0 && level > 30) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
+    thirdAbilityUp = true;
     if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 

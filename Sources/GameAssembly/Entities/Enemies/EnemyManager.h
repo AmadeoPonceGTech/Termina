@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <type_traits>
-#include "Rat.h"
+#include "Enemy.h"
 
 class EnemyManager {
 public:
