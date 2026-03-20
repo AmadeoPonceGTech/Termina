@@ -72,6 +72,11 @@ protected:
     int CD3;
     int CD4;
 
+    bool firstAbilityUp;
+    bool secondAbilityUp;
+    bool thirdAbilityUp;
+    bool fourthAbilityUp;
+
     bool isPoisoned;
     bool isBurned;
     bool isTaunt;
@@ -96,11 +101,20 @@ public:
     float getCurrentArmor();
     float getCurrentPowerResist();
     float getMaxHealth();
+    float getMaxAttackDamage();
+    float getMaxAttackPower();
+    float getMaxArmor();
+    float getMaxPowerResist();
 
     int getCD1();
     int getCD2();
     int getCD3();
     int getCD4();
+
+    bool getFirstAbilityUp();
+    bool getSecondAbilityUp();
+    bool getThirdAbilityUp();
+    bool getFourthAbilityUp();
 
     bool getIsPoisoned();
     bool getIsBurned();

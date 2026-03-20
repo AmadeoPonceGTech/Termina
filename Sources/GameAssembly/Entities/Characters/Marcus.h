@@ -8,11 +8,11 @@ using namespace TerminaScript;
 
 class Enemy;
 
-class Diane : public Character, public TerminaScript::ScriptableComponent
+class Marcus : public Character, public TerminaScript::ScriptableComponent
 {
 public :
-    Diane();
-    Diane(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+    Marcus();
+    Marcus(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
@@ -22,8 +22,8 @@ public :
 
     void checkAbilities() override;
 
-    void firstAbility(Enemy &target);
-    void secondAbility(Enemy &target, Enemy &target2);
+    float firstAbility(Character &target);
+    void secondAbility(Character &target, Character &target2, Character &target3);
     void thirdAbility(Character &target);
-    void fourthAbility(Character &target, Character &target2, Character &target3);
+    void fourthAbility(Character &target);
 };

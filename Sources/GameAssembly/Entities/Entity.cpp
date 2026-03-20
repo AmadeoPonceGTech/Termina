@@ -15,12 +15,22 @@ float Entity::getCurrentAttackDamage() { return currentAttackDamage; }
 float Entity::getCurrentAttackPower() { return currentAttackPower; }
 float Entity::getCurrentArmor() { return currentArmor; }
 float Entity::getCurrentPowerResist() { return currentPowerResist; }
+
 float Entity::getMaxHealth() { return maxHealth; }
+float Entity::getMaxAttackDamage() { return maxAttackDamage; }
+float Entity::getMaxAttackPower() { return maxAttackPower; }
+float Entity::getMaxArmor() { return maxArmor; }
+float Entity::getMaxPowerResist() { return maxPowerResist; }
 
 int Entity::getCD1() { return CD1; }
 int Entity::getCD2() { return CD2; }
 int Entity::getCD3() { return CD3; }
 int Entity::getCD4() { return CD4; }
+
+bool Entity::getFirstAbilityUp() { return firstAbilityUp; }
+bool Entity::getSecondAbilityUp() { return secondAbilityUp; }
+bool Entity::getThirdAbilityUp() { return thirdAbilityUp; }
+bool Entity::getFourthAbilityUp() { return fourthAbilityUp; }
 
 bool Entity::getIsPoisoned() { return isPoisoned; }
 bool Entity::getIsBurned() { return isBurned; }
