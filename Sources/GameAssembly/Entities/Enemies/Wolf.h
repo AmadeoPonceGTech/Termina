@@ -6,11 +6,11 @@
 
 class Character;
 
-class Rat : public Enemy, public TerminaScript::ScriptableComponent
+class Wolf : public Enemy, public TerminaScript::ScriptableComponent
 {
 public :
-    Rat(int floor);
-    Rat(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+    Wolf(int floor);
+    Wolf(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
@@ -22,7 +22,11 @@ public :
 
     void firstAbility(Character& target);
     void secondAbility(Character& target);
-    void thirdAbility(Character& target);
+    void thirdAbility(int numberOfWolf);
 
-    void fourthAbility(const std::vector<Character*>& targets);
+    void fourthAbility(Character& target, int numberOfWolf);
+
+    private:
+    float powerAbilityOne = 0.9f;
+    float powerAbilityTwo = 1.1f;
 };

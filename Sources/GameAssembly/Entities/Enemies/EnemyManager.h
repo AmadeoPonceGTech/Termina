@@ -1,15 +1,24 @@
-// #pragma once
-// #include <vector>
-//
-// #include "Rat.h"
-//
-// class EnemyManager {
-// public:
-//     void createRat(int level);
-//
-//     void clearEnemies();
-//     std::vector<Enemy*> getEnemies();
-//
-// private:
-//     std::vector<Enemy*> enemies;
-// };
+#pragma once
+#include <vector>
+#include <type_traits>
+#include "Rat.h"
+
+class EnemyManager {
+public:
+
+    EnemyManager();
+
+    // Version template pour creer un ennemi
+    template <typename T>
+    void createEnemy(int floor) {
+        static_assert(std::is_base_of<Enemy, T>::value, "T doit dériver de Enemy");
+        enemies.push_back(std::make_unique<T>(floor));
+    }
+
+    void clearEnemies();
+    void deleteEnemy(Enemy& enemy);
+    const std::vector<std::unique_ptr<Enemy>>& getEnemies() const;
+
+private:
+    std::vector<std::unique_ptr<Enemy>> enemies;
+};
