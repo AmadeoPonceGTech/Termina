@@ -19,7 +19,7 @@ public :
     void Update(float deltaTime) override;
 
     void firstAbility(Enemy &target);
-    void secondAbility(Character &target, Character &target2, Character &target3);
-    void thirdAbility(Character &target);
+    void secondAbility(Character &target);
+    void thirdAbility(Enemy &target);
     void fourthAbility(Character &target);
 };
