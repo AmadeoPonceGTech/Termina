@@ -66,6 +66,10 @@ void Entity::manageStatusEffect()
             isTaunt = false;
         }
     }
+
+    if (isStun) {
+        isStun = false;
+    }
 }
 
 void Entity::resetState() {

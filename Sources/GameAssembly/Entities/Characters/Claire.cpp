@@ -1,50 +1,76 @@
-#include "Marcus.h"
+#include "Claire.h"
 
-Marcus::Marcus()
+#include <random>
+
+Claire::Claire()
 {
-    name = "Marcus";
+    name = "Claire";
     entityClass = EClass::SUPPORT;
-    description = "Marcus is a man";
+    description = "Claire is a man";
 
     baseHealth = 30;
-    finalHP = 300;
+    finalHP = 400;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 0;
-    finalAD = 0;
-    maxAttackDamage = 0;
-    currentAttackDamage = 0;
+    baseAttackDamage = 3;
+    finalAD = 100;
+    maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
+    currentAttackDamage = baseAttackDamage;
 
-    baseAttackPower = 30;
-    finalAP = 300;
+    baseAttackPower = 10;
+    finalAP = 20;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.5;
-    finalArmor = 15;
+    baseArmor = 0.2;
+    finalArmor = 10;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.5;
-    finalPR = 15;
+    basePowerResist = 0.4;
+    finalPR = 10;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 
-    baseSpeed = 85;
+    baseSpeed = 80;
 }
 
-void Marcus::firstAbility(Character &target)
+void Claire::firstAbility(Enemy &target)
 {
-    float HPHealed = currentHealth / 2;
+    float dmgDealt = currentAttackDamage - currentAttackDamage * (target.getCurrentArmor() / 100);
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
 
-    target.setCurrentHealth(target.getCurrentHealth() + HPHealed);
-    if (target.getCurrentHealth() > target.getMaxHealth()) { target.setCurrentHealth(target.getMaxHealth()); }
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_int_distribution<int> chance(1, 100);
+    std::uniform_int_distribution<int> dist(1, 5);
+
+    if (chance(rng) <= 15)
+    {
+        float choice = dist(rng);
+
+        if (choice == 1) {
+            target.setCurrentAttackDamage(target.getCurrentAttackDamage() - target.getCurrentAttackDamage() * 0.05);
+        }
+        else if (choice == 2) {
+            target.setCurrentAttackPower(target.getCurrentAttackPower() - target.getCurrentAttackPower() * 0.05);
+        }
+        else if (choice == 3) {
+            target.setCurrentArmor(target.getCurrentArmor() - target.getCurrentArmor() * 0.05);
+        }
+        else if (choice == 4) {
+            target.setCurrentPowerResist(target.getCurrentPowerResist() - target.getCurrentPowerResist() * 0.05);
+        }
+        else if (choice == 5) {
+            target.setCurrentSpeed(target.getCurrentSpeed() - currentAttackPower);
+        }
+    }
 
     CD1 = 1;
 }
 
-void Marcus::secondAbility(Character &target, Character &target2, Character &target3)
+void Claire::secondAbility(Character &target, Character &target2, Character &target3)
 {
     float HPHealed = currentAttackPower / 4;
 
@@ -60,7 +86,7 @@ void Marcus::secondAbility(Character &target, Character &target2, Character &tar
     CD2 = 4;
 }
 
-void Marcus::thirdAbility(Character &target)
+void Claire::thirdAbility(Character &target)
 {
     target.setIsBurnt(false);
     target.setBurnCD(0);
@@ -75,22 +101,22 @@ void Marcus::thirdAbility(Character &target)
     CD3 = 3;
 }
 
-void Marcus::fourthAbility(Character &target)
+void Claire::fourthAbility(Character &target)
 {
     target.setCurrentHealth(target.getMaxHealth() / 2);
 
     CD4 = 9;
 }
 
-void Marcus::startTurn()
+void Claire::startTurn()
 {
     if (CD1 == 0) { firstAbilityUp = true; } else { firstAbilityUp = false; }
     if (CD2 == 0 && level >= 8) { secondAbilityUp = true; } else { secondAbilityUp = false; }
-    if (CD3 == 0 && level >= 20) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
-    if (CD4 == 0 && level >= 35) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
+    if (CD3 == 0 && level >= 16) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
+    if (CD4 == 0 && level >= 25) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
-void Marcus::endTurn()
+void Claire::endTurn()
 {
     if (CD1 > 0) { CD1--; }
     if (CD2 > 0) { CD2--; }
@@ -100,12 +126,12 @@ void Marcus::endTurn()
     manageStatusEffect();
 }
 
-void Marcus::Start()
+void Claire::Start()
 {
     // Called once when the scene starts playing.
 }
 
-void Marcus::Update(float deltaTime)
+void Claire::Update(float deltaTime)
 {
 
 }

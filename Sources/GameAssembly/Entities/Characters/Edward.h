@@ -20,8 +20,6 @@ public :
     void Start() override;
     void Update(float deltaTime) override;
 
-    void checkAbilities() override;
-
     void firstAbility(Enemy &target);
     void secondAbility(Enemy &target);
     void thirdAbility(Enemy &target);

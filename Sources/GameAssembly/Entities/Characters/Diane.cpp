@@ -38,29 +38,40 @@ void Diane::firstAbility(Enemy &target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target.getCurrentArmor() / 100);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    CD1 = 1;
 }
 
 void Diane::secondAbility(Enemy &target,  Enemy &target2)
 {
-    //taunt
+    target.setIsTaunt(true);
+    target2.setIsTaunt(true);
+
+    target.setTauntCD(3);
+    target2.setTauntCD(3);
+
+    CD2 = 6;
 }
 
 void Diane::thirdAbility(Character &target)
 {
     shield += currentAttackPower;
     target.setShield(target.getShield() + currentAttackPower);
+
+    CD3 = 4;
 }
 
 void Diane::fourthAbility(Character &target, Character &target2, Character &target3)
 {
-    currentArmor = currentArmor * 1.2;
+    currentArmor = currentArmor * 1.3;
     target.setCurrentArmor(target.getCurrentArmor() * 1.2);
     target2.setCurrentArmor(target.getCurrentArmor() * 1.2);
     target3.setCurrentArmor(target.getCurrentArmor() * 1.2);
 }
 
-void Diane::checkAbilities() {
-
+void Diane::startRun(Character &target, Character &target2, Character &target3)
+{
+    if (level >= 40) fourthAbility(target, target2, target3);
 }
 
 void Diane::startTurn()
@@ -68,18 +79,16 @@ void Diane::startTurn()
     if (CD1 == 0) { firstAbilityUp = true; } else { firstAbilityUp = false; }
     if (CD2 == 0 && level >= 10) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     if (CD3 == 0 && level >= 25) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
-    if (CD4 == 0 && level >= 40) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
 void Diane::endTurn()
 {
-    if (currentXP >= XPNeeded) { levelUp(); }
-
     if (CD1 > 0) { CD1--; }
     if (CD2 > 0) { CD2--; }
     if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
 
+    manageStatusEffect();
 }
 
 void Diane::Start()

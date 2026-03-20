@@ -18,9 +18,7 @@ protected :
 public:
     Character();
 
-    virtual void startTurn() = 0;
-    virtual void endTurn() = 0;
-
-    virtual void checkAbilities() = 0;
     void levelUp();
+    bool manageXP();
+    void endRun();
 };

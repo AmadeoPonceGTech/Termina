@@ -38,6 +38,8 @@ void Edward::firstAbility(Enemy &target)
 {
     float dmgDealt = currentAttackPower - currentAttackPower * (target.getCurrentPowerResist() / 100);
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    CD1 = 1;
 }
 
 void Edward::secondAbility(Enemy &target)
@@ -46,11 +48,15 @@ void Edward::secondAbility(Enemy &target)
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
     target.setIsBurnt(true);
     target.setBurnCD(3);
+
+    CD2 = 3;
 }
 
 void Edward::thirdAbility(Enemy &target)
 {
     target.setIsStun(true);
+
+    CD3 = 5;
 }
 
 void Edward::fourthAbility(Enemy &target)
@@ -59,28 +65,26 @@ void Edward::fourthAbility(Enemy &target)
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
     target.setIsBurnt(true);
     target.setBurnCD(3);
-}
 
-void Edward::checkAbilities() {
-
+    CD4 = 7;
 }
 
 void Edward::startTurn()
 {
     if (CD1 == 0) { firstAbilityUp = true; } else { firstAbilityUp = false; }
     if (CD2 == 0 && level >= 10) { secondAbilityUp = true; } else { secondAbilityUp = false; }
-    if (CD3 == 0 && level >= 25) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
-    if (CD4 == 0 && level >= 40) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
+    if (CD3 == 0 && level >= 20) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
+    if (CD4 == 0 && level >= 36) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
 void Edward::endTurn()
 {
-    if (currentXP >= XPNeeded) { levelUp(); }
-
     if (CD1 > 0) { CD1--; }
     if (CD2 > 0) { CD2--; }
     if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
+
+    manageStatusEffect();
 }
 
 void Edward::Start()
