@@ -7,6 +7,13 @@ enum class Biome {
     OCEAN
 };
 
+enum class EnemyState
+{
+    STARTTURN,
+    ACTING,
+    ENDTURN
+};
+
 class Enemy : public Entity
 {
 public:
@@ -24,5 +31,6 @@ public:
     Biome biome;
 
     virtual void dropArtefacts() = 0;
+    EnemyState enemyState;
 
 };

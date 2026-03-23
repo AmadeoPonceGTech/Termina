@@ -117,6 +117,8 @@ bool Entity::getIsBurnt() const { return isBurnt; }
 bool Entity::getIsTaunt() const { return isTaunt; }
 bool Entity::getIsStun() const { return isStun; }
 
+EClass Entity::getClass() const { return entityClass; }
+
 #pragma endregion
 
 #pragma region Setters

@@ -118,6 +118,8 @@ public:
     bool getIsTaunt() const;
     bool getIsStun() const;
 
+    EClass getClass() const;
+
 #pragma endregion
 
 #pragma region Setters

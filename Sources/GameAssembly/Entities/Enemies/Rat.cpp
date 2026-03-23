@@ -65,7 +65,67 @@ void Rat::endTurn() {
     manageStatusEffect();
 }
 
-bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (enemyState)
+    {
+    case EnemyState::STARTTURN:
+        startTurn();
+        enemyState = EnemyState::ACTING;
+        break;
+
+    case EnemyState::ACTING:
+        {
+            if (characters.empty()) return false;
+
+            static std::random_device rd;
+            static std::mt19937 rng(rd());
+
+            std::uniform_int_distribution<int> distTarget(0, characters.size() - 1);
+            Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
+            if (!target) return false;
+
+            std::uniform_int_distribution<int> distChoice(1, 4);
+            int choice = distChoice(rng);
+
+            switch (choice)
+            {
+            case 1:
+                firstAbility(*target);
+                break;
+            case 2:
+                secondAbility(*target);
+                break;
+            case 3:
+                thirdAbility(*target);
+                break;
+            case 4:
+                {
+                    std::vector<Character*> targets;
+                    for (auto& c : characters)
+                    {
+                        Character* t = dynamic_cast<Character*>(c.get());
+                        if (t) targets.push_back(t);
+                    }
+                    fourthAbility(targets);
+                    break;
+                }
+            default:
+                break;
+            }
+
+            enemyState = EnemyState::ENDTURN;
+            break;
+        }
+
+    case EnemyState::ENDTURN:
+        endTurn();
+        enemyState = EnemyState::STARTTURN;
+        return true;
+    }
+
+    return false;
+}
 
 void Rat::dropArtefacts() {
 

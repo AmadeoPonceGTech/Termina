@@ -25,4 +25,7 @@ public :
     void thirdAbility(Character& target);
 
     void fourthAbility(const std::vector<Character*>& targets);
+
+private:
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
 };
