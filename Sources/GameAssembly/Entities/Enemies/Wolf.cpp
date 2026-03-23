@@ -66,6 +66,8 @@ void Wolf::endTurn() {
     manageStatusEffect();
 }
 
+bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+
 void Wolf::dropArtefacts() {
 
 }

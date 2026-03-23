@@ -146,9 +146,6 @@ void Alex::startTurn()
     if (CD2 == 0 && level >= 5) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     if (CD3 == 0 && level >= 15) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
     if (level >= 30) fourthAbility();
-
-    waitingForPlayer = true;
-    currentState = PlayerState::ChoosingAbility;
 }
 
 void Alex::endTurn()
@@ -158,9 +155,11 @@ void Alex::endTurn()
     if (CD3 > 0) { CD3--; }
 
     manageStatusEffect();
+
+    selectedTarget = nullptr;
 }
 
-void Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
         case PlayerState::StartTurn : {
@@ -249,9 +248,11 @@ void Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
         case PlayerState::EndTurn : {
             endTurn();
-            break;
+            currentState = PlayerState::StartTurn;
+            return true;
         }
     }
+    return false;
 }
 
 void Alex::Start() {}

@@ -112,6 +112,139 @@ void Claire::endTurn()
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
+
+    selectedTargetE = nullptr;
+    selectedTargetC = nullptr;
+}
+
+bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (currentState) {
+        case PlayerState::StartTurn : {
+            startTurn();
+            currentState = PlayerState::ChoosingAbility;
+            break;
+        }
+
+        case PlayerState::ChoosingAbility : {
+            ImGui::Begin("Choose Ability");
+
+            ImGui::BeginDisabled(!firstAbilityUp);
+            if (ImGui::Button("Wand Hit"))
+            {
+                abilitySelected = 1;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!secondAbilityUp);
+            if (ImGui::Button("Defense Buff"))
+            {
+                abilitySelected = 2;
+                currentState = PlayerState::Acting;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!thirdAbilityUp);
+            if (ImGui::Button("Slow Debuff"))
+            {
+                abilitySelected = 3;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::BeginDisabled(!fourthAbilityUp);
+            if (ImGui::Button("Mega Buff"))
+            {
+                abilitySelected = 4;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::ChoosingTarget :
+        {
+            if (abilitySelected == 1 or abilitySelected == 3)
+            {
+                ImGui::Begin("Choose enemy target");
+                for (int i = 0; i < enemies.size(); i++)
+                {
+                    std::string label = enemies[i]->getName() + "##" + std::to_string(i);
+
+                    if (ImGui::Button(label.c_str())) {
+                        selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
+                        currentState = PlayerState::Acting;
+                    }
+                }
+
+                if (ImGui::Button("Return")) {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+                ImGui::End();
+            }
+            else
+            {
+                ImGui::Begin("Choose ally target");
+                for (int i = 0; i < characters.size(); i++)
+                {
+                    std::string label = characters[i]->getName() + "##" + std::to_string(i);
+
+                    if (ImGui::Button(label.c_str())) {
+                        selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
+                        currentState = PlayerState::Acting;
+                    }
+                }
+
+                if (ImGui::Button("Return")) {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+                ImGui::End();
+            }
+            break;
+        }
+
+        case PlayerState::Acting :
+        {
+            switch (abilitySelected) {
+                case 1 : {
+                    firstAbility(selectedTargetE);
+                    break;
+                }
+                case 2 : {
+                    secondAbility(selectedTargetC);
+                    break;
+                }
+                case 3 : {
+                    thirdAbility(selectedTargetE);
+                    break;
+                }
+                case 4 : {
+                    fourthAbility(selectedTargetC);
+                    break;
+                }
+                default : {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+            }
+            currentState = PlayerState::EndTurn;
+            break;
+        }
+
+        case PlayerState::EndTurn : {
+            endTurn();
+            currentState = PlayerState::StartTurn;
+            return true;
+        }
+    }
+    return false;
 }
 
 void Claire::Start()

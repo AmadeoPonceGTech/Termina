@@ -10,12 +10,16 @@ class Enemy;
 
 class Emilie : public Character, public TerminaScript::ScriptableComponent
 {
+    std::shared_ptr<Enemy> selectedTargetE = nullptr;
+    std::shared_ptr<Character> selectedTargetC = nullptr;
+
 public :
     Emilie();
     Emilie(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
     void startFight(std::shared_ptr<Enemy> target, std::shared_ptr<Enemy> &target2, std::shared_ptr<Enemy> &target3, std::shared_ptr<Enemy> &target4);
     void endFight();
 
@@ -28,5 +32,5 @@ public :
     bool canBeAttacked(std::shared_ptr<Enemy> target);
 
 private :
-    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Enemy>> currentEnemies;
 };

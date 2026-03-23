@@ -65,6 +65,8 @@ void Rat::endTurn() {
     manageStatusEffect();
 }
 
+bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+
 void Rat::dropArtefacts() {
 
 }

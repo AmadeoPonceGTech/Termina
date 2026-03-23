@@ -95,6 +95,117 @@ void Brutus::endTurn()
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
+
+    selectedTarget = nullptr;
+}
+
+bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (currentState) {
+        case PlayerState::StartTurn : {
+            startTurn();
+            currentState = PlayerState::ChoosingAbility;
+            break;
+        }
+
+        case PlayerState::ChoosingAbility : {
+            ImGui::Begin("Choose Ability");
+
+            ImGui::BeginDisabled(!firstAbilityUp);
+            if (ImGui::Button("Triple Shoot"))
+            {
+                abilitySelected = 1;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!secondAbilityUp);
+            if (ImGui::Button("Arrow's Storm"))
+            {
+                abilitySelected = 2;
+                currentState = PlayerState::Acting;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!thirdAbilityUp);
+            if (ImGui::Button("Piercing Arrow"))
+            {
+                abilitySelected = 3;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::BeginDisabled(!fourthAbilityUp);
+            if (ImGui::Button("Explosive Arrow"))
+            {
+                abilitySelected = 4;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::ChoosingTarget :
+        {
+            ImGui::Begin("Choose enemy target");
+            for (int i = 0; i < enemies.size(); i++)
+            {
+                std::string label = enemies[i]->getName() + "##" + std::to_string(i);
+
+                if (ImGui::Button(label.c_str())) {
+                    selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
+                    currentState = PlayerState::Acting;
+                }
+            }
+
+            if (ImGui::Button("Return")) {
+                currentState = PlayerState::ChoosingAbility;
+            }
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::Acting :
+        {
+            switch (abilitySelected) {
+                case 1 : {
+                    firstAbility(selectedTarget);
+                    break;
+                }
+                case 2 : {
+                    secondAbility(selectedTarget);
+                    break;
+                }
+                case 3 : {
+                    thirdAbility(selectedTarget);
+                    break;
+                }
+                case 4 :
+                {
+                    fourthAbility(selectedTarget);
+                    break;
+                }
+                default : {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+            }
+            currentState = PlayerState::EndTurn;
+            break;
+        }
+
+        case PlayerState::EndTurn : {
+            endTurn();
+            currentState = PlayerState::StartTurn;
+            return true;
+        }
+    }
+    return false;
 }
 
 void Brutus::Start()

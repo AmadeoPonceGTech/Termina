@@ -42,13 +42,10 @@ void Diane::firstAbility(std::shared_ptr<Enemy>target)
     CD1 = 1;
 }
 
-void Diane::secondAbility(std::shared_ptr<Enemy>target,  std::shared_ptr<Enemy>target2)
+void Diane::secondAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsTaunt(true);
-    target2->setIsTaunt(true);
-
     target->setTauntCD(3);
-    target2->setTauntCD(3);
 
     CD2 = 6;
 }
@@ -89,6 +86,127 @@ void Diane::endTurn()
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
+
+    selectedTargetE = nullptr;
+    selectedTargetC = nullptr;
+}
+
+bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (currentState) {
+        case PlayerState::StartTurn : {
+            startTurn();
+            currentState = PlayerState::ChoosingAbility;
+            break;
+        }
+
+        case PlayerState::ChoosingAbility : {
+            ImGui::Begin("Choose Ability");
+
+            ImGui::BeginDisabled(!firstAbilityUp);
+            if (ImGui::Button("Shield Charge"))
+            {
+                abilitySelected = 1;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!secondAbilityUp);
+            if (ImGui::Button("Taunt"))
+            {
+                abilitySelected = 2;
+                currentState = PlayerState::Acting;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!thirdAbilityUp);
+            if (ImGui::Button("Shield Buff"))
+            {
+                abilitySelected = 3;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::ChoosingTarget :
+        {
+            if (abilitySelected == 1 or abilitySelected == 2)
+            {
+                ImGui::Begin("Choose enemy target");
+                for (int i = 0; i < enemies.size(); i++)
+                {
+                    std::string label = enemies[i]->getName() + "##" + std::to_string(i);
+
+                    if (ImGui::Button(label.c_str())) {
+                        selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
+                        currentState = PlayerState::Acting;
+                    }
+                }
+
+                if (ImGui::Button("Return")) {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+                ImGui::End();
+            }
+            else
+            {
+                ImGui::Begin("Choose ally target");
+                for (int i = 0; i < characters.size(); i++)
+                {
+                    std::string label = characters[i]->getName() + "##" + std::to_string(i);
+
+                    if (ImGui::Button(label.c_str())) {
+                        selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
+                        currentState = PlayerState::Acting;
+                    }
+                }
+
+                if (ImGui::Button("Return")) {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+                ImGui::End();
+            }
+            break;
+        }
+
+        case PlayerState::Acting :
+        {
+            switch (abilitySelected) {
+                case 1 : {
+                    firstAbility(selectedTargetE);
+                    break;
+                }
+                case 2 : {
+                    secondAbility(selectedTargetE);
+                    break;
+                }
+                case 3 : {
+                    thirdAbility(selectedTargetC);
+                    break;
+                }
+                default : {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+            }
+            currentState = PlayerState::EndTurn;
+            break;
+        }
+
+        case PlayerState::EndTurn : {
+            endTurn();
+            currentState = PlayerState::StartTurn;
+            return true;
+        }
+    }
+    return false;
 }
 
 void Diane::Start()

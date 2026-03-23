@@ -10,12 +10,15 @@ class Enemy;
 
 class Brutus : public Character, public TerminaScript::ScriptableComponent
 {
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
+
 public :
     Brutus();
     Brutus(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
 
     void Start() override;
     void Update(float deltaTime) override;

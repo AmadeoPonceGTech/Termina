@@ -65,6 +65,8 @@ void Hawk::endTurn() {
     manageStatusEffect();
 }
 
+bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+
 void Hawk::dropArtefacts() {
 
 }

@@ -10,6 +10,7 @@ class Enemy;
 class Penelope : public Character, public TerminaScript::ScriptableComponent
 {
     bool fourthAbilityActive;
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
 
 public :
     Penelope();
@@ -17,6 +18,7 @@ public :
 
     void startTurn() override;
     void endTurn() override;
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
 
     void Start() override;
     void Update(float deltaTime) override;

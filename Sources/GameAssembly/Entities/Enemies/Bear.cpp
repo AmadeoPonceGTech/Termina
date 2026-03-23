@@ -65,6 +65,8 @@ void Bear::endTurn() {
     manageStatusEffect();
 }
 
+bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+
 void Bear::dropArtefacts() {
 
 }
