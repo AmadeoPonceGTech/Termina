@@ -1,6 +1,5 @@
-#pragma once
-#include "Character.h"
-#include "../Enemies/Enemy.h"
+#include "../Character.h"
+#include "../../Enemies/Enemy.h"
 
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 
@@ -8,14 +7,13 @@ using namespace TerminaScript;
 
 class Enemy;
 
-class Alex : public Character, public TerminaScript::ScriptableComponent
+class Penelope : public Character, public TerminaScript::ScriptableComponent
 {
-private :
-    bool isParring;
+    bool fourthAbilityActive;
 
 public :
-    Alex();
-    Alex(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+    Penelope();
+    Penelope(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
@@ -24,9 +22,6 @@ public :
     void Update(float deltaTime) override;
 
     void firstAbility(std::shared_ptr<Enemy>target);
-    void secondAbility();
+    void secondAbility(std::shared_ptr<Enemy>target);
     void thirdAbility(std::shared_ptr<Enemy>target);
-    void fourthAbility();
-
-    bool getIsParring();
 };

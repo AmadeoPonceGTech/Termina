@@ -1,6 +1,6 @@
 #pragma once
-#include "Character.h"
-#include "../Enemies/Enemy.h"
+#include "../Character.h"
+#include "../../Enemies/Enemy.h"
 
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 

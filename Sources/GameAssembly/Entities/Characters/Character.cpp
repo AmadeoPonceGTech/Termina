@@ -2,6 +2,9 @@
 
 Character::Character()
 {
+    waitingForPlayer = false;
+    abilitySelected = 0;
+
     level = 1;
     maxLevel = 50;
 

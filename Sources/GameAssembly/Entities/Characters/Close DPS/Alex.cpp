@@ -41,6 +41,8 @@ void Alex::firstAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
+
     CD1 = 1;
 }
 
@@ -55,6 +57,8 @@ void Alex::thirdAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+
+    if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
 
     CD3 = 3;
 }
@@ -142,6 +146,9 @@ void Alex::startTurn()
     if (CD2 == 0 && level >= 5) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     if (CD3 == 0 && level >= 15) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
     if (level >= 30) fourthAbility();
+
+    waitingForPlayer = true;
+    currentState = PlayerState::ChoosingAbility;
 }
 
 void Alex::endTurn()
@@ -153,14 +160,102 @@ void Alex::endTurn()
     manageStatusEffect();
 }
 
-void Alex::Start()
+void Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
-    // Called once when the scene starts playing.
+    switch (currentState) {
+        case PlayerState::StartTurn : {
+            startTurn();
+            currentState = PlayerState::ChoosingAbility;
+            break;
+        }
+
+        case PlayerState::ChoosingAbility : {
+            ImGui::Begin("Choose Ability");
+
+            ImGui::BeginDisabled(!firstAbilityUp);
+            if (ImGui::Button("Sword Slash"))
+            {
+                abilitySelected = 1;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!secondAbilityUp);
+            if (ImGui::Button("Parade"))
+            {
+                abilitySelected = 2;
+                currentState = PlayerState::Acting;
+            }
+            ImGui::EndDisabled();
+
+
+            ImGui::BeginDisabled(!thirdAbilityUp);
+            if (ImGui::Button("Heavy Sword Slash"))
+            {
+                abilitySelected = 3;
+                currentState = PlayerState::ChoosingTarget;
+            }
+            ImGui::EndDisabled();
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::ChoosingTarget :
+        {
+            ImGui::Begin("Choose enemy target");
+            for (int i = 0; i < enemies.size(); i++)
+            {
+                std::string label = enemies[i]->getName() + "##" + std::to_string(i);
+
+                if (ImGui::Button(label.c_str())) {
+                    selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
+                    currentState = PlayerState::Acting;
+                }
+            }
+
+            if (ImGui::Button("Return")) {
+                currentState = PlayerState::ChoosingAbility;
+            }
+
+            ImGui::End();
+            break;
+        }
+
+        case PlayerState::Acting :
+        {
+            switch (abilitySelected) {
+                case 1 : {
+                    firstAbility(selectedTarget);
+                    break;
+                }
+                case 2 : {
+                    secondAbility();
+                    break;
+                }
+                case 3 : {
+                    thirdAbility(selectedTarget);
+                    break;
+                }
+                default : {
+                    currentState = PlayerState::ChoosingAbility;
+                }
+
+            }
+            currentState = PlayerState::EndTurn;
+            break;
+        }
+
+        case PlayerState::EndTurn : {
+            endTurn();
+            break;
+        }
+    }
 }
 
-void Alex::Update(float deltaTime)
-{
+void Alex::Start() {}
 
-}
+void Alex::Update(float deltaTime) {}
 
 bool Alex::getIsParring() { return isParring; }
