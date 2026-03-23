@@ -11,6 +11,8 @@
 #include "Entities/Characters/Edward.h"
 #include "Entities/Characters/Penelope.h"
 #include "Entities/Characters/Claire.h"
+#include "Entities/Characters/Brutus.h"
+#include "Entities/Characters/Emilie.h"
 
 #include "Entities/Enemies/Rat.h"
 #include "Entities/Enemies/Wolf.h"
@@ -28,6 +30,8 @@ COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(Edward, "Edward")
     REGISTER_COMPONENT(Penelope, "Penelope")
     REGISTER_COMPONENT(Claire, "Claire")
+    REGISTER_COMPONENT(Brutus, "Brutus")
+    REGISTER_COMPONENT(Emilie, "Emilie")
 
     //Enemies
     REGISTER_COMPONENT(Rat, "Rat")
