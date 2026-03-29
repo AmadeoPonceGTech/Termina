@@ -1,5 +1,5 @@
 #include "Rat.h"
-#include "../Characters/Character.h"
+#include "../../Characters/Character.h"
 
 Rat::Rat(int floor) {
     name = "Rat";
@@ -85,7 +85,7 @@ bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
             Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
             if (!target) return false;
 
-            std::uniform_int_distribution<int> distChoice(1, 4);
+            std::uniform_int_distribution<int> distChoice(1, 3);
             int choice = distChoice(rng);
 
             switch (choice)
@@ -97,9 +97,6 @@ bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
                 secondAbility(*target);
                 break;
             case 3:
-                thirdAbility(*target);
-                break;
-            case 4:
                 {
                     std::vector<Character*> targets;
                     for (auto& c : characters)

@@ -1,5 +1,5 @@
 #include "Hawk.h"
-#include "../Characters/Character.h"
+#include "../../Characters/Character.h"
 
 Hawk::Hawk(int floor) {
     name = "Hawk";
@@ -65,7 +65,75 @@ void Hawk::endTurn() {
     manageStatusEffect();
 }
 
-bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) { return true;}
+bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (enemyState)
+    {
+    case EnemyState::STARTTURN:
+        startTurn();
+        enemyState = EnemyState::ACTING;
+        break;
+
+    case EnemyState::ACTING:
+        {
+            if (characters.empty()) return false;
+
+            static std::random_device rd;
+            static std::mt19937 rng(rd());
+
+            std::uniform_int_distribution<int> distTarget(0, characters.size() - 1);
+            Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
+            if (!target) return false;
+
+            if (enemies.empty()) return false;
+
+            std::uniform_int_distribution<int> distEnemy(0, enemies.size() - 1);
+
+            Enemy* enemy1 = dynamic_cast<Enemy*>(enemies[distEnemy(rng)].get());
+            Enemy* enemy2 = dynamic_cast<Enemy*>(enemies[distEnemy(rng)].get());
+
+            if (!enemy1) return false;
+
+            std::uniform_int_distribution<int> distChoice(1, 3);
+            int choice = distChoice(rng);
+
+            switch (choice)
+            {
+            case 1:
+                firstAbility(*target);
+                thirdAbility(*enemy1);
+                break;
+            case 2:
+                secondAbility(*enemy1); //target de enemy random
+                thirdAbility(*enemy1);
+                break;
+            case 3:
+                {
+                    while (enemy2 == enemy1 && enemies.size() > 1)
+                    {
+                        enemy2 = dynamic_cast<Enemy*>(enemies[distEnemy(rng)].get());
+                    }
+                    fourthAbility(*enemy1, *enemy2); //target de enemy random
+                    thirdAbility(*enemy1);
+                    break;
+                }
+            default:
+                break;
+            }
+
+            enemyState = EnemyState::ENDTURN;
+            break;
+        }
+
+    case EnemyState::ENDTURN:
+        endTurn();
+        enemyState = EnemyState::STARTTURN;
+        return true;
+    }
+
+    return false;
+}
+
 
 void Hawk::dropArtefacts() {
 

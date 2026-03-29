@@ -1,15 +1,15 @@
 #pragma once
-#include "Enemy.h"
+#include "../Enemy.h"
 #include <GameAssembly/Entities/Characters/Character.h>
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 
 class Character;
 
-class Hawk : public Enemy, public TerminaScript::ScriptableComponent
+class Rat : public Enemy, public TerminaScript::ScriptableComponent
 {
 public :
-    Hawk(int floor);
-    Hawk(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+    Rat(int floor);
+    Rat(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
 
     void startTurn() override;
     void endTurn() override;
@@ -21,10 +21,11 @@ public :
     void dropArtefacts() override;
 
     void firstAbility(Character& target);
-    void secondAbility(Enemy& target);
-    void thirdAbility(Enemy& target);
+    void secondAbility(Character& target);
+    void thirdAbility(Character& target);
 
-    void fourthAbility(Enemy& target1, Enemy& target2);
+    void fourthAbility(const std::vector<Character*>& targets);
 
-    float powerAbilityOne = 0.9f;
+private:
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
 };

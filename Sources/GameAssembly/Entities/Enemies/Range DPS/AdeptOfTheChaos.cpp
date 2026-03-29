@@ -1,43 +1,43 @@
-#include "Wolf.h"
-#include "../Characters/Character.h"
+#include "AdeptOfTheChaos.h"
+#include "../../Characters/Character.h"
 
-Wolf::Wolf(int floor) {
-    name = "Wolf";
-    entityClass = EClass::CLOSEDDPS;
-    description = "The wolf is a cunning predator, swift and relentless in the hunt.";
-    biome = Biome::FOREST;
+AdeptOfTheChaos::AdeptOfTheChaos(int floor) {
+    name = "AdeptOfTheChaos";
+    entityClass = EClass::RANGEDDPS;
+    description = "He's dark, his mind is tortured and he will avenge all of his losses.";
+    biome = Biome::GRAVEYARD;
 
     level = floor;
     landing = floor / 5;
 
-    finalArmor = 55.0f;
-    finalPR = 35.0f;
+    finalArmor = 40.0f;
+    finalPR = 50.0f;
 
-    baseHealth = 50.0f;
+    baseHealth = 20.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 45.0f;
+    baseAttackDamage = 0.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 0.0f;
+    baseAttackPower = 25.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.5f;
+    baseArmor = 0.2f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.6f;
+    basePowerResist = 0.2f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
-    baseSpeed = 75.0f;
+    baseSpeed = 80.0f;
     currentSpeed = baseSpeed;
 
     baseExpDrop = 30.0f;
-    maxExpDrop = 1100.0f;
+    maxExpDrop = 1300.0f;
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 
@@ -47,26 +47,25 @@ Wolf::Wolf(int floor) {
     isStun = false;
 }
 
-void Wolf::Start() {}
+void AdeptOfTheChaos::Start() {}
 
-void Wolf::Update(float deltaTime) {}
+void AdeptOfTheChaos::Update(float deltaTime) {}
 
-void Wolf::startTurn() {
+void AdeptOfTheChaos::startTurn() {
     firstAbilityUp = true;
     if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     thirdAbilityUp = true;
     if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
-void Wolf::endTurn() {
+void AdeptOfTheChaos::endTurn() {
     if (CD2 > 0) { CD2--; }
-    if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
 }
 
-bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+bool AdeptOfTheChaos::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (enemyState)
     {
@@ -99,16 +98,18 @@ bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
                 break;
             case 3:
                 {
-                    int numberOfWolf = countWolves(enemies);
-
-                    thirdAbility(numberOfWolf);
+                    thirdAbility();
                     break;
                 }
             case 4:
                 {
-                    int numberOfWolf4 = countWolves(enemies);
-                    fourthAbility(*target, numberOfWolf4);
-                    break;
+                    std::vector<Character*> targets;
+                    for (auto& c : characters)
+                    {
+                        auto* t = dynamic_cast<Character*>(c.get());
+                        if (t) targets.push_back(t);
+                    }
+                    fourthAbility(targets);
                 }
             default:
                 break;
@@ -127,51 +128,35 @@ bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     return false;
 }
 
-
-void Wolf::dropArtefacts() {
+void AdeptOfTheChaos::dropArtefacts() {
 
 }
 
-void Wolf::firstAbility(Character& target) { // powerAbilityOne=0.9f
+void AdeptOfTheChaos::firstAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
 }
 
-void Wolf::secondAbility(Character& target) { // powerAbilityTwo=1.1f
+void AdeptOfTheChaos::secondAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityTwo));
 
     CD2 = 3;
 }
 
-void Wolf::thirdAbility(int numberOfWolf) { // While there is another wolf in the fight improve their speed and attack
-    int allies = std::max(0, numberOfWolf - 1);
+void AdeptOfTheChaos::thirdAbility() {
+    currentHealth = currentHealth - (maxHealth * 15.0f / 100.0f);
+    currentAttackPower = currentAttackPower + (currentAttackPower * 10.0f / 100.0f);
 
-    float attackBuff = 1.0f + 0.05f * allies;
-    float speedBuff  = 1.0f + 0.05f * allies;
-
-    currentAttackDamage = maxAttackDamage * attackBuff;
-    currentSpeed = baseSpeed * speedBuff;
-
-    CD3 = 0;
+    CD3 = 4;
 }
 
-void Wolf::fourthAbility(Character& target, int numberOfWolf) { // Every Wolf attack a target with claw
-    int attacks = std::max(0, numberOfWolf);
-
-    for (int i = 0; i < attacks; i++) {
-        firstAbility(target);
-    }
-
-    CD4 = 4;
-}
-
-int Wolf::countWolves(const std::vector<std::shared_ptr<Entity>>& enemies)
-{
-    int count = 0;
-    for (auto& e : enemies)
+void AdeptOfTheChaos::fourthAbility(const std::vector<Character*>& targets) {
+    for (auto& target : targets)
     {
-        if (e->getName() == "Wolf") count++;
+        float dmgDealt = currentAttackDamage * (1.0f - target->getCurrentArmor() / 100.0f);
+        target->setCurrentHealth(std::max(0.0f, target->getCurrentHealth() - dmgDealt * powerAbilityFour));
     }
-    return count;
+
+    CD4 = 7;
 }

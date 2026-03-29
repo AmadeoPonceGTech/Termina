@@ -14,10 +14,10 @@
 #include "Entities/Characters/Range DPS/Brutus.h"
 #include "Entities/Characters/Tank/Emilie.h"
 
-#include "Entities/Enemies/Rat.h"
-#include "Entities/Enemies/Wolf.h"
-#include "Entities/Enemies/Bear.h"
-#include "Entities/Enemies/Hawk.h"
+#include "Entities/Enemies/Close DPS/Rat.h"
+#include "Entities/Enemies/Close DPS/Wolf.h"
+#include "Entities/Enemies/Tank/Bear.h"
+#include "Entities/Enemies/Support/Hawk.h"
 
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")

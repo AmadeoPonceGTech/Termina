@@ -1,5 +1,5 @@
 #pragma once
-#include "Enemy.h"
+#include "../Enemy.h"
 #include <GameAssembly/Entities/Characters/Character.h>
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 

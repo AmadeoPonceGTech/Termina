@@ -1,5 +1,5 @@
 #include "Bear.h"
-#include "../Characters/Character.h"
+#include "../../Characters/Character.h"
 
 Bear::Bear(int floor) {
     name = "Bear";
@@ -83,7 +83,6 @@ bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
             Character* target = nullptr;
 
-            // 🔎 Cherche un tank
             for (auto& c : characters)
             {
                 Character* t = dynamic_cast<Character*>(c.get());
@@ -102,7 +101,7 @@ bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
             if (!target) return false;
 
-            std::uniform_int_distribution<int> distChoice(1, 4);
+            std::uniform_int_distribution<int> distChoice(1, 3);
             int choice = distChoice(rng);
 
             switch (choice)
@@ -114,11 +113,6 @@ bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
                 secondAbility();
                 break;
             case 3:
-                {
-                    thirdAbility();
-                    break;
-                }
-            case 4:
                 {
                     fourthAbility(*target);
                     break;
@@ -156,7 +150,7 @@ void Bear::secondAbility() {
 }
 
 void Bear::thirdAbility() {
-    // let's go Amadéo
+    // done in entityTurn
 }
 
 void Bear::fourthAbility(Character& target) {
