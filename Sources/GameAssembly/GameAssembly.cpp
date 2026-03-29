@@ -18,6 +18,10 @@
 #include "Entities/Enemies/Close DPS/Wolf.h"
 #include "Entities/Enemies/Tank/Bear.h"
 #include "Entities/Enemies/Support/Hawk.h"
+#include "Entities/Enemies/Support/Ghost.h"
+#include "Entities/Enemies/Range DPS/AdeptOfTheChaos.h"
+#include "Entities/Enemies/Tank/DarkKnight.h"
+#include "Entities/Enemies/Close DPS/Skeleton.h"
 
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
@@ -39,5 +43,9 @@ COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(Wolf, "Wolf")
     REGISTER_COMPONENT(Bear, "Bear")
     REGISTER_COMPONENT(Hawk, "Hawk")
+    REGISTER_COMPONENT(Ghost, "Ghost")
+    REGISTER_COMPONENT(AdeptOfTheChaos, "AdeptOfTheChaos")
+    REGISTER_COMPONENT(DarkKnight, "DarkKnight")
+    REGISTER_COMPONENT(Skeleton, "Skeleton")
 
 COMPONENT_MODULE_END()
