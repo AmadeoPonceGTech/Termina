@@ -1,14 +1,30 @@
-//
-// Created by orio6 on 29/03/2026.
-//
+#pragma once
+#include "../Enemy.h"
+#include <GameAssembly/Entities/Characters/Character.h>
+#include <Termina/Scripting/API/ScriptingAPI.hpp>
 
-#ifndef ENDLESSROGUE_GHOST_H
-#define ENDLESSROGUE_GHOST_H
+class Character;
 
-
-class Ghost
+class Ghost : public Enemy, public TerminaScript::ScriptableComponent
 {
+public :
+    Ghost(int floor);
+    Ghost(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    void startTurn() override;
+    void endTurn() override;
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    void dropArtefacts() override;
+
+    void firstAbility(Character& target);
+    void secondAbility(Character& target);
+
+    void fourthAbility(Character& target);
+
+private:
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
 };
-
-
-#endif //ENDLESSROGUE_GHOST_H

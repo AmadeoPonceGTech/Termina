@@ -54,12 +54,13 @@ void AdeptOfTheChaos::Update(float deltaTime) {}
 void AdeptOfTheChaos::startTurn() {
     firstAbilityUp = true;
     if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
-    thirdAbilityUp = true;
+    if (CD3 == 0) { thirdAbilityUp = true; } else { thirdAbilityUp = false; }
     if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
 void AdeptOfTheChaos::endTurn() {
     if (CD2 > 0) { CD2--; }
+    if (CD3 > 0) { CD3--; }
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
