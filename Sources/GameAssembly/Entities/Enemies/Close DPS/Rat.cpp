@@ -85,8 +85,16 @@ bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
             Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
             if (!target) return false;
 
-            std::uniform_int_distribution<int> distChoice(1, 3);
-            int choice = distChoice(rng);
+            std::vector<int> availableChoices;
+
+            if (firstAbilityUp)  availableChoices.push_back(1);
+            if (secondAbilityUp) availableChoices.push_back(2);
+            if (fourthAbilityUp) availableChoices.push_back(3);
+
+            if (availableChoices.empty()) return false;
+
+            std::uniform_int_distribution<int> distChoice(0, availableChoices.size() - 1);
+            int choice = availableChoices[distChoice(rng)];
 
             switch (choice)
             {
