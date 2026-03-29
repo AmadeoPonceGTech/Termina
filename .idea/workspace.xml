@@ -29,9 +29,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added skeleton">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Kelpie.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Kelpie.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added Kelpie">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Dunkleosteus.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Dunkleosteus.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" afterDir="false" />
     </list>
@@ -150,7 +150,7 @@
       <workItem from="1773912226663" duration="476000" />
       <workItem from="1773992385118" duration="847000" />
       <workItem from="1774288965862" duration="10000" />
-      <workItem from="1774816683017" duration="2478000" />
+      <workItem from="1774816683017" duration="3378000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -304,7 +304,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774818097562</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added Kelpie">
+      <option name="closed" value="true" />
+      <created>1774819191569</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1774819191569</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,6 +360,7 @@
     <MESSAGE value="added Ghost" />
     <MESSAGE value="added dark knight" />
     <MESSAGE value="added skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="added skeleton" />
+    <MESSAGE value="added Kelpie" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Kelpie" />
   </component>
 </project>
