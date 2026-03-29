@@ -1,5 +1,150 @@
-//
-// Created by orio6 on 29/03/2026.
-//
-
 #include "DarkKnight.h"
+#include "../../Characters/Character.h"
+
+DarkKnight::DarkKnight(int floor) {
+    name = "DarkKnight";
+    entityClass = EClass::TANK;
+    description = "Riding his dark horse, the mysterious dark knight charges all that fight for the light.";
+    biome = Biome::GRAVEYARD;
+
+    level = floor;
+    landing = floor / 5;
+
+    finalArmor = 70.0f;
+    finalPR = 70.0f;
+
+    baseHealth = 80.0f;
+    maxHealth = baseHealth * pow(1.1f, landing);
+    currentHealth = maxHealth;
+
+    baseAttackDamage = 35.0f;
+    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
+    currentAttackDamage = maxAttackDamage;
+
+    baseAttackPower = 15.0f;
+    maxAttackPower = baseAttackPower * pow(1.1f, landing);
+    currentAttackPower = maxAttackPower;
+
+    baseArmor = 0.6f;
+    maxArmor = baseArmor * pow(1.1f, landing);
+    currentArmor = maxArmor;
+
+    basePowerResist = 0.6f;
+    maxPowerResist = basePowerResist * pow(1.1f, landing);
+    currentPowerResist = maxPowerResist;
+
+    baseSpeed = 80.0f;
+    currentSpeed = baseSpeed;
+
+    baseExpDrop = 35.0f;
+    maxExpDrop = 1200.0f;
+    float t = std::min(landing / 100.0f, 1.0f);
+    currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
+
+    poisonCD = 0;
+    burnCD = 0;
+    tauntCD = 0;
+    isStun = false;
+}
+
+void DarkKnight::Start() {}
+
+void DarkKnight::Update(float deltaTime) {}
+
+void DarkKnight::startTurn() {
+    firstAbilityUp = true;
+    if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
+    thirdAbilityUp = true;
+    if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
+}
+
+void DarkKnight::endTurn() {
+    if (CD2 > 0) { CD2--; }
+    if (CD4 > 0) { CD4--; }
+
+    manageStatusEffect();
+}
+
+bool DarkKnight::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+{
+    switch (enemyState)
+    {
+    case EnemyState::STARTTURN:
+        startTurn();
+        if (currentHealth < maxHealth * 1.0f / 4.0f) { thirdAbility(); }
+        enemyState = EnemyState::ACTING;
+        break;
+
+    case EnemyState::ACTING:
+        {
+            if (characters.empty()) return false;
+
+            static std::random_device rd;
+            static std::mt19937 rng(rd());
+
+            std::uniform_int_distribution<int> distTarget(0, characters.size() - 1);
+            Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
+            if (!target) return false;
+
+            std::uniform_int_distribution<int> distChoice(1, 3);
+            int choice = distChoice(rng);
+
+            switch (choice)
+            {
+            case 1:
+                firstAbility(*target);
+                break;
+            case 2:
+                secondAbility(*target);
+                break;
+            case 3:
+                fourthAbility(*target);
+                break;
+            default:
+                break;
+            }
+
+            enemyState = EnemyState::ENDTURN;
+            break;
+        }
+
+    case EnemyState::ENDTURN:
+        endTurn();
+        enemyState = EnemyState::STARTTURN;
+        return true;
+    }
+
+    return false;
+}
+
+void DarkKnight::dropArtefacts() {
+
+}
+
+void DarkKnight::firstAbility(Character& target) {
+    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+}
+
+void DarkKnight::secondAbility(Character& target) {
+    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+
+    //add shield here
+    CD3 = 3;
+}
+
+void DarkKnight::thirdAbility() {
+    currentArmor = currentArmor - (currentArmor * 20.0f / 100.0f);
+    currentPowerResist = currentPowerResist - (currentPowerResist * 20.0f / 100.0f);
+
+    currentAttackPower = currentAttackPower + (currentAttackPower * 20.0f / 100.0f);
+}
+
+void DarkKnight::fourthAbility(Character& target) {
+    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityFour));
+
+    //add shield here
+    CD3 = 7;
+}

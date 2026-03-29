@@ -1,14 +1,33 @@
-//
-// Created by orio6 on 29/03/2026.
-//
+#pragma once
+#include "../Enemy.h"
+#include <GameAssembly/Entities/Characters/Character.h>
+#include <Termina/Scripting/API/ScriptingAPI.hpp>
 
-#ifndef ENDLESSROGUE_DARKKNIGHT_H
-#define ENDLESSROGUE_DARKKNIGHT_H
+class Character;
 
-
-class DarkKnight
+class DarkKnight : public Enemy, public TerminaScript::ScriptableComponent
 {
+public :
+    DarkKnight(int floor);
+    DarkKnight(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    void startTurn() override;
+    void endTurn() override;
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    void dropArtefacts() override;
+
+    void firstAbility(Character& target);
+    void secondAbility(Character& target);
+    void thirdAbility();
+
+    void fourthAbility(Character& target);
+
+private:
+    std::shared_ptr<Enemy> selectedTarget = nullptr;
+
+    float powerAbilityFour = 2.0f;
 };
-
-
-#endif //ENDLESSROGUE_DARKKNIGHT_H
