@@ -2,7 +2,8 @@
 
 #include <vector>
 #include <memory>
-
+#include <functional>
+#include <random>
 #include "../../Entities/Enemies/EnemyManager.h"
 
 #pragma region EntityInclude
@@ -19,6 +20,7 @@ private:
     std::vector<std::shared_ptr<Entity>> entityGameVector;
 
     bool isRunning = true;
+    bool isInFight = false;
 
 public:
 
@@ -26,7 +28,7 @@ public:
     void StartRun();
     void EndRun();
 
-    void gameLoop();
+    void UpdateTurn();
 
     void StartFight();
     void EndFight();

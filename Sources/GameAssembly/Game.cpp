@@ -13,10 +13,7 @@ void Game::Start()
         gameplay = std::make_unique<Gameplay>();
     }
 
-    for (auto& child : GetChildren())
-    {
-        std::cout << child->GetName() << std::endl;
-    }
+
 
 }
 
@@ -37,10 +34,13 @@ void Game::Update(float deltaTime)
         {
             if (child->HasComponent<Termina::CameraComponent>() && child->GetName() == "first")
             {
-                child->GetComponent<Termina::CameraComponent>().SetPrimary(true);
+                // child->GetComponent<Termina::CameraComponent>().SetPrimary(true);
+                std::cout << child->GetName() << std::endl;
+
             }
             else
-                child->GetComponent<Termina::CameraComponent>().SetPrimary(false);
+                std::cout << child->GetName() << std::endl;
+                // child->GetComponent<Termina::CameraComponent>().SetPrimary(false);
         }
 
             break;

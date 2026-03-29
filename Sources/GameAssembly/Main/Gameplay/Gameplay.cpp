@@ -20,9 +20,7 @@ Gameplay::Gameplay() {
     activeCharacters.push_back(std::make_shared<Diane>());
     activeCharacters.push_back(std::make_shared<Marcus>());
 
-    enemyManager->createEnemy<Rat>(1);
-    enemyManager->createEnemy<Wolf>(1);
-    enemyManager->createEnemy<Wolf>(1);
+
 
     for (auto& character : activeCharacters) {
         if (character) {
@@ -30,32 +28,16 @@ Gameplay::Gameplay() {
         }
     }
 
-    for (auto& ennemi : enemyManager->getEnemies()) {
-        if (ennemi) {
-            entityGameVector.push_back(ennemi);
-        }
-    }
-
-    sort (entityGameVector.begin(), entityGameVector.end());
     ///////////////////////////////////////////////////
 
     StartRun();
-    gameLoop();
-}
-
-void Gameplay::gameLoop()
-{
-    while (isRunning)
-    {
-        for (auto& entity : entityGameVector)
-        {
-            entity->entityTurn(activeCharacters, enemyManager->getEnemies());
-        }
-        EndFight();
-    }
 }
 
 void Gameplay::StartRun() {
+    if (isInFight)
+    {
+        StartFight();
+    }
     //// Start the run and start all passif
     //// Chek if Diane is active
 }
@@ -66,12 +48,41 @@ void Gameplay::EndRun() {
     ///Apply XP
 }
 
+void Gameplay::UpdateTurn()
+{
+    while (isRunning)
+    {
+        for (auto& entity : entityGameVector)
+        {
+            entity->entityTurn(activeCharacters, enemyManager->getEnemies());
+        }
+    }
+}
+
 void Gameplay::StartFight() {
-    /// create enemy in fight
+
+    isInFight = true;
+
     /// Add all Enemy in fight to the EnemyVector
+    /// create predeterminated ennemy, push in vector and rearrange order via speed
+    enemyManager->createEnemy<Rat>(1);
+    enemyManager->createEnemy<Wolf>(1);
+    enemyManager->createEnemy<Wolf>(1);
+
+    for (auto& ennemi : enemyManager->getEnemies()) {
+        if (ennemi) {
+            entityGameVector.push_back(ennemi);
+        }
+    }
+    sort (entityGameVector.begin(), entityGameVector.end());
+    UpdateTurn();
+
     /// Check if Emilie is there
 }
 
 void Gameplay::EndFight() {
+    enemyManager->clearEnemies();
+    isInFight = false;
     /// Emilie
+    /// Clean du vector enemy
 }
