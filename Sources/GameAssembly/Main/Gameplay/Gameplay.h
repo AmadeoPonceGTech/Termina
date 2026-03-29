@@ -17,9 +17,9 @@ class Gameplay {
 private:
     std::shared_ptr<EnemyManager> enemyManager;
     std::vector<std::shared_ptr<Entity>> activeCharacters;
-    std::vector<std::shared_ptr<Entity>> entityGameVector;
+    std::vector<std::shared_ptr<Entity>> turnOrderVector;
 
-    bool isRunning = true;
+    bool isRunning = false;
     bool isInFight = false;
 
 public:
@@ -28,11 +28,11 @@ public:
     void StartRun();
     void EndRun();
 
-    void UpdateTurn();
-
     void StartFight();
     void EndFight();
 
+    void Gameloop();
+    void UpdateTurn();
 
 };
 

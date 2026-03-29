@@ -116,6 +116,7 @@ bool Entity::getIsPoisoned() const { return isPoisoned; }
 bool Entity::getIsBurnt() const { return isBurnt; }
 bool Entity::getIsTaunt() const { return isTaunt; }
 bool Entity::getIsStun() const { return isStun; }
+bool Entity::getIsDead() const { return isDead; }
 
 #pragma endregion
 
@@ -142,5 +143,6 @@ void Entity::setIsPoisoned(bool const newIsPoisoned) { isPoisoned = newIsPoisone
 void Entity::setIsBurnt(bool const newIsBurnt) { isBurnt = newIsBurnt; }
 void Entity::setIsTaunt(bool const newIsTaunt) { isTaunt = newIsTaunt; }
 void Entity::setIsStun(bool const newIsStun) { isStun = newIsStun; }
+void Entity::setIsDead(bool const newIsDead) { isDead = newIsDead; }
 
 #pragma endregion

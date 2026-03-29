@@ -69,6 +69,7 @@ protected:
     bool isBurnt;
     bool isTaunt;
     bool isStun;
+    bool isDead = false;
 
 public:
     virtual ~Entity() = default;
@@ -117,6 +118,7 @@ public:
     bool getIsBurnt() const;
     bool getIsTaunt() const;
     bool getIsStun() const;
+    bool getIsDead() const;
 
 #pragma endregion
 
@@ -143,6 +145,7 @@ public:
     void setIsBurnt(bool newIsBurnt);
     void setIsTaunt(bool newIsTaunt);
     void setIsStun(bool newIsStun);
+    void setIsDead(bool newIsDead);
 
 #pragma endregion
 

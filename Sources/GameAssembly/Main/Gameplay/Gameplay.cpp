@@ -21,22 +21,15 @@ Gameplay::Gameplay() {
     activeCharacters.push_back(std::make_shared<Marcus>());
 
 
-
-    for (auto& character : activeCharacters) {
-        if (character) {
-            entityGameVector.push_back(character);
-        }
-    }
-
     ///////////////////////////////////////////////////
-
     StartRun();
 }
 
 void Gameplay::StartRun() {
-    if (isInFight)
+    isRunning = true;
+    while (isRunning)
     {
-        StartFight();
+        Gameloop();
     }
     //// Start the run and start all passif
     //// Chek if Diane is active
@@ -44,24 +37,21 @@ void Gameplay::StartRun() {
 
 
 void Gameplay::EndRun() {
+    isRunning = false;
     ///// End the run (lose), reset and disable passif and give reward
     ///Apply XP
 }
 
-void Gameplay::UpdateTurn()
-{
-    while (isRunning)
-    {
-        for (auto& entity : entityGameVector)
-        {
-            entity->entityTurn(activeCharacters, enemyManager->getEnemies());
-        }
-    }
-}
 
 void Gameplay::StartFight() {
 
     isInFight = true;
+
+    for (auto& character : activeCharacters) {
+        if (character) {
+            turnOrderVector.push_back(character);
+        }
+    }
 
     /// Add all Enemy in fight to the EnemyVector
     /// create predeterminated ennemy, push in vector and rearrange order via speed
@@ -71,18 +61,60 @@ void Gameplay::StartFight() {
 
     for (auto& ennemi : enemyManager->getEnemies()) {
         if (ennemi) {
-            entityGameVector.push_back(ennemi);
+            turnOrderVector.push_back(ennemi);
         }
     }
-    sort (entityGameVector.begin(), entityGameVector.end());
+
     UpdateTurn();
 
     /// Check if Emilie is there
 }
 
 void Gameplay::EndFight() {
+    turnOrderVector.clear();
+
+    for (auto& character : activeCharacters)
+    {
+        if (character)
+            turnOrderVector.push_back(character);
+    }
     enemyManager->clearEnemies();
     isInFight = false;
     /// Emilie
     /// Clean du vector enemy
+}
+
+void Gameplay::UpdateTurn()
+{
+    while (isInFight)
+    {
+        for (auto& entity : turnOrderVector)
+        {
+            if (!entity || entity->getIsDead())
+                continue;
+
+            entity->entityTurn(activeCharacters, enemyManager->getEnemies());
+        }
+
+        bool allPlayersDead = std::all_of( activeCharacters.begin(),activeCharacters.end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead();});
+        bool allEnemiesDead = std::all_of(enemyManager->getEnemies().begin(),enemyManager->getEnemies().end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead(); });
+
+        if (allPlayersDead)
+        {
+            isInFight = false;
+            isRunning = false;
+        }
+
+        if (allEnemiesDead)
+        {
+            isInFight = false;
+        }
+
+    }
+}
+
+void Gameplay::Gameloop()
+{
+    StartFight();
+    EndFight();
 }
