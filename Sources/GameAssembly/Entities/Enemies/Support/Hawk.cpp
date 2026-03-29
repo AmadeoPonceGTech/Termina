@@ -94,8 +94,16 @@ bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
             if (!enemy1) return false;
 
-            std::uniform_int_distribution<int> distChoice(1, 3);
-            int choice = distChoice(rng);
+            std::vector<int> availableChoices;
+
+            if (firstAbilityUp)  availableChoices.push_back(1);
+            if (secondAbilityUp) availableChoices.push_back(2);
+            if (fourthAbilityUp) availableChoices.push_back(3);
+
+            if (availableChoices.empty()) return false;
+
+            std::uniform_int_distribution<int> distChoice(0, availableChoices.size() - 1);
+            int choice = availableChoices[distChoice(rng)];
 
             switch (choice)
             {
@@ -104,7 +112,7 @@ bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
                 thirdAbility(*enemy1);
                 break;
             case 2:
-                secondAbility(*enemy1); //target de enemy random
+                secondAbility(*enemy1);
                 thirdAbility(*enemy1);
                 break;
             case 3:

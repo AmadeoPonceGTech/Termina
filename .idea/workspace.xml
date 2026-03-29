@@ -29,12 +29,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added Mermaid">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Eel.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Eel.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added Eel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Rat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Rat.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Skeleton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Skeleton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Wolf.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Close DPS/Wolf.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Range DPS/AdeptOfTheChaos.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Range DPS/AdeptOfTheChaos.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Ghost.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Ghost.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Hawk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Hawk.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Kelpie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Kelpie.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Mermaid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Support/Mermaid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Bear.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Bear.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/DarkKnight.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/DarkKnight.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Dunkleosteus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Tank/Dunkleosteus.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +157,7 @@
       <workItem from="1773912226663" duration="476000" />
       <workItem from="1773992385118" duration="847000" />
       <workItem from="1774288965862" duration="10000" />
-      <workItem from="1774816683017" duration="6601000" />
+      <workItem from="1774816683017" duration="7092000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -329,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774821842940</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added Eel">
+      <option name="closed" value="true" />
+      <created>1774823349371</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1774823349371</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,6 +394,7 @@
     <MESSAGE value="added Kelpie" />
     <MESSAGE value="added Dunkleosteus" />
     <MESSAGE value="added Mermaid" />
-    <option name="LAST_COMMIT_MESSAGE" value="added Mermaid" />
+    <MESSAGE value="added Eel" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Eel" />
   </component>
 </project>

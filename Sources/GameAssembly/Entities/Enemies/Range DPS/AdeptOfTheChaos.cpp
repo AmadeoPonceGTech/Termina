@@ -86,8 +86,17 @@ bool AdeptOfTheChaos::entityTurn(std::vector<std::shared_ptr<Entity>> characters
             Character* target = dynamic_cast<Character*>(characters[distTarget(rng)].get());
             if (!target) return false;
 
-            std::uniform_int_distribution<int> distChoice(1, 4);
-            int choice = distChoice(rng);
+            std::vector<int> availableAbilities;
+
+            if (firstAbilityUp)  availableAbilities.push_back(1);
+            if (secondAbilityUp) availableAbilities.push_back(2);
+            if (thirdAbilityUp)  availableAbilities.push_back(3);
+            if (fourthAbilityUp) availableAbilities.push_back(4);
+
+            if (availableAbilities.empty()) return false;
+
+            std::uniform_int_distribution<int> distChoice(0, availableAbilities.size() - 1);
+            int choice = availableAbilities[distChoice(rng)];
 
             switch (choice)
             {
