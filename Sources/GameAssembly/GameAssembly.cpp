@@ -24,6 +24,7 @@
 #include "Entities/Enemies/Close DPS/Skeleton.h"
 #include "Entities/Enemies/Support/Kelpie.h"
 #include "Entities/Enemies/Tank/Dunkleosteus.h"
+#include "Entities/Enemies/Support/Mermaid.h"
 
 COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(FlyCamComponent, "Fly Cam Component")
@@ -51,6 +52,7 @@ COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(Skeleton, "Skeleton")
     REGISTER_COMPONENT(Kelpie, "Kelpie")
     REGISTER_COMPONENT(Dunkleosteus, "Dunkleosteus")
+    REGISTER_COMPONENT(Mermaid, "Mermaid")
 
 
 COMPONENT_MODULE_END()
