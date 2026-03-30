@@ -11,7 +11,8 @@ enum class EClass {
     CLOSEDDPS,
     RANGEDDPS,
     TANK,
-    SUPPORT
+    SUPPORT,
+    BOSS
 };
 
 class Entity

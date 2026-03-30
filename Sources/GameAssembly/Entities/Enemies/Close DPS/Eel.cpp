@@ -136,7 +136,7 @@ void Eel::dropArtefacts() {
 }
 
 void Eel::firstAbility(Character& target) {
-    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     static std::random_device rd;
@@ -169,7 +169,7 @@ void Eel::thirdAbility() {
 
 void Eel::fourthAbility(Character& target) {
     float multiplier = (target.getCurrentHealth() < target.getMaxHealth() * 0.5f) ? 2.5f : 1.5f;
-    float dmgDealt = currentAttackDamage * multiplier * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * multiplier * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
     CD4 = 6;
 }

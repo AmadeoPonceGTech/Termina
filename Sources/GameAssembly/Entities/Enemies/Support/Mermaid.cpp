@@ -143,12 +143,12 @@ void Mermaid::dropArtefacts() {
 }
 
 void Mermaid::firstAbility(Character& target) {
-    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 }
 
 void Mermaid::secondAbility(Character& target, std::vector<std::shared_ptr<Entity>> enemies) {
-    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     static std::random_device rd;

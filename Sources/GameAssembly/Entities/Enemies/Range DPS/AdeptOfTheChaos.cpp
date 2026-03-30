@@ -143,12 +143,12 @@ void AdeptOfTheChaos::dropArtefacts() {
 }
 
 void AdeptOfTheChaos::firstAbility(Character& target) {
-    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
 }
 
 void AdeptOfTheChaos::secondAbility(Character& target) {
-    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityTwo));
 
     CD2 = 3;
@@ -164,7 +164,7 @@ void AdeptOfTheChaos::thirdAbility() {
 void AdeptOfTheChaos::fourthAbility(const std::vector<Character*>& targets) {
     for (auto& target : targets)
     {
-        float dmgDealt = currentAttackDamage * (1.0f - target->getCurrentArmor() / 100.0f);
+        float dmgDealt = currentAttackPower * (1.0f - target->getCurrentPowerResist() / 100.0f);
         target->setCurrentHealth(std::max(0.0f, target->getCurrentHealth() - dmgDealt * powerAbilityFour));
     }
 

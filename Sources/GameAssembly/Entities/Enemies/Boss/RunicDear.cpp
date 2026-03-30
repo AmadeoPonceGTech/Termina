@@ -1,35 +1,35 @@
-#include "Ghost.h"
+#include "RunicDear.h"
 #include "../../Characters/Character.h"
 
-Ghost::Ghost(int floor) {
-    name = "Ghost";
-    entityClass = EClass::SUPPORT;
-    description = "A spirit of a dead that comes to scare the mortals.";
-    biome = Biome::GRAVEYARD;
+RunicDear::RunicDear(int floor) {
+    name = "RunicDear";
+    entityClass = EClass::BOSS;
+    description = "RunicDear's description.";
+    biome = Biome::FOREST;
 
     level = floor;
     landing = floor / 5;
 
-    finalArmor = 30.0f;
-    finalPR = 40.0f;
+    finalArmor = 40.0f;
+    finalPR = 30.0f;
 
-    baseHealth = 25.0f;
+    baseHealth = 100.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 0.0f;
+    baseAttackDamage = 30.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 20.0f;
+    baseAttackPower = 15.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.1f;
+    baseArmor = 0.3f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 0.5f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -47,24 +47,25 @@ Ghost::Ghost(int floor) {
     isStun = false;
 }
 
-void Ghost::Start() {}
+void RunicDear::Start() {}
 
-void Ghost::Update(float deltaTime) {}
+void RunicDear::Update(float deltaTime) {}
 
-void Ghost::startTurn() {
+void RunicDear::startTurn() {
     firstAbilityUp = true;
     if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
+    thirdAbilityUp = true;
     if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
-void Ghost::endTurn() {
+void RunicDear::endTurn() {
     if (CD2 > 0) { CD2--; }
     if (CD4 > 0) { CD4--; }
 
     manageStatusEffect();
 }
 
-bool Ghost::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
+bool RunicDear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (enemyState)
     {
@@ -104,8 +105,16 @@ bool Ghost::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 secondAbility(*target);
                 break;
             case 3:
-                    fourthAbility(*target);
+                {
+                    std::vector<Character*> targets;
+                    for (auto& c : characters)
+                    {
+                        Character* t = dynamic_cast<Character*>(c.get());
+                        if (t) targets.push_back(t);
+                    }
+                    fourthAbility(targets);
                     break;
+                }
             default:
                 break;
             }
@@ -123,16 +132,11 @@ bool Ghost::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
     return false;
 }
 
-void Ghost::dropArtefacts() {
+void RunicDear::dropArtefacts() {
 
 }
 
-void Ghost::firstAbility(Character& target) {
-    float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
-    target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
-}
-
-void Ghost::secondAbility(Character& target) {
+void RunicDear::firstAbility(Character& target) {
     static std::random_device rd;
     static std::mt19937 rng(rd());
     std::uniform_int_distribution<int> chance(1, 100);
@@ -160,39 +164,39 @@ void Ghost::secondAbility(Character& target) {
         }
     }
 
+    float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+
+    if (target.getIsPoisoned()) { thirdAbility(target); }
+}
+
+void RunicDear::secondAbility(Character& target) {
+    target.setIsPoisoned(true);
+
     CD2 = 3;
 }
 
-void Ghost::fourthAbility(Character& target) {
-    for (int i = 0; i < 2; ++i)
-    {
-        static std::random_device rd;
-        static std::mt19937 rng(rd());
-        std::uniform_int_distribution<int> chance(1, 100);
-        std::uniform_int_distribution<int> dist(1, 5);
+void RunicDear::thirdAbility(Character& target) {
+    float cd = target.getPoisonCD();
+    float percent = 0;
+    if (cd == 5) { percent = 15.0f; }
+    if (cd == 4) { percent = 12.0f; }
+    if (cd == 3) { percent = 8.0f; }
+    if (cd == 2) { percent = 5.0f; }
+    if (cd == 1) { percent = 3.0f; }
+    float dmgDealt = target.getMaxHealth() * percent / 100.0f;
+    target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
+}
 
-        if (chance(rng) <= 10)
-        {
-            int choice = dist(rng);
-            float debuff = 5.0f;
+void RunicDear::fourthAbility(const std::vector<Character*>& targets) {
+    for (Character* target : targets) {
+        if (!target) continue;
+        target->setIsPoisoned(true);
+        float dmgDealt = currentAttackDamage * (1.0f - target->getCurrentArmor() / 100.0f);
+        target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
-            if (choice == 1) {
-                target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - debuff));
-            }
-            else if (choice == 2) {
-                target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - debuff));
-            }
-            else if (choice == 3) {
-                target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - debuff));
-            }
-            else if (choice == 4) {
-                target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - debuff));
-            }
-            else if (choice == 5) {
-                target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() + debuff));
-            }
-        }
+        if (target->getIsPoisoned()) { thirdAbility(*target); }
     }
 
-    CD4 = 7;
+    CD4 = 5;
 }
