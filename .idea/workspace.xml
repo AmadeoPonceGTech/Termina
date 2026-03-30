@@ -29,18 +29,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added tail artefact">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added toe bone artefact">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -394,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774864733972</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="added toe bone artefact">
+      <option name="closed" value="true" />
+      <created>1774865204580</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1774865204580</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,7 +424,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed from merge" />
     <MESSAGE value="Continuing Edward + added set and get for CD of statement" />
     <MESSAGE value="added manageStatueEffect" />
     <MESSAGE value="added xpmanagement in end run function in character finished and fixed every character" />
@@ -449,7 +448,8 @@
     <MESSAGE value="added bear's foot and knight's badge artefatcs" />
     <MESSAGE value="added eel's eye artefact" />
     <MESSAGE value="added tail artefact" />
-    <option name="LAST_COMMIT_MESSAGE" value="added tail artefact" />
+    <MESSAGE value="added toe bone artefact" />
+    <option name="LAST_COMMIT_MESSAGE" value="added toe bone artefact" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
