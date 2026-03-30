@@ -11,3 +11,6 @@ void SmokeBomb::ActingArtefact(Entity& target) {
 
 void SmokeBomb::onInflictedDamage(Entity& target) {
 }
+
+void SmokeBomb::ActingArtefactEveryTurns(Entity& target) {
+}

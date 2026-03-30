@@ -11,3 +11,6 @@ void KnightSBadge::ActingArtefact(Entity& target) {
 
 void KnightSBadge::onInflictedDamage(Entity& target) {
 }
+
+void KnightSBadge::ActingArtefactEveryTurns(Entity& target) {
+}

@@ -39,13 +39,16 @@ Alex::Alex()
     //-----------exemple aec smokebomb à la mano--------- (mais à faire dans le gamestate à terme)----
     auto artefact = std::make_shared<SmokeBomb>();
     this->setArtefact(artefact);
+    //-------------------------------------------------------------------------
 }
 
 void Alex::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    //---------mettre à chaque fois que tu tapes----------------------
     artefact->onInflictedDamage(*this);
+    //----------------------------------------------------------------
 
     if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
 
@@ -261,6 +264,9 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
         case PlayerState::EndTurn : {
             endTurn();
+            //-------------------------à ajouter aussi ici partout-------------
+            artefact->ActingArtefactEveryTurns(*this);
+            //-----------------------------------------------------------------
             currentState = PlayerState::StartTurn;
             return true;
         }

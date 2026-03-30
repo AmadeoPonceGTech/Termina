@@ -1,10 +1,10 @@
 #pragma once
 #include "../Artefact.h"
 
-class SmokeBomb : public Artefact
+class Tail : public Artefact
 {
 public:
-    SmokeBomb();
+    Tail();
 
     void ActingArtefact(Entity& target) override;
     void onInflictedDamage(Entity& target) override;

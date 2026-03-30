@@ -20,6 +20,7 @@ public:
 
     virtual void ActingArtefact(Entity& target) = 0;
     virtual void onInflictedDamage(Entity& target) = 0;
+    virtual void ActingArtefactEveryTurns(Entity& target) = 0;
 
 #pragma region Getters
 

@@ -11,3 +11,6 @@ void EelSEye::ActingArtefact(Entity& target) {
 
 void EelSEye::onInflictedDamage(Entity& target) {
 }
+
+void EelSEye::ActingArtefactEveryTurns(Entity& target) {
+}
