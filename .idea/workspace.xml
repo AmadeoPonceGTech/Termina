@@ -29,13 +29,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added malicious eye artefact">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added bear's salmon and cursed shield artefact">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Legendary/ChaosScepter.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Legendary/ChaosScepter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -413,7 +413,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774865832407</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="added bear's salmon and cursed shield artefact">
+      <option name="closed" value="true" />
+      <created>1774866489172</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1774866489172</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,7 +451,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added xpmanagement in end run function in character finished and fixed every character" />
     <MESSAGE value="remove if for cleans to marcus" />
     <MESSAGE value="added penelope and claire need to finish claire" />
     <MESSAGE value="finish claire 1st ability" />
@@ -468,7 +475,8 @@
     <MESSAGE value="added toe bone artefact" />
     <MESSAGE value="added wolf fur artefact" />
     <MESSAGE value="added malicious eye artefact" />
-    <option name="LAST_COMMIT_MESSAGE" value="added malicious eye artefact" />
+    <MESSAGE value="added bear's salmon and cursed shield artefact" />
+    <option name="LAST_COMMIT_MESSAGE" value="added bear's salmon and cursed shield artefact" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
