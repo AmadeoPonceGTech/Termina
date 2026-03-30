@@ -33,8 +33,6 @@ protected :
 
     int abilitySelected;
 
-    bool artefactAlreadyUsed;
-
 public:
     Character();
 

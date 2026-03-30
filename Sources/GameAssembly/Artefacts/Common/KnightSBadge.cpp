@@ -2,7 +2,7 @@
 
 KnightSBadge::KnightSBadge() {
     name = "Knight’s badge";
-    description = "Improve generated shield by 5%";
+    description = "Improve generated shield by 5% / artefact's level.";
 }
 
 void KnightSBadge::ActingArtefact(Entity& target) {

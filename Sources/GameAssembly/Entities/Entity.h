@@ -87,6 +87,7 @@ public:
     void resetStats();
 
     int ressourcesWon = 1;
+    bool artefactAlreadyUsed;
 
 #pragma region Getters
 

@@ -79,6 +79,7 @@ void Entity::resetStats() {
     currentArmor = maxArmor;
     currentPowerResist = maxPowerResist;
     currentSpeed = baseSpeed;
+    artefactAlreadyUsed = false;
 }
 
 #pragma region Getters

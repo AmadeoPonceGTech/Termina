@@ -2,7 +2,7 @@
 
 BearSFoot::BearSFoot() {
     name = "Bear's Foot";
-    description = "Heal 2% health of every damage dealt.";
+    description = "Heal 2% / artefact's level health of every damage dealt.";
 }
 
 void BearSFoot::ActingArtefact(Entity& target) {

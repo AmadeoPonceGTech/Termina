@@ -2,7 +2,7 @@
 
 SmokeBomb::SmokeBomb() {
     name = "Smoke Bomb";
-    description = "Improve speed by 2%";
+    description = "Improve speed by 2% / artefact's level.";
 }
 
 void SmokeBomb::ActingArtefact(Entity& target) {
