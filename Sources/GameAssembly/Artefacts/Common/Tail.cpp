@@ -13,5 +13,5 @@ void Tail::onInflictedDamage(Entity& target) {
 }
 
 void Tail::ActingArtefactEveryTurns(Entity& target) {
-    target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * level / 100.0f);
+    target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * (1.0f * level) / 100.0f);
 }

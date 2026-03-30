@@ -1,0 +1,17 @@
+#include "BearSSalmon.h"
+
+BearSSalmon::BearSSalmon() {
+    name = "Bear's salmon";
+    description = "Heal 3% / artefact's level of max HP every turn.";
+    quality = Quality::EPIC;
+}
+
+void BearSSalmon::ActingArtefact(Entity& target) {
+}
+
+void BearSSalmon::onInflictedDamage(Entity& target) {
+}
+
+void BearSSalmon::ActingArtefactEveryTurns(Entity& target) {
+    target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * (3.0f * level) / 100.0f);
+}
