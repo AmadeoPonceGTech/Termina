@@ -6,7 +6,7 @@ RattataSkull::RattataSkull() {
     droppedBy = "Rat";
     quality = Quality::EPIC;
 }
-+
+
 void RattataSkull::ActingArtefact(Entity& target) {
     target.resourcesWon = target.resourcesWon + 2 * level;
 }

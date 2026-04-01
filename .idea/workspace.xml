@@ -29,13 +29,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="hot fix gargoyle">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added rattata skull artefact">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +144,7 @@
       <workItem from="1773992385118" duration="847000" />
       <workItem from="1774288965862" duration="10000" />
       <workItem from="1774816683017" duration="7092000" />
-      <workItem from="1775026299111" duration="9457000" />
+      <workItem from="1775026299111" duration="10027000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -486,7 +482,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775034222341</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="added rattata skull artefact">
+      <option name="closed" value="true" />
+      <created>1775035913297</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1775035913297</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added Ghost" />
     <MESSAGE value="added dark knight" />
     <MESSAGE value="added skeleton" />
     <MESSAGE value="added Kelpie" />
@@ -541,7 +544,8 @@
     <MESSAGE value="added gargoyle" />
     <MESSAGE value="added whale" />
     <MESSAGE value="hot fix gargoyle" />
-    <option name="LAST_COMMIT_MESSAGE" value="hot fix gargoyle" />
+    <MESSAGE value="added rattata skull artefact" />
+    <option name="LAST_COMMIT_MESSAGE" value="added rattata skull artefact" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
