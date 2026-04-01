@@ -8,7 +8,7 @@ EelSEye::EelSEye() {
 }
 
 void EelSEye::ActingArtefact(Entity& target) {
-    target.ressourcesWon = target.ressourcesWon + level;
+    target.resourcesWon = target.resourcesWon + level;
 }
 
 void EelSEye::onInflictedDamage(Entity& target) {
