@@ -29,13 +29,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added bear's salmon and cursed shield artefact">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Legendary/ChaosScepter.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Legendary/ChaosScepter.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="fix">
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_08_14_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_08_14__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_16_51_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_16_51__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_23_03_2026_16_52_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_23_03_2026_16_52__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,12 +67,12 @@
     &quot;assignee&quot;: &quot;0ri0546&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-&quot;,
-    &quot;accountId&quot;: &quot;800f4601-9186-4cbc-a5a4-189d20bf4342&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-",
+    "accountId": "ff272a15-d4e0-4649-be0d-234e6e11a02f"
   }
-}</component>
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="loG5Zv0R" />
   </component>
@@ -148,6 +152,7 @@
       <workItem from="1773992385118" duration="847000" />
       <workItem from="1774288965862" duration="10000" />
       <workItem from="1774816683017" duration="7092000" />
+      <workItem from="1775026299111" duration="1843000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -421,7 +426,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774866489172</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fix">
+      <option name="closed" value="true" />
+      <created>1774867880328</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1774867880328</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,7 +470,6 @@
     <MESSAGE value="Finished Character" />
     <MESSAGE value="Added turn system inside entity almost finish Alex" />
     <MESSAGE value="fix and added adept of the chaos" />
-    <MESSAGE value="fix" />
     <MESSAGE value="added Ghost" />
     <MESSAGE value="added dark knight" />
     <MESSAGE value="added skeleton" />
@@ -476,7 +488,8 @@
     <MESSAGE value="added wolf fur artefact" />
     <MESSAGE value="added malicious eye artefact" />
     <MESSAGE value="added bear's salmon and cursed shield artefact" />
-    <option name="LAST_COMMIT_MESSAGE" value="added bear's salmon and cursed shield artefact" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
