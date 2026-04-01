@@ -1,11 +1,20 @@
 #include "Game.h"
 
-
 #include <iostream>
 #include <ostream>
 
 #include "../Termina/Renderer/Components/CameraComponent.hpp"
 #include "../Termina/Renderer/Components/MeshComponent.hpp"
+
+#include "Entities/Characters/Close DPS/Alex.h"
+#include "Entities/Characters/Close DPS/Penelope.h"
+#include "Entities/Characters/Tank/Diane.h"
+#include "Entities/Characters/Tank/Emilie.h"
+#include "Entities/Characters/Support/Marcus.h"
+#include "Entities/Characters/Support/Claire.h"
+#include "Entities/Characters/Range DPS/Brutus.h"
+#include "Entities/Characters/Range DPS/Edward.h"
+
 
 void Game::Start()
 {
@@ -81,7 +90,7 @@ void Game::Update(float deltaTime)
                 ImGui::Text("XP : %.1f       XPNeeded : %.1f       %.2f %%", character->getCurrentXP(), character->getXPNeeded(), character->getCurrentXP() * 100 / character->getXPNeeded());
                 ImGui::Dummy(ImVec2(0,10));
 
-                ImGui::Text("Class : %s", character->getClass().c_str());
+                ImGui::Text("Class : %s", character->getStringClass().c_str());
                 ImGui::Dummy(ImVec2(0,20));
                 ImGui::Text("Description : %s", character->getDescriptions().c_str());
                 ImGui::Dummy(ImVec2(0,20));
@@ -105,7 +114,7 @@ void Game::Update(float deltaTime)
                 ImGui::Text("Speed : %.1f", character->getCurrentSpeed());
                 ImGui::Dummy(ImVec2(0,20));
 
-                ImGui::BeginDisabled(gameplay->IsInTeam(character));
+                ImGui::BeginDisabled(gameplay->IsInTeam(character) or gameplay->TeamIsComplete());
                 if (ImGui::Button("Select")) {
                     gameplay->AddToTeam(character);
                 }

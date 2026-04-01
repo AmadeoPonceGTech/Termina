@@ -34,7 +34,7 @@ Alex::Alex()
     currentPowerResist = basePowerResist;
 
     currentSpeed = 90;
-    currentSpeed = baseSpeed;
+    baseSpeed = currentSpeed;
 
     isParring = false;
     //-----------exemple aec smokebomb à la mano--------- (mais à faire dans le gamestate à terme)----

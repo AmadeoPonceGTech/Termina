@@ -93,7 +93,7 @@ public:
 #pragma region Getters
 
     std::string getName() const;
-    std::string getClass() const;
+    std::string getStringClass() const;
     std::string getDescriptions() const;
 
     int getLevel() const;

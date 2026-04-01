@@ -1,9 +1,12 @@
 #include "../Gameplay/Gameplay.h"
 
+#include "../../Entities/Characters/Tank/Diane.h"
+
 Gameplay::Gameplay() {
     if (!enemyManager) {
         enemyManager = std::make_shared<EnemyManager>();
     }
+    currentBiome = EBiome::FOREST;
 }
 
 void Gameplay::StartRun() {
@@ -19,81 +22,72 @@ void Gameplay::StartRun() {
     }
 }
 
-
-void Gameplay::EndRun() {
-    isRunning = false;
-    ///// End the run (lose), reset and disable passif and give reward
-    ///Apply XP
-}
-
-
 void Gameplay::StartFight() {
+    switch (currentBiome) {
+        case EBiome::FOREST :
 
-    isInFight = true;
+            break;
 
-    for (auto& character : activeCharacters) {
-        if (character) {
-            turnOrderVector.push_back(character);
-        }
+        case EBiome::OCEAN :
+
+            break;
+
+        case EBiome::GRAVEYARD :
+
+            break;
+
+        default:
+            break;
     }
-
-    /// Add all Enemy in fight to the EnemyVector
-    /// create predeterminated ennemy, push in vector and rearrange order via speed
-    enemyManager->createEnemy<Rat>(1);
-    enemyManager->createEnemy<Wolf>(1);
-    enemyManager->createEnemy<Wolf>(1);
-
-    for (auto& ennemi : enemyManager->getEnemies()) {
-        if (ennemi) {
-            turnOrderVector.push_back(ennemi);
-        }
-    }
-
-    UpdateTurn();
-    /// Check if Emilie is there
-}
-
-void Gameplay::EndFight() {
-    turnOrderVector.clear();
-
-    for (auto& character : activeCharacters)
-    {
-        if (character)
-            turnOrderVector.push_back(character);
-    }
-    enemyManager->clearEnemies();
-    isInFight = false;
-    /// Emilie
-    /// Clean du vector enemy
 }
 
 void Gameplay::UpdateTurn()
 {
-    while (isInFight)
-    {
-        for (auto& entity : turnOrderVector)
-        {
-            if (!entity || entity->getIsDead())
-                continue;
+    // while (isInFight)
+    // {
+    //     for (auto& entity : turnOrderVector)
+    //     {
+    //         if (!entity || entity->getIsDead())
+    //             continue;
+    //
+    //         entity->entityTurn(activeCharacters, enemyManager->getEnemies());
+    //     }
+    //
+    //     bool allPlayersDead = std::all_of( activeCharacters.begin(),activeCharacters.end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead();});
+    //     bool allEnemiesDead = std::all_of(enemyManager->getEnemies().begin(),enemyManager->getEnemies().end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead(); });
+    //
+    //     if (allPlayersDead)
+    //     {
+    //         isInFight = false;
+    //         isRunning = false;
+    //     }
+    //
+    //     if (allEnemiesDead)
+    //     {
+    //         isInFight = false;
+    //     }
+    //
+    // }
+}
 
-            entity->entityTurn(activeCharacters, enemyManager->getEnemies());
-        }
+void Gameplay::EndFight() {
+    // turnOrderVector.clear();
+    //
+    // for (auto& character : activeCharacters)
+    // {
+    //     if (character)
+    //         turnOrderVector.push_back(character);
+    // }
+    // enemyManager->clearEnemies();
+    // isInFight = false;
+    /// Emilie
+    /// Clean du vector enemy
+}
 
-        bool allPlayersDead = std::all_of( activeCharacters.begin(),activeCharacters.end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead();});
-        bool allEnemiesDead = std::all_of(enemyManager->getEnemies().begin(),enemyManager->getEnemies().end(),[](const std::shared_ptr<Entity>& e){return !e || e->getIsDead(); });
-
-        if (allPlayersDead)
-        {
-            isInFight = false;
-            isRunning = false;
-        }
-
-        if (allEnemiesDead)
-        {
-            isInFight = false;
-        }
-
-    }
+void Gameplay::EndRun() {
+    //isRunning = false;
+    ///// End the run (lose), reset and disable passif and give reward
+    ///Apply XP
 }
 
 void Gameplay::Gameloop()
@@ -118,10 +112,6 @@ void Gameplay::Gameloop()
             EndRun();
             break;
     }
-}
-
-std::vector<std::string> Gameplay::getTempCharacterVec() {
-    return tempCharacterVec;
 }
 
 bool Gameplay::HasSameType(const Entity& entity) const

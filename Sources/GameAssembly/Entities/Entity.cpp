@@ -85,7 +85,7 @@ void Entity::resetStats() {
 #pragma region Getters
 
 std::string Entity::getName() const { return name; }
-std::string Entity::getClass() const {
+std::string Entity::getStringClass() const {
     switch (entityClass) {
         case EClass::ASSASSIN :
             return "Assassin";
