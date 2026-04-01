@@ -3,6 +3,7 @@
 BearSFoot::BearSFoot() {
     name = "Bear's Foot";
     description = "Heal 2% / artefact's level health of every damage dealt.";
+    droppedBy = "Bear";
     quality = Quality::COMMON;
 }
 

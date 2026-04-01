@@ -20,6 +20,7 @@ class Artefact
 protected:
     std::string name;
     std::string description;
+    std::string droppedBy;
     int level = 1;
 
 public:
@@ -35,6 +36,7 @@ public:
 
     virtual std::string getName();
     virtual std::string getDescription();
+    virtual std::string getDroppedBy();
 
 #pragma endregion
 
