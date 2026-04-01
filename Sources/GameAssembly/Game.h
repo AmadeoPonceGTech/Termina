@@ -37,4 +37,6 @@ private :
     std::vector<std::shared_ptr<Character>> allCharacters;
     int selectedCharacter = -1;
     bool showCharacterPanel = true;
+
+    bool runStarted = false;
 };

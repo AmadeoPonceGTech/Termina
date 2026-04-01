@@ -254,11 +254,10 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     return false;
 }
 
-void Emilie::startFight(std::shared_ptr<Enemy> target, std::shared_ptr<Enemy> &target2, std::shared_ptr<Enemy> &target3, std::shared_ptr<Enemy> &target4) {
-    currentEnemies.push_back(target);
-    currentEnemies.push_back(target2);
-    currentEnemies.push_back(target3);
-    currentEnemies.push_back(target4);
+void Emilie::startFight(std::vector<std::shared_ptr<Entity>>& enemies) {
+    for (auto& enemy : enemies) {
+        currentEnemies.push_back(std::dynamic_pointer_cast<Enemy>(enemy));
+    }
 }
 
 void Emilie::endFight() {

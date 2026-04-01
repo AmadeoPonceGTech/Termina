@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "../../Entities/Characters/Tank/Diane.h"
+#include "../../Entities/Characters/Tank/Emilie.h"
 
 #include "../../Entities/Enemies/Boss/RedDragon.h"
 #include "../../Entities/Enemies/Boss/RunicDear.h"
@@ -27,16 +28,16 @@ Gameplay::Gameplay() {
 }
 
 void Gameplay::StartRun() {
-    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),
-        [](const std::shared_ptr<Entity>& e)
-        {
-            return dynamic_cast<Diane*>(e.get()) != nullptr;
+
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Diane>(e) != nullptr;
         });
 
     if (it != activeCharacters.end()) {
         std::shared_ptr<Diane> diane = std::dynamic_pointer_cast<Diane>(*it);
         diane->startRun(activeCharacters);
     }
+
     for (auto chara: activeCharacters) {
         speedManagerVec.push_back(chara);
     }
@@ -140,12 +141,25 @@ void Gameplay::StartFight() {
     }
 
     for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy); }
+
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
+        });
+
+    if (it != activeCharacters.end()) {
+        std::shared_ptr<Emilie> emilie = std::dynamic_pointer_cast<Emilie>(*it);
+        emilie->startFight(enemyManager->getEnemies());
+    }
 }
 
 void Gameplay::UpdateFight() {
     std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
-    for (auto& entity : speedManagerVec) {
-        while (!entity->entityTurn(activeCharacters, enemyManager->getEnemies())) {};
+    for (auto it = speedManagerVec.begin(); it != speedManagerVec.end(); ) {
+        auto entity = *it;
+        std::cout << entity->getName() << std::endl;
+        if (entity->entityTurn(activeCharacters, enemyManager->getEnemies())) {
+            it++;
+        };
         std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
     }
     std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
@@ -167,11 +181,32 @@ void Gameplay::UpdateFight() {
 
 void Gameplay::EndFight() {
     enemyManager->clearEnemies();
+
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
+        });
+
+    if (it != activeCharacters.end()) {
+        std::shared_ptr<Emilie> emilie = std::dynamic_pointer_cast<Emilie>(*it);
+        emilie->endFight();
+    }
+
     currentLevel++;
+
     if (currentLevel % 10 == 0) {
         spawnBoss = true;
     }
-    /// Emilie
+
+    biomeCount++;
+    if (biomeCount == 10) {
+        static std::mt19937 rng(rd());
+        std::uniform_int_distribution<int> biomeIndex(1, 3);
+
+        int biomeChose = biomeIndex(rng);
+        if (biomeChose == 1) { currentBiome = EBiome::FOREST; }
+        else if (biomeChose == 2) { currentBiome = EBiome::OCEAN; }
+        else if (biomeChose == 3) { currentBiome = EBiome::GRAVEYARD; }
+    }
 }
 
 void Gameplay::EndRun() {
@@ -180,6 +215,7 @@ void Gameplay::EndRun() {
         chara->setArtefact(nullptr);
         chara->endRun();
     }
+    runEnded = true;
 }
 
 void Gameplay::Gameloop()
@@ -187,10 +223,12 @@ void Gameplay::Gameloop()
     switch (runState) {
         case EGameRunState::StartRun :
             StartRun();
+            std::cout << "Run started" << std::endl;
             runState = EGameRunState::StartFight;
             break;
         case EGameRunState::StartFight :
             StartFight();
+            std::cout << "Fight started" << std::endl;
             runState = EGameRunState::UpdateFight;
             break;
         case EGameRunState::UpdateFight :
@@ -267,5 +305,10 @@ bool Gameplay::IsInTeam(const std::shared_ptr<Entity> &entity) {
     }
     return false;
 }
+
+void Gameplay::setRunState(EGameRunState newState) { runState = newState; }
+void Gameplay::setRunEnded(bool gameEnded) { runEnded = gameEnded; }
+
+bool Gameplay::getRunEnded() const { return runEnded; }
 
 

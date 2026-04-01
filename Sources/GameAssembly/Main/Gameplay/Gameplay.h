@@ -35,6 +35,9 @@ private:
 
     int currentLevel = 1;
     int charaDeathCount = 0;
+    int biomeCount = 0;
+
+    bool runEnded = false;
 
 public:
 
@@ -54,6 +57,11 @@ public:
 
     bool TeamIsComplete();
     bool IsInTeam(const std::shared_ptr<Entity>& entity);
+
+    void setRunState(EGameRunState newState);
+    void setRunEnded(bool gameEnded);
+
+    bool getRunEnded() const;
 
 };
 

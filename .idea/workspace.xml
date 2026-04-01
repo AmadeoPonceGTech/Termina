@@ -29,11 +29,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="merge enemies into gameloop to start StartFight implementation in Game">
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="updated emilie passive and almost finished gameloop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/EnemyManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" afterDir="false" />
     </list>
@@ -463,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775029917536</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="updated emilie passive and almost finished gameloop">
+      <option name="closed" value="true" />
+      <created>1775036382098</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1775036382098</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,7 +502,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finished Character" />
     <MESSAGE value="Added turn system inside entity almost finish Alex" />
     <MESSAGE value="fix and added adept of the chaos" />
     <MESSAGE value="added Ghost" />
@@ -518,7 +526,8 @@
     <MESSAGE value="added inventory" />
     <MESSAGE value="added CasperSEncyclopedia artefact" />
     <MESSAGE value="merge enemies into gameloop to start StartFight implementation in Game" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge enemies into gameloop to start StartFight implementation in Game" />
+    <MESSAGE value="updated emilie passive and almost finished gameloop" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated emilie passive and almost finished gameloop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
