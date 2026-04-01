@@ -3,6 +3,7 @@
 MaliciousEye::MaliciousEye() {
     name = "Malicious Eye";
     description = "At the start of every turn, 5% chance / artefact's level to reduce the CD of every abilities by 1.";
+    droppedBy = "Adept of the chaos";
     quality = Quality::EPIC;
 }
 

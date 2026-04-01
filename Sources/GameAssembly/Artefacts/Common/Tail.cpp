@@ -3,6 +3,7 @@
 Tail::Tail() {
     name = "Tail";
     description = "Heal 1% / artefact's level of max HP every turn.";
+    droppedBy = "Rat";
     quality = Quality::COMMON;
 }
 

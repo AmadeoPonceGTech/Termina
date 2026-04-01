@@ -3,6 +3,7 @@
 EelSEye::EelSEye() {
     name = "Eel's eye";
     description = "Increase resources drop (+1 / artefact's level).";
+    droppedBy = "Eel";
     quality = Quality::COMMON;
 }
 
