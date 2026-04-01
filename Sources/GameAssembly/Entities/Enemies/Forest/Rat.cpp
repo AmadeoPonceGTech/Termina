@@ -45,6 +45,8 @@ Rat::Rat(int floor) {
     burnCD = 0;
     tauntCD = 0;
     isStun = false;
+
+    enemyState = EnemyState::STARTTURN; // -------------------------------------------------- à rajouter partout---------------------
 }
 
 void Rat::Start() {}
