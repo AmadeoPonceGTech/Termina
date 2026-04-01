@@ -53,17 +53,28 @@ void Gargoyle::Update(float deltaTime) {}
 
 void Gargoyle::startTurn() {
     firstAbilityUp = true;
-    if (isPoisoned == true) isPoisoned = false;
-    if (isBurnt == true) isBurnt = false;
-    if (isStun == true) isStun = false;
-    if (isTaunt == true) isTaunt = false;
+
+    isPoisoned = false;
+    isBurnt = false;
+    isStun = false;
+    isTaunt = false;
+
+    poisonCD = 0;
+    burnCD = 0;
+    tauntCD = 0;
+    isStun = false;
 }
 
 void Gargoyle::endTurn() {
-    if (isPoisoned == true) isPoisoned = false;
-    if (isBurnt == true) isBurnt = false;
-    if (isStun == true) isStun = false;
-    if (isTaunt == true) isTaunt = false;
+    isPoisoned = false;
+    isBurnt = false;
+    isStun = false;
+    isTaunt = false;
+
+    poisonCD = 0;
+    burnCD = 0;
+    tauntCD = 0;
+    isStun = false;
 }
 
 bool Gargoyle::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
