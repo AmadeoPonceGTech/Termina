@@ -78,7 +78,7 @@ void Game::Update(float deltaTime)
                 ImGui::Dummy(ImVec2(0,10));
                 ImGui::Text("Level : %i", character->getLevel());
                 ImGui::Dummy(ImVec2(0,5));
-                ImGui::Text("XP : %i       XPNeeded : %i       %.1f %%", character->getCurrentXP(), character->getXPNeeded(), character->getCurrentXP() * 100 / character->getXPNeeded());
+                ImGui::Text("XP : %.1f       XPNeeded : %.1f       %.2f %%", character->getCurrentXP(), character->getXPNeeded(), character->getCurrentXP() * 100 / character->getXPNeeded());
                 ImGui::Dummy(ImVec2(0,10));
 
                 ImGui::Text("Class : %s", character->getClass().c_str());

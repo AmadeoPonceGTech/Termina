@@ -29,37 +29,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="Added turn system inside entity almost finish Alex">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_08_14_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_03_2026_08_14__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_23_03_2026_09_59_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_23_03_2026_09_59__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EndlessRogueMap" beforeDir="false" afterPath="$PROJECT_DIR$/EndlessRogueMap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
-    <list id="90069661-74df-4e9b-a069-b6d04a1ceb0a" name="Changes by mprevost" comment="">
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" afterDir="false" />
-    </list>
+    <list id="90069661-74df-4e9b-a069-b6d04a1ceb0a" name="Changes by mprevost" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,48 +64,6 @@
     &quot;accountId&quot;: &quot;7da8ea30-a3fe-4b0d-a288-5ebf7aa1e5ec&quot;
   }
 }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp">
-      <ranges>
-        <range start1="34" end1="34" start2="34" end2="35" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="60" end1="61" start2="61" end2="62" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="62" end1="66" start2="63" end2="72" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="68" end1="69" start2="74" end2="75" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="70" end1="71" start2="76" end2="77" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Sources/GameAssembly/Game.h">
-      <ranges>
-        <range start1="2" end1="2" start2="2" end2="4" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="8" end1="8" start2="10" end2="11" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="13" end1="17" start2="16" end2="21" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="19" end1="20" start2="23" end2="23" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="23" end1="26" start2="26" end2="26" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="31" end1="31" start2="31" end2="39" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h">
-      <ranges>
-        <range start1="4" end1="5" start2="4" end2="4" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="7" end1="7" start2="6" end2="17" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="14" end1="14" start2="24" end2="33" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="17" end1="17" start2="36" end2="37" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="23" end1="23" start2="43" end2="45" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="36" end1="36" start2="58" end2="67" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp">
-      <ranges>
-        <range start1="1" end1="11" start2="1" end2="1" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="16" end1="25" start2="6" end2="6" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="28" end1="32" start2="9" end2="18" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="33" end1="35" start2="19" end2="19" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="68" end1="69" start2="52" end2="52" changelist="1f6597e6-b263-4ce3-a757-0015d1b86ee5" />
-        <range start1="117" end1="119" start2="100" end2="120" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-        <range start1="120" end1="120" start2="121" end2="189" changelist="90069661-74df-4e9b-a069-b6d04a1ceb0a" />
-      </ranges>
-    </file>
-  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="loG5Zv0R" />
   </component>
