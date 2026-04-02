@@ -37,21 +37,16 @@ Alex::Alex()
     baseSpeed = currentSpeed;
 
     isParring = false;
-    //-----------exemple aec smokebomb à la mano--------- (mais à faire dans le gamestate à terme)----
-    auto artefactSmokeBomb = std::make_shared<SmokeBomb>();
-    this->setArtefact(artefactSmokeBomb);
-    //-------------------------------------------------------------------------
 }
 
 void Alex::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
-    //---------mettre à chaque fois que tu tapes----------------------
+
     if (artefact) {
         artefact->onInflictedDamage(*this);
     }
-    //----------------------------------------------------------------
 
     if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
 
@@ -179,12 +174,12 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
-            //-----------------------------à rajouter ici partout plz-------------------
+
             if (artefact && !artefactAlreadyUsed) {
                 artefact->ActingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
-            //--------------------------------------------------------------------------
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -269,11 +264,11 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
         case PlayerState::EndTurn : {
             endTurn();
-            //-------------------------à ajouter aussi ici partout-------------
+
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
-            //-----------------------------------------------------------------
+
             currentState = PlayerState::StartTurn;
             return true;
         }
