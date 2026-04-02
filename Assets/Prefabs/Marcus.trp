@@ -1,0 +1,47 @@
+{
+    "actors": [
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": [
+                            -2.879925012588501,
+                            0.0,
+                            -1.4627933502197266
+                        ],
+                        "rotation": [
+                            1.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "model": "Assets\\Models\\Monk\\scene.gltf"
+                    },
+                    "type": "Mesh Component"
+                },
+                {
+                    "active": true,
+                    "data": {},
+                    "type": "Marcus"
+                }
+            ],
+            "id": "241441702984040190",
+            "name": "Marcus",
+            "parentId": null
+        }
+    ],
+    "version": 1
+}

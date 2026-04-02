@@ -2,6 +2,9 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <unordered_map>
+#include <functional>
+
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
 #include "ImGui/imgui.h"
 #include "ImGui/ImGuizmo.h"
@@ -12,6 +15,10 @@
 #include "Main/Gameplay/Gameplay.h"
 #pragma endregion Gameplayincludes
 
+namespace Termina {
+    class Actor;
+}
+
 using namespace TerminaScript;
 
 enum class EGameState {
@@ -20,6 +27,7 @@ enum class EGameState {
     Run,
     End
 };
+
 
 class Game : public TerminaScript::ScriptableComponent
 {
@@ -35,6 +43,8 @@ private :
     EGameState gameState;
 
     std::vector<std::shared_ptr<Character>> allCharacters;
+    std::unordered_map<std::string, std::function<void(Termina::Actor*)>> componentRegistry;
+
     int selectedCharacter = -1;
     bool showCharacterPanel = true;
 

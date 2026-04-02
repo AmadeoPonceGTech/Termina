@@ -1,0 +1,47 @@
+{
+    "actors": [
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": [
+                            -6.277927398681641,
+                            0.6613051891326904,
+                            0.0
+                        ],
+                        "rotation": [
+                            1.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "model": "Assets\\Models\\Knight_One\\scene.gltf"
+                    },
+                    "type": "Mesh Component"
+                },
+                {
+                    "active": true,
+                    "data": {},
+                    "type": "Alex"
+                }
+            ],
+            "id": "13405879159525273796",
+            "name": "Alex",
+            "parentId": null
+        }
+    ],
+    "version": 1
+}

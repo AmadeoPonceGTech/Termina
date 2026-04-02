@@ -5,6 +5,7 @@
 
 #include "../Termina/Renderer/Components/CameraComponent.hpp"
 #include "../Termina/Renderer/Components/MeshComponent.hpp"
+#include "../Termina/Scripting/API/ScriptableComponent.hpp"
 
 #include "Entities/Characters/Close DPS/Alex.h"
 #include "Entities/Characters/Close DPS/Penelope.h"
@@ -31,6 +32,42 @@ void Game::Start()
     allCharacters.emplace_back(std::make_shared<Edward>());
     allCharacters.emplace_back(std::make_shared<Alex>());
     allCharacters.emplace_back(std::make_shared<Penelope>());
+
+
+#pragma region MapRegistry
+    componentRegistry["Diane"] = [](Termina::Actor* a) {
+        a->AddComponent<Diane>();
+    };
+
+    componentRegistry["Emilie"] = [](Termina::Actor* a) {
+        a->AddComponent<Emilie>();
+    };
+
+    componentRegistry["Claire"] = [](Termina::Actor* a) {
+        a->AddComponent<Claire>();
+    };
+
+    componentRegistry["Marcus"] = [](Termina::Actor* a) {
+        a->AddComponent<Marcus>();
+    };
+
+    componentRegistry["Brutus"] = [](Termina::Actor* a) {
+        a->AddComponent<Brutus>();
+    };
+
+    componentRegistry["Edward"] = [](Termina::Actor* a) {
+        a->AddComponent<Edward>();
+    };
+
+    componentRegistry["Alex"] = [](Termina::Actor* a) {
+        a->AddComponent<Alex>();
+    };
+
+    componentRegistry["Penelope"] = [](Termina::Actor* a) {
+        a->AddComponent<Penelope>();
+    };
+
+#pragma endregion
 
 }
 
@@ -136,15 +173,30 @@ void Game::Update(float deltaTime)
             break;
         }
         case EGameState::Run :
-            if (!runStarted) {
-                gameplay->setRunState(EGameRunState::StartRun);
-                runStarted = true;
-                gameplay->setRunEnded(false);
+            if (gameplay->TeamIsComplete() && !runStarted) {
+                std::vector<Termina::Actor*> gameEntity;
+
+                for (auto& character : gameplay->getActiveCharacters()) {
+                    auto entityActor = TerminaScript::ScriptableComponent::Instantiate();
+                    entityActor->SetName(character->getName().c_str());
+                    auto it = componentRegistry.find(character->getName());
+                    if (it != componentRegistry.end()) {
+                        it->second(entityActor);
+                    }
+                    entityActor->AddComponent<Termina::MeshComponent>();
+                    gameEntity.push_back(entityActor);
+                }
             }
-            gameplay->Gameloop();
-            if (gameplay->getRunEnded()) {
-                gameState = EGameState::Menu;
-            }
+            runStarted = true;
+            // if (!runStarted) {
+            //     gameplay->setRunState(EGameRunState::StartRun);
+            //     runStarted = true;
+            //     gameplay->setRunEnded(false);
+            // }
+            // gameplay->Gameloop();
+            // if (gameplay->getRunEnded()) {
+            //     gameState = EGameState::Menu;
+            // }
             break;
 
         case EGameState::End :

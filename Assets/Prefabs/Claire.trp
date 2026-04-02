@@ -1,0 +1,47 @@
+{
+    "actors": [
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": [
+                            -2.8968071937561035,
+                            0.7149966955184937,
+                            -0.26476699113845825
+                        ],
+                        "rotation": [
+                            1.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "scale": [
+                            6.188543796539307,
+                            6.188543796539307,
+                            6.188543796539307
+                        ]
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "model": "Assets\\Models\\Healer\\scene.gltf"
+                    },
+                    "type": "Mesh Component"
+                },
+                {
+                    "active": true,
+                    "data": {},
+                    "type": "Claire"
+                }
+            ],
+            "id": "4434264340046222925",
+            "name": "Claire",
+            "parentId": null
+        }
+    ],
+    "version": 1
+}

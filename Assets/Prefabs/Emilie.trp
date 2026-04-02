@@ -1,0 +1,47 @@
+{
+    "actors": [
+        {
+            "active": true,
+            "components": [
+                {
+                    "active": true,
+                    "data": {
+                        "position": [
+                            1.7766504287719727,
+                            1.4118430614471436,
+                            -0.9767509698867798
+                        ],
+                        "rotation": [
+                            0.7077234387397766,
+                            0.0,
+                            -0.7064895629882813,
+                            0.0
+                        ],
+                        "scale": [
+                            1.4999998807907104,
+                            1.4999998807907104,
+                            1.4999998807907104
+                        ]
+                    },
+                    "type": "Transform"
+                },
+                {
+                    "active": true,
+                    "data": {
+                        "model": "Assets\\Models\\Knight_Two\\scene.gltf"
+                    },
+                    "type": "Mesh Component"
+                },
+                {
+                    "active": true,
+                    "data": {},
+                    "type": "Emilie"
+                }
+            ],
+            "id": "449545083331491447",
+            "name": "Emilie",
+            "parentId": null
+        }
+    ],
+    "version": 1
+}

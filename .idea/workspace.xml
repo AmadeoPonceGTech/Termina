@@ -31,8 +31,17 @@
   <component name="ChangeListManager">
     <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/Cube/Cube.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/Cube/Cube.gltf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/Cube/Cube_BaseColor.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/Cube/Cube_MetallicRoughness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Models/Cube/Cube_mat0.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/Termina/Scripting/API/ScriptableComponent.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/Termina/Scripting/API/ScriptableComponent.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +126,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Gameloop",
+    "git-widget-placeholder": "branch__event__architecture",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -156,6 +165,7 @@
       <workItem from="1774816683017" duration="7092000" />
       <workItem from="1775026299111" duration="2520000" />
       <workItem from="1775112090624" duration="163000" />
+      <workItem from="1775113250650" duration="12947000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />

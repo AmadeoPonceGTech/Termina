@@ -58,6 +58,8 @@ public:
     bool TeamIsComplete();
     bool IsInTeam(const std::shared_ptr<Entity>& entity);
 
+    std::vector<std::shared_ptr<Entity>> getActiveCharacters();
+
     void setRunState(EGameRunState newState);
     void setRunEnded(bool gameEnded);
 
