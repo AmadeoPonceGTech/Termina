@@ -3,6 +3,7 @@
 BearSSalmon::BearSSalmon() {
     name = "Bear's salmon";
     description = "Heal 3% / artefact's level of max HP every turn.";
+    droppedBy = "Bear";
     quality = Quality::EPIC;
 }
 

@@ -7,7 +7,7 @@ Emilie::Emilie()
 {
     name = "Emilie";
     entityClass = EClass::TANK;
-    description = "Emilie is a women";
+    description = "Emilie has worked her whole life in a forge, it gave her an unbreakable skin and preeminent muscles that allows her to be a great defender for her team.";
 
     baseHealth = 90;
     finalHP = 900;

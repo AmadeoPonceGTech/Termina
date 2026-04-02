@@ -3,6 +3,7 @@
 ToeBone::ToeBone() {
     name = "Toe Bone";
     description = "increase Resist by 2% / artefact's level.";
+    droppedBy = "Skeleton";
     quality = Quality::COMMON;
 }
 

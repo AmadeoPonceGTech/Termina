@@ -4,7 +4,7 @@ Diane::Diane()
 {
     name = "Diane";
     entityClass = EClass::TANK;
-    description = "Diane is a women";
+    description = "Diane, a fearless fighter, that doesn't hesitate any instant to protect her fellow companions.";
 
     baseHealth = 100;
     finalHP = 1000;

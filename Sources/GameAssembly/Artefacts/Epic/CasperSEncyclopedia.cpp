@@ -3,6 +3,7 @@
 CasperSEncyclopedia::CasperSEncyclopedia() {
     name = "Casper's encyclopedia";
     description = "Increase by 0.5% / artefact's level the AP every turns.";
+    droppedBy = "Ghost";
     quality = Quality::EPIC;
 }
 

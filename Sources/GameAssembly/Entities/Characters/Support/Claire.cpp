@@ -6,7 +6,7 @@ Claire::Claire()
 {
     name = "Claire";
     entityClass = EClass::SUPPORT;
-    description = "Claire is a man";
+    description = "Claire; Her deep learning of magic is now put to action and make her a big support for her team. She doesn't bright by her bodily acts but by her intelligence.";
 
     baseHealth = 30;
     finalHP = 400;

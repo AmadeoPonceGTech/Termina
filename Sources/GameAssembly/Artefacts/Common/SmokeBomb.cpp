@@ -3,6 +3,7 @@
 SmokeBomb::SmokeBomb() {
     name = "Smoke Bomb";
     description = "Improve speed by 2% / artefact's level.";
+    droppedBy = "Adept of the chaos";
     quality = Quality::COMMON;
 }
 

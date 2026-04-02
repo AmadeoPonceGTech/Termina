@@ -3,6 +3,7 @@
 CursedShield::CursedShield() {
     name = "Cursed shield";
     description = "The holder lose 2% / artefact's level max HP per turn, but increase AD by 3% / artefact's level.";
+    droppedBy = "Dark knight";
     quality = Quality::EPIC;
 }
 

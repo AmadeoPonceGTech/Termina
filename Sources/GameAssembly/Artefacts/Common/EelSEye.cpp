@@ -3,11 +3,12 @@
 EelSEye::EelSEye() {
     name = "Eel's eye";
     description = "Increase resources drop (+1 / artefact's level).";
+    droppedBy = "Eel";
     quality = Quality::COMMON;
 }
 
 void EelSEye::ActingArtefact(Entity& target) {
-    target.ressourcesWon = target.ressourcesWon + level;
+    target.resourcesWon = target.resourcesWon + level;
 }
 
 void EelSEye::onInflictedDamage(Entity& target) {

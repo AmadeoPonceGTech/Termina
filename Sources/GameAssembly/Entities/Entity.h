@@ -87,7 +87,7 @@ public:
     void manageStatusEffect();
     void resetStats();
 
-    int ressourcesWon = 1;
+    int resourcesWon = 1;
     bool artefactAlreadyUsed;
 
 #pragma region Getters

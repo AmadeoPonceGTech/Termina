@@ -4,7 +4,7 @@ Brutus::Brutus()
 {
     name = "Brutus";
     entityClass = EClass::RANGEDDPS;
-    description = "Brutus is a man";
+    description = "Brutus, the solitary archer, he is used to stay alone but knows how to be useful in a group in the battlefield. He often invents new arrows to content his best friend; his bow.";
 
     baseHealth = 40;
     finalHP = 500;

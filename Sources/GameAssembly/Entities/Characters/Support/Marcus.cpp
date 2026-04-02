@@ -4,7 +4,7 @@ Marcus::Marcus()
 {
     name = "Marcus";
     entityClass = EClass::SUPPORT;
-    description = "Marcus is a man";
+    description = "Marcus, born among the priests of the local church, he became himself a monk capable of the most incredibles spells. Expelled from his home because of the fear of those who taught him, he now travels to where his destiny calls him according to him.";
 
     baseHealth = 30;
     finalHP = 300;

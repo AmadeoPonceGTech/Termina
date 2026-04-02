@@ -4,7 +4,7 @@ Edward::Edward()
 {
     name = "Edward";
     entityClass = EClass::RANGEDDPS;
-    description = "Edward is a man";
+    description = "Edward, cast powerful spells among the enemies to inflict them terrible magic induced injuries.";
 
     baseHealth = 20;
     finalHP = 250;

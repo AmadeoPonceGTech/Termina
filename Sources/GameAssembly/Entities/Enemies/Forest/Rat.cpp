@@ -45,6 +45,7 @@ Rat::Rat(int floor) {
     burnCD = 0;
     tauntCD = 0;
     isStun = false;
+
 }
 
 void Rat::Start() {}

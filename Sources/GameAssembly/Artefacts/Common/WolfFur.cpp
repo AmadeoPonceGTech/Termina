@@ -3,6 +3,7 @@
 WolfFur::WolfFur() {
     name = "Wolf Fur";
     description = "Boost 1% / artefact's level armor + resist.";
+    droppedBy = "Wolf";
     quality = Quality::COMMON;
 }
 
