@@ -43,6 +43,7 @@ void Gameplay::StartRun() {
 
     for (auto chara: activeCharacters) {
         speedManagerVec.push_back(chara);
+        aliveCharaVec.push_back(chara);
     }
     currentLevel = 1;
 }
@@ -143,7 +144,7 @@ void Gameplay::StartFight() {
             break;
     }
 
-    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy); std::cout << enemy->getName() << std::endl; }
+    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy);}
 
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
             return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
@@ -163,7 +164,11 @@ void Gameplay::UpdateFight() {
     {
         auto& entity = speedManagerVec[currentEntityIndex];
 
-        bool finished = entity->entityTurn(activeCharacters, enemyManager->getEnemies());
+        bool finished = false;
+
+        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty()) {
+            finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
+        }
 
         if (finished)
         {
@@ -177,27 +182,25 @@ void Gameplay::UpdateFight() {
             std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
         }
     }
+    std::erase_if(aliveCharaVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
     std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
 
     if (enemyManager->getEnemies().size() == 0) {
         runState = EGameRunState::EndFight;
     }
 
-    //Modify loose condition
     for (auto& chara : activeCharacters) {
-        if (chara->getCurrentHealth() <= 0) {
-            charaDeathCount++;
-        }
+        if (chara->getCurrentHealth() <= 0) chara->setCurrentHealth(0);
     }
 
-    if (charaDeathCount == 4) {
+    if (aliveCharaVec.size() == 0) {
         runState = EGameRunState::EndRun;
     }
 }
 
 void Gameplay::EndFight() {
     enemyManager->clearEnemies();
-
+    currentEntityIndex = 0;
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
             return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
         });

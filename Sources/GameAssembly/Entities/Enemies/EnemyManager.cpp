@@ -10,17 +10,8 @@ EnemyManager::EnemyManager() {}
 
 void EnemyManager::clearEnemies() { enemies.clear(); }
 
-void EnemyManager::deleteEnemy(Enemy& enemy) {
-    enemies.erase(
-        std::remove_if(
-            enemies.begin(),
-            enemies.end(),
-            [&enemy](const std::shared_ptr<Entity>& e) {
-                return e.get() == &enemy;
-            }
-        ),
-        enemies.end()
-    );
+void EnemyManager::deleteEnemy(std::shared_ptr<Entity> enemy) {
+    std::erase(enemies, enemy);
 }
 
 std::vector<std::shared_ptr<Entity>>& EnemyManager::getEnemies() { return enemies; }

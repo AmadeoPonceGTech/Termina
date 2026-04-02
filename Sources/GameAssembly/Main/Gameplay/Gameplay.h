@@ -31,6 +31,7 @@ private:
     std::shared_ptr<EnemyManager> enemyManager;
     std::vector<std::shared_ptr<Entity>> activeCharacters;
     std::vector<std::shared_ptr<Entity>> speedManagerVec;
+    std::vector<std::shared_ptr<Entity>> aliveCharaVec;
 
     EGameRunState runState;
     EBiome currentBiome;
@@ -39,7 +40,6 @@ private:
     std::random_device rd;
 
     int currentLevel = 1;
-    int charaDeathCount = 0;
     int biomeCount = 0;
 
     bool runEnded = false;

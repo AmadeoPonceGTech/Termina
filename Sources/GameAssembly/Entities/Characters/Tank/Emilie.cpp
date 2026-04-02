@@ -9,7 +9,7 @@ Emilie::Emilie()
     entityClass = EClass::TANK;
     description = "Emilie has worked her whole life in a forge, it gave her an unbreakable skin and preeminent muscles that allows her to be a great defender for her team.";
 
-    baseHealth = 90;
+    baseHealth = 9000;
     finalHP = 900;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -38,26 +38,13 @@ Emilie::Emilie()
     currentSpeed = baseSpeed;
 }
 
-void Emilie::firstAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4)
+void Emilie::firstAbility(std::vector<std::shared_ptr<Entity>> enemies)
 {
-    if (target != nullptr){
-        float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
-        target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
-    }
-
-    if (target2 != nullptr) {
-        float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
-        target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 3);
-    }
-
-    if (target3 != nullptr) {
-        float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
-        target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 3);
-    }
-
-    if (target4 != nullptr) {
-        float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
-        target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 3);
+    for (auto& target : enemies) {
+        if (target != nullptr){
+            float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
+            target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        }
     }
 
     CD1 = 1;
@@ -70,23 +57,13 @@ void Emilie::secondAbility(std::shared_ptr<Character> target)
     CD2 = 5;
 }
 
-void Emilie::thirdAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4)
+void Emilie::thirdAbility(std::vector<std::shared_ptr<Entity>> enemies)
 {
-    float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
-    target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
-    target->setIsStun(true);
-
-    float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
-    target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 4);
-    target->setIsStun(true);
-
-    float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
-    target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 4);
-    target->setIsStun(true);
-
-    float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
-    target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 4);
-    target->setIsStun(true);
+    for (auto& target : enemies) {
+        float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
+        target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
+        target->setIsStun(true);
+    }
 
     CD3 = 5;
 }
@@ -209,15 +186,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         {
             switch (abilitySelected) {
                 case 1 : {
-                    std::shared_ptr<Enemy> target;
-                    target = std::dynamic_pointer_cast<Enemy>(enemies[0]);
-                    std::shared_ptr<Enemy> target2;
-                    target2 = std::dynamic_pointer_cast<Enemy>(enemies[1]);
-                    std::shared_ptr<Enemy> target3;
-                    target3 = std::dynamic_pointer_cast<Enemy>(enemies[2]);
-                    std::shared_ptr<Enemy> target4;
-                    target4 = std::dynamic_pointer_cast<Enemy>(enemies[3]);
-                    firstAbility(target, target2, target3, target4);
+                    firstAbility(enemies);
                     break;
                 }
                 case 2 : {
@@ -225,15 +194,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 case 3 : {
-                    std::shared_ptr<Enemy> target;
-                    target = std::dynamic_pointer_cast<Enemy>(enemies[0]);
-                    std::shared_ptr<Enemy> target2;
-                    target2 = std::dynamic_pointer_cast<Enemy>(enemies[1]);
-                    std::shared_ptr<Enemy> target3;
-                    target3 = std::dynamic_pointer_cast<Enemy>(enemies[2]);
-                    std::shared_ptr<Enemy> target4;
-                    target4 = std::dynamic_pointer_cast<Enemy>(enemies[3]);
-                    thirdAbility(target, target2, target3, target4);
+                    thirdAbility(enemies);
                     break;
                 }
                 default : {
