@@ -43,21 +43,37 @@ void Emilie::firstAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>ta
     if (target != nullptr){
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     if (target2 != nullptr) {
         float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
         target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     if (target3 != nullptr) {
         float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
         target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     if (target4 != nullptr) {
         float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
         target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD1 = 1;
@@ -76,17 +92,33 @@ void Emilie::thirdAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>ta
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
     target->setIsStun(true);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
     target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 4);
     target->setIsStun(true);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
     target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 4);
     target->setIsStun(true);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
     target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 4);
     target->setIsStun(true);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD3 = 5;
 }
@@ -125,6 +157,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -247,6 +285,11 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }

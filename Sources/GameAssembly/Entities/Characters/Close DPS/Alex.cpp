@@ -38,8 +38,8 @@ Alex::Alex()
 
     isParring = false;
     //-----------exemple aec smokebomb à la mano--------- (mais à faire dans le gamestate à terme)----
-    auto artefact = std::make_shared<SmokeBomb>();
-    this->setArtefact(artefact);
+    auto artefactSmokeBomb = std::make_shared<SmokeBomb>();
+    this->setArtefact(artefactSmokeBomb);
     //-------------------------------------------------------------------------
 }
 

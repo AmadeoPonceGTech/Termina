@@ -42,6 +42,10 @@ void Claire::firstAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     static std::random_device rd;
     static std::mt19937 rng(rd());
     std::uniform_int_distribution<int> chance(1, 100);
@@ -123,6 +127,12 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -241,6 +251,11 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }

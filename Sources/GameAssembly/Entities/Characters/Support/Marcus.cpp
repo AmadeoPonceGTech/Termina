@@ -1,5 +1,7 @@
 #include "Marcus.h"
 
+#include "../../../Artefacts/Artefact.h"
+
 Marcus::Marcus()
 {
     name = "Marcus";
@@ -108,6 +110,12 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -238,6 +246,11 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }

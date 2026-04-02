@@ -41,6 +41,10 @@ void Brutus::firstAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD1 = 1;
@@ -58,6 +62,10 @@ void Brutus::secondAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD2 = 5;
@@ -68,6 +76,10 @@ void Brutus::thirdAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() * 0.2 / 100 );
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     CD3 = 6;
 }
 
@@ -76,6 +88,10 @@ void Brutus::fourthAbility(std::shared_ptr<Enemy>target)
     float dmgAPDealt = currentAttackPower * 4 - currentAttackPower * (target->getCurrentPowerResist() / 100);
     float dmgADDealt = currentAttackDamage * 4 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - (dmgADDealt + dmgAPDealt) / 2);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD4 = 11;
 }
@@ -105,6 +121,12 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -202,6 +224,11 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }
