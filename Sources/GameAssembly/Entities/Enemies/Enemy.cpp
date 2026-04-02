@@ -7,4 +7,6 @@ Enemy::Enemy() {
     CD2 = 0;
     CD3 = 0;
     CD4 = 0;
+
+    enemyState = EnemyState::STARTTURN;
 }
