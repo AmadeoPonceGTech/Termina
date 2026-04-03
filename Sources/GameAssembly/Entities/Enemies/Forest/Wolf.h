@@ -27,10 +27,11 @@ public :
 
     void fourthAbility(Character& target, int numberOfWolf);
 
-    private:
+    std::shared_ptr<Artefact> createDrop() override;
+
+private:
     float powerAbilityOne = 0.9f;
     float powerAbilityTwo = 1.1f;
 
-    private:
     int countWolves(const std::vector<std::shared_ptr<Entity>>& enemies);
 };

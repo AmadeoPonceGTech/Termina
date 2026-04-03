@@ -37,10 +37,13 @@ public:
     virtual std::string getName();
     virtual std::string getDescription();
     virtual std::string getDroppedBy();
+    virtual int getLevel();
 
 #pragma endregion
 
 #pragma region Setters
+
+    void setLevel(int level);
 
 #pragma endregion
 

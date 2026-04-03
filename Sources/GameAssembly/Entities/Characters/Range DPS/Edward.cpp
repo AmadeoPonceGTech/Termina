@@ -40,6 +40,10 @@ void Edward::firstAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackPower - currentAttackPower * (target->getCurrentPowerResist() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     CD1 = 1;
 }
 
@@ -49,6 +53,10 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD2 = 3;
 }
@@ -66,6 +74,10 @@ void Edward::fourthAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD4 = 7;
 }
@@ -95,6 +107,12 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -191,6 +209,11 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }

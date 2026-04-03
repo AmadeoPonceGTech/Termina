@@ -42,6 +42,10 @@ void Penelope::firstAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     CD1 = 1;
 }
 
@@ -58,6 +62,10 @@ void Penelope::thirdAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     currentHealth += dmgDealt * (80 / 100);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD3 = 4;
 }
@@ -86,6 +94,12 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -170,6 +184,11 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
 
         case PlayerState::EndTurn : {
             endTurn();
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::StartTurn;
             return true;
         }

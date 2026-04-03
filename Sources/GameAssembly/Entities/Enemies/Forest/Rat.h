@@ -26,6 +26,8 @@ public :
 
     void fourthAbility(const std::vector<Character*>& targets);
 
+    std::shared_ptr<Artefact> createDrop() override;
+
 private:
     std::shared_ptr<Enemy> selectedTarget = nullptr;
 };

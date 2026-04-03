@@ -26,5 +26,7 @@ public :
 
     void fourthAbility(Character& target);
 
+    std::shared_ptr<Artefact> createDrop() override;
+
     float powerAbilityOne = 0.9f;
 };

@@ -183,11 +183,34 @@ void Hawk::secondAbility(Enemy& target) {
 }
 
 void Hawk::thirdAbility(Enemy& target) {
-    target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * 0.05f);
+    target.setCurrentHealth(std::max(target.getMaxHealth(), target.getCurrentHealth() + target.getMaxHealth() * 0.05f));
 }
 
 void Hawk::fourthAbility(Enemy& target1, Enemy& target2) {
     target1.setCurrentSpeed(target1.getCurrentSpeed() - target1.getCurrentSpeed() * 0.10f);
     target2.setCurrentSpeed(target2.getCurrentSpeed() - target2.getCurrentSpeed() * 0.10f);
     CD4 = 5;
+}
+
+std::shared_ptr<Artefact> Hawk::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return nullptr;
+    }
+    else if (roll < 15.f) {
+        //return std::make_shared<Feather>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        return nullptr;
+    }
+    return nullptr;
 }

@@ -1,4 +1,6 @@
 #include "Rat.h"
+
+#include "../../../Artefacts/Epic/RattataSkull.h"
 #include "../../Characters/Character.h"
 
 Rat::Rat(int floor) {
@@ -17,7 +19,7 @@ Rat::Rat(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 30.0f;
+    baseAttackDamage = 20.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
@@ -200,4 +202,28 @@ void Rat::fourthAbility(const std::vector<Character*>& targets) {
     }
 
     CD4 = 5;
+}
+
+std::shared_ptr<Artefact> Rat::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return std::make_shared<Tail>();
+    }
+    else if (roll < 15.f) {
+        //return std::make_shared<RatTooth>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return std::make_shared<RattataSkull>();
+    }
+    else if (roll < 17.5f) {
+        //return std::make_shared<RatEyeTalisman>();
+        return nullptr;
+    }
+    return nullptr;
 }

@@ -156,3 +156,27 @@ void DarkKnight::fourthAbility(Character& target) {
 
     CD3 = 7;
 }
+
+std::shared_ptr<Artefact> DarkKnight::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return std::make_shared<KnightSBadge>();
+    }
+    else if (roll < 15.f) {
+        //return std::make_shared<KnightSHelmet>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return std::make_shared<CursedShield>();
+    }
+    else if (roll < 17.5f) {
+        //return std::make_shared<DarkSword>();
+        return nullptr;
+    }
+    return nullptr;
+}

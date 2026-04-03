@@ -17,7 +17,7 @@ Wolf::Wolf(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 45.0f;
+    baseAttackDamage = 25.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
@@ -179,4 +179,28 @@ int Wolf::countWolves(const std::vector<std::shared_ptr<Entity>>& enemies)
         if (e->getName() == "Wolf") count++;
     }
     return count;
+}
+
+std::shared_ptr<Artefact> Wolf::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return std::make_shared<WolfFur>();
+    }
+    else if (roll < 15.f) {
+        //return std::make_shared<WolfTooth>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        //return std::make_shared<AlphaMedal>();
+        return nullptr;
+    }
+    return nullptr;
 }

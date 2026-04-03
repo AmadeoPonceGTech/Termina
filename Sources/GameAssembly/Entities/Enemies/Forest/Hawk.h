@@ -27,4 +27,6 @@ public :
     void fourthAbility(Enemy& target1, Enemy& target2);
 
     float powerAbilityOne = 0.9f;
+
+    std::shared_ptr<Artefact> createDrop() override;
 };
