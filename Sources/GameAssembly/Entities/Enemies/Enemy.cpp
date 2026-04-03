@@ -15,3 +15,4 @@ std::shared_ptr<Artefact> Enemy::createDrop()
 {
     return nullptr;
 }
+float Enemy::getCurrentExpDrop() const { return currentExpDrop; }

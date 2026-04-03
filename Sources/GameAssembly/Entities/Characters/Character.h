@@ -40,6 +40,8 @@ public:
     bool manageXP();
     void endRun();
 
+    void addCurrentXP(float newXP);
+
     float getCurrentXP() const;
     float getXPNeeded() const;
 

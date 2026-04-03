@@ -20,15 +20,15 @@ public :
     void startTurn() override;
     void endTurn() override;
     bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-    void startFight(std::shared_ptr<Enemy> target, std::shared_ptr<Enemy> &target2, std::shared_ptr<Enemy> &target3, std::shared_ptr<Enemy> &target4);
+    void startFight(std::vector<std::shared_ptr<Entity>>& enemies);
     void endFight();
 
     void Start() override;
     void Update(float deltaTime) override;
 
-    void firstAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4);
+    void firstAbility(std::vector<std::shared_ptr<Entity>> enemies);
     void secondAbility(std::shared_ptr<Character> target);
-    void thirdAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4);
+    void thirdAbility(std::vector<std::shared_ptr<Entity>> enemies);
     bool canBeAttacked(std::shared_ptr<Enemy> target);
 
 private :

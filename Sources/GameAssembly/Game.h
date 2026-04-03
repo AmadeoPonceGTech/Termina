@@ -3,9 +3,8 @@
 #include <vector>
 #include <string>
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
-#include "ImGui/imgui.h"
-#include "ImGui/ImGuizmo.h"
-#include "ImGui/imgui_internal.h"
+#include "../ThirdParty/ImGui/imgui.h"
+#include "../ThirdParty/ImGui/imgui_internal.h"
 
 #pragma region Gameplayincludes
 #include "Entities/Characters/Range DPS/Brutus.h"
@@ -37,4 +36,6 @@ private :
     std::vector<std::shared_ptr<Character>> allCharacters;
     int selectedCharacter = -1;
     bool showCharacterPanel = true;
+
+    bool runStarted = false;
 };

@@ -233,6 +233,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             return true;
         }
     }
+
     return false;
 }
 

@@ -29,9 +29,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="fix">
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="Needs to find which character make the game crash but finished gameloop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Enemies" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,12 +68,12 @@
     &quot;assignee&quot;: &quot;0ri0546&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-&quot;,
-    &quot;accountId&quot;: &quot;ff272a15-d4e0-4649-be0d-234e6e11a02f&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-.git",
+    "accountId": "3506d733-1a4a-4f6d-83a8-d5617e31580c"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" root0="FORCE_HIGHLIGHTING" />
@@ -116,7 +125,9 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "LogManager",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "Gameloop",
+    "git.auto.fetch.suggestion.counter": "1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -155,7 +166,7 @@
       <workItem from="1774816683017" duration="7092000" />
       <workItem from="1775026299111" duration="2520000" />
       <workItem from="1775112090624" duration="163000" />
-      <workItem from="1775198499048" duration="2455000" />
+      <workItem from="1775198857203" duration="2479000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -477,55 +488,31 @@
       <option name="project" value="LOCAL" />
       <updated>1775040593715</updated>
     </task>
-    <task id="LOCAL-00041" summary="added drop logic">
+    <task id="LOCAL-00041" summary="debugging loop">
       <option name="closed" value="true" />
-      <created>1775121219373</created>
+      <created>1775113153723</created>
       <option name="number" value="00041" />
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1775121219373</updated>
+      <updated>1775113153723</updated>
     </task>
-    <task id="LOCAL-00042" summary="balance v0.0.1&#10;-&gt; bear : decrease atk dmg&#10;-&gt; rat : decrease atk dmg&#10;-&gt; wolf : decrease atk dmg">
+    <task id="LOCAL-00042" summary="Finished UI Display + fixed loop, just need to change loose condition">
       <option name="closed" value="true" />
-      <created>1775121825236</created>
+      <created>1775121923899</created>
       <option name="number" value="00042" />
       <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1775121825236</updated>
+      <updated>1775121923899</updated>
     </task>
-    <task id="LOCAL-00043" summary="added the artefact logic to all characters">
+    <task id="LOCAL-00043" summary="Needs to find which character make the game crash but finished gameloop">
       <option name="closed" value="true" />
-      <created>1775123897488</created>
+      <created>1775127625280</created>
       <option name="number" value="00043" />
       <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1775123897488</updated>
+      <updated>1775127625280</updated>
     </task>
-    <task id="LOCAL-00044" summary="delete useless coms in alex.cpp">
-      <option name="closed" value="true" />
-      <created>1775123979688</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1775123979688</updated>
-    </task>
-    <task id="LOCAL-00045" summary="added start of LogManager">
-      <option name="closed" value="true" />
-      <created>1775200460667</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1775200460667</updated>
-    </task>
-    <task id="LOCAL-00046" summary="fix">
-      <option name="closed" value="true" />
-      <created>1775200545136</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1775200545136</updated>
-    </task>
-    <option name="localTasksCounter" value="47" />
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,6 +542,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="added skeleton" />
+    <MESSAGE value="added Kelpie" />
     <MESSAGE value="added Dunkleosteus" />
     <MESSAGE value="added Mermaid" />
     <MESSAGE value="added Eel" />
@@ -569,18 +558,16 @@
     <MESSAGE value="added wolf fur artefact" />
     <MESSAGE value="added malicious eye artefact" />
     <MESSAGE value="added bear's salmon and cursed shield artefact" />
+    <MESSAGE value="fix" />
     <MESSAGE value="added inventory" />
     <MESSAGE value="added CasperSEncyclopedia artefact" />
     <MESSAGE value="merge enemies into gameloop to start StartFight implementation in Game" />
     <MESSAGE value="added all descriptions" />
     <MESSAGE value="added comment" />
-    <MESSAGE value="added drop logic" />
-    <MESSAGE value="balance v0.0.1&#10;-&gt; bear : decrease atk dmg&#10;-&gt; rat : decrease atk dmg&#10;-&gt; wolf : decrease atk dmg" />
-    <MESSAGE value="added the artefact logic to all characters" />
-    <MESSAGE value="delete useless coms in alex.cpp" />
-    <MESSAGE value="added start of LogManager" />
-    <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="debugging loop" />
+    <MESSAGE value="Finished UI Display + fixed loop, just need to change loose condition" />
+    <MESSAGE value="Needs to find which character make the game crash but finished gameloop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Needs to find which character make the game crash but finished gameloop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -589,11 +576,6 @@
           <url>file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Boss/RedDragon.cpp</url>
           <line>3</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Sources/GameAssembly/Inventory.cpp</url>
-          <line>45</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

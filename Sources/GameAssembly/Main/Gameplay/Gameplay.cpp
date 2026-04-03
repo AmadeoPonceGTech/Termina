@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "../../Entities/Characters/Tank/Diane.h"
+#include "../../Entities/Characters/Tank/Emilie.h"
 
 #include "../../Entities/Enemies/Forest/Rat.h"
 #include "../../Entities/Enemies/Forest/Wolf.h"
@@ -30,18 +31,19 @@ Gameplay::Gameplay() {
 }
 
 void Gameplay::StartRun() {
-    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),
-        [](const std::shared_ptr<Entity>& e)
-        {
-            return dynamic_cast<Diane*>(e.get()) != nullptr;
+
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Diane>(e) != nullptr;
         });
 
     if (it != activeCharacters.end()) {
         std::shared_ptr<Diane> diane = std::dynamic_pointer_cast<Diane>(*it);
         diane->startRun(activeCharacters);
     }
+
     for (auto chara: activeCharacters) {
         speedManagerVec.push_back(chara);
+        aliveCharaVec.push_back(chara);
     }
     currentLevel = 1;
 }
@@ -142,39 +144,104 @@ void Gameplay::StartFight() {
             break;
     }
 
-    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy); }
+    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy);}
+
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
+        });
+
+    if (it != activeCharacters.end()) {
+        std::shared_ptr<Emilie> emilie = std::dynamic_pointer_cast<Emilie>(*it);
+        emilie->startFight(enemyManager->getEnemies());
+    }
+
+    std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
 }
 
 void Gameplay::UpdateFight() {
-    std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
-    for (auto& entity : speedManagerVec) {
-        while (!entity->entityTurn(activeCharacters, enemyManager->getEnemies())) {};
-        std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
+
+    if (!speedManagerVec.empty())
+    {
+        auto& entity = speedManagerVec[currentEntityIndex];
+
+        bool finished = false;
+
+        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty()) {
+            finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
+        }
+
+        if (finished)
+        {
+            std::cout << entity->getName() << " finished turn " << std::endl;
+            currentEntityIndex++;
+
+            if (currentEntityIndex >= speedManagerVec.size())
+                currentEntityIndex = 0;
+
+            if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            if (std::erase_if(aliveCharaVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            for (auto& enemy : enemyManager->getEnemies())
+            {
+                if (enemy->getCurrentHealth() <= 0) {
+                    std::shared_ptr<Enemy> e = std::dynamic_pointer_cast<Enemy>(enemy);
+                    float xpToAdd = e->getCurrentExpDrop() / 4;
+                    for (auto& chara : aliveCharaVec) {
+                        std::shared_ptr<Character> c = std::dynamic_pointer_cast<Character>(chara);
+                        c->addCurrentXP(xpToAdd);
+                    }
+                }
+            }
+            if (std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+        }
     }
-    std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
 
     if (enemyManager->getEnemies().size() == 0) {
         runState = EGameRunState::EndFight;
     }
 
     for (auto& chara : activeCharacters) {
-        if (chara->getCurrentHealth() <= 0) {
-            charaDeathCount++;
-        }
+        if (chara->getCurrentHealth() <= 0) chara->setCurrentHealth(0);
     }
 
-    if (charaDeathCount == 4) {
+    if (aliveCharaVec.size() == 0) {
         runState = EGameRunState::EndRun;
     }
 }
 
 void Gameplay::EndFight() {
     enemyManager->clearEnemies();
+    currentEntityIndex = 0;
+    auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
+            return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
+        });
+
+    if (it != activeCharacters.end()) {
+        std::shared_ptr<Emilie> emilie = std::dynamic_pointer_cast<Emilie>(*it);
+        emilie->endFight();
+    }
+
     currentLevel++;
+
     if (currentLevel % 10 == 0) {
         spawnBoss = true;
     }
-    /// Emilie
+
+    biomeCount++;
+    if (biomeCount == 10) {
+        static std::mt19937 rng(rd());
+        std::uniform_int_distribution<int> biomeIndex(1, 3);
+
+        int biomeChose = biomeIndex(rng);
+        if (biomeChose == 1) { currentBiome = EBiome::FOREST; }
+        else if (biomeChose == 2) { currentBiome = EBiome::OCEAN; }
+        else if (biomeChose == 3) { currentBiome = EBiome::GRAVEYARD; }
+    }
 }
 
 void Gameplay::EndRun() {
@@ -183,6 +250,78 @@ void Gameplay::EndRun() {
         chara->setArtefact(nullptr);
         chara->endRun();
     }
+    ImGui::Begin("YOU LOOSE");
+
+    if (ImGui::Button("Main Menu")) {
+        runEnded = true;
+    }
+
+    ImGui::End();
+}
+
+void Gameplay::showEnemiesStats() {
+
+    ImGui::Begin("Enemies Stats");
+
+    ImGui::Columns(4, nullptr, true);
+
+    auto& enemies = enemyManager->getEnemies();
+
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        auto& enemy = enemies[i];
+
+        ImGui::BeginChild(("Enemy" + std::to_string(i)).c_str(), ImVec2(-1, 70), true);
+
+        ImGui::Text("Character: %s,                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
+        ImGui::Dummy(ImVec2(0,5));
+        ImGui::Text("Class : %s", enemy->getStringClass().c_str());
+
+        ImGui::EndChild();
+
+        if ((i + 1) % 4 != 0)
+            ImGui::NextColumn();
+    }
+
+    ImGui::Columns(1);
+    ImGui::End();
+}
+void Gameplay::showAlliesStats() {
+
+    ImGui::Begin("Characters Stats");
+
+    ImGui::Columns(4, nullptr, true);
+
+    auto& characters = activeCharacters;
+
+    for (int i = 0; i < characters.size(); i++)
+    {
+        auto& chara = characters[i];
+
+        ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, 200), true);
+
+        ImGui::Text("Character: %s,                    HP : %.0f", chara->getName().c_str(), chara->getCurrentHealth());
+        ImGui::Dummy(ImVec2(0,5));
+        ImGui::Text("Statistics");
+        ImVec2 p_min = ImGui::GetItemRectMin();
+        ImVec2 p_max = ImGui::GetItemRectMax();
+        ImGui::GetWindowDrawList()->AddLine(ImVec2(p_min.x, p_max.y - 1),ImVec2(p_max.x, p_max.y - 1),IM_COL32(255, 255, 255, 255),1.0f );
+
+        ImGui::Dummy(ImVec2(0,10));
+        ImGui::Text("Attack Damage : %.0f", chara->getCurrentAttackDamage());
+        ImGui::Text("Magic Damage : %.0f", chara->getCurrentAttackPower());
+        ImGui::Text("Armor : %.2f", chara->getCurrentArmor());
+        ImGui::Text("Magic Resistance : %.2f", chara->getCurrentPowerResist());
+        ImGui::Text("Speed : %.1f", chara->getCurrentSpeed());
+
+        ImGui::EndChild();
+
+        if ((i + 1) % 4 != 0)
+            ImGui::NextColumn();
+    }
+
+    ImGui::Columns(1);
+    ImGui::End();
 }
 
 void Gameplay::Gameloop()
@@ -190,14 +329,18 @@ void Gameplay::Gameloop()
     switch (runState) {
         case EGameRunState::StartRun :
             StartRun();
+            std::cout << "Run started" << std::endl;
             runState = EGameRunState::StartFight;
             break;
         case EGameRunState::StartFight :
             StartFight();
+            std::cout << "Fight started" << std::endl;
             runState = EGameRunState::UpdateFight;
             break;
         case EGameRunState::UpdateFight :
             UpdateFight();
+            showEnemiesStats();
+            showAlliesStats();
             break;
         case EGameRunState::EndFight :
             EndFight();
@@ -270,5 +413,10 @@ bool Gameplay::IsInTeam(const std::shared_ptr<Entity> &entity) {
     }
     return false;
 }
+
+void Gameplay::setRunState(EGameRunState newState) { runState = newState; }
+void Gameplay::setRunEnded(bool gameEnded) { runEnded = gameEnded; }
+
+bool Gameplay::getRunEnded() const { return runEnded; }
 
 

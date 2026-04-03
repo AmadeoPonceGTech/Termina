@@ -21,7 +21,7 @@ public :
     void Update(float deltaTime) override;
 
     void firstAbility(std::shared_ptr<Character>target);
-    void secondAbility(std::shared_ptr<Character>target, std::shared_ptr<Character>target2, std::shared_ptr<Character>target3, std::shared_ptr<Character>target4);
+    void secondAbility(std::vector<std::shared_ptr<Entity>>& targets);
     void thirdAbility(std::shared_ptr<Character>target);
     void fourthAbility(std::shared_ptr<Character>target);
 };

@@ -136,6 +136,16 @@ void Game::Update(float deltaTime)
             break;
         }
         case EGameState::Run :
+            if (!runStarted) {
+                gameplay->setRunState(EGameRunState::StartRun);
+                runStarted = true;
+            }
+            gameplay->Gameloop();
+            if (gameplay->getRunEnded()) {
+                gameState = EGameState::Menu;
+                gameplay->setRunEnded(false);
+                runStarted = false;
+            }
             break;
 
         case EGameState::End :
