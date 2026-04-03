@@ -10,3 +10,5 @@ Enemy::Enemy() {
 
     enemyState = EnemyState::STARTTURN;
 }
+
+float Enemy::getCurrentExpDrop() const { return currentExpDrop; }

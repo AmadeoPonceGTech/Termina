@@ -6,7 +6,7 @@ Diane::Diane()
     entityClass = EClass::TANK;
     description = "Diane, a fearless fighter, that doesn't hesitate any instant to protect her fellow companions.";
 
-    baseHealth = 1;
+    baseHealth = 100;
     finalHP = 1000;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;

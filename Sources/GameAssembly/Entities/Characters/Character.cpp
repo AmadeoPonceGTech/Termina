@@ -49,6 +49,8 @@ void Character::endRun() {
     }
 }
 
+void Character::addCurrentXP(float newXP) { currentXP += newXP; }
+
 float Character::getCurrentXP() const {return currentXP;}
 float Character::getXPNeeded() const { return XPNeeded; }
 

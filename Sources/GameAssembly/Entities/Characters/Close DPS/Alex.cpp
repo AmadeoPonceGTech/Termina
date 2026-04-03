@@ -53,8 +53,6 @@ void Alex::firstAbility(std::shared_ptr<Enemy>target)
     }
     //----------------------------------------------------------------
 
-    if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
-
     CD1 = 1;
 }
 
@@ -72,8 +70,6 @@ void Alex::thirdAbility(std::shared_ptr<Enemy>target)
     if (artefact) {
         artefact->onInflictedDamage(*this);
     }
-
-    if (target->getCurrentHealth() <= 0) {currentXP += target->currentExpDrop;}
 
     CD3 = 3;
 }

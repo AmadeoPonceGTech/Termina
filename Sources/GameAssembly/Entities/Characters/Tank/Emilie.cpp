@@ -9,7 +9,7 @@ Emilie::Emilie()
     entityClass = EClass::TANK;
     description = "Emilie has worked her whole life in a forge, it gave her an unbreakable skin and preeminent muscles that allows her to be a great defender for her team.";
 
-    baseHealth = 9000;
+    baseHealth = 90;
     finalHP = 900;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -110,7 +110,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
-            if (ImGui::Button("Shield Charge"))
+            if (ImGui::Button("Earthquake"))
             {
                 abilitySelected = 1;
                 currentState = PlayerState::ChoosingTarget;
@@ -119,7 +119,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
 
             ImGui::BeginDisabled(!secondAbilityUp);
-            if (ImGui::Button("Taunt"))
+            if (ImGui::Button("Share"))
             {
                 abilitySelected = 2;
                 currentState = PlayerState::Acting;
@@ -128,7 +128,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
 
             ImGui::BeginDisabled(!thirdAbilityUp);
-            if (ImGui::Button("Shield Buff"))
+            if (ImGui::Button("Punch'em all"))
             {
                 abilitySelected = 3;
                 currentState = PlayerState::ChoosingTarget;

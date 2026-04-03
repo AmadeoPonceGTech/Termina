@@ -177,13 +177,29 @@ void Gameplay::UpdateFight() {
 
             if (currentEntityIndex >= speedManagerVec.size())
                 currentEntityIndex = 0;
-        }
-        if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
-            std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+
+            if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            if (std::erase_if(aliveCharaVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            for (auto& enemy : enemyManager->getEnemies())
+            {
+                if (enemy->getCurrentHealth() <= 0) {
+                    std::shared_ptr<Enemy> e = std::dynamic_pointer_cast<Enemy>(enemy);
+                    float xpToAdd = e->getCurrentExpDrop() / 4;
+                    for (auto& chara : aliveCharaVec) {
+                        std::shared_ptr<Character> c = std::dynamic_pointer_cast<Character>(chara);
+                        c->addCurrentXP(xpToAdd);
+                    }
+                }
+            }
+            if (std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
         }
     }
-    std::erase_if(aliveCharaVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
-    std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
 
     if (enemyManager->getEnemies().size() == 0) {
         runState = EGameRunState::EndFight;

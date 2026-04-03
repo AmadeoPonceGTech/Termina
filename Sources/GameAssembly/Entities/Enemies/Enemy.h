@@ -16,8 +16,7 @@ enum class EnemyState
 
 class Enemy : public Entity
 {
-public:
-    Enemy();
+protected:
 
     float baseExpDrop;
     float currentExpDrop;
@@ -29,8 +28,12 @@ public:
     int landing;
 
     Biome biome;
-
-    virtual void dropArtefacts() = 0;
     EnemyState enemyState;
+
+public:
+    Enemy();
+    virtual void dropArtefacts() = 0;
+
+    float getCurrentExpDrop() const;
 
 };
