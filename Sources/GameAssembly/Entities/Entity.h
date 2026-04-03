@@ -6,6 +6,8 @@
 #include <random>
 #include <memory>
 
+#include "../LogManager.h"
+
 enum class EClass {
     ASSASSIN,
     CLOSEDDPS,

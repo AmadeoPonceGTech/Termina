@@ -49,6 +49,7 @@ void Gameplay::StartRun() {
 }
 
 void Gameplay::StartFight() {
+    LogManager::getInstance().AddLog("Fight Start");
     static std::mt19937 rng(rd());
     std::uniform_int_distribution<int> enemyIndex(1, 4);
     std::uniform_int_distribution<int> bossIndex(1, 2);
@@ -341,6 +342,7 @@ void Gameplay::Gameloop()
             UpdateFight();
             showEnemiesStats();
             showAlliesStats();
+            LogManager::getInstance().DrawImGui();
             break;
         case EGameRunState::EndFight :
             EndFight();

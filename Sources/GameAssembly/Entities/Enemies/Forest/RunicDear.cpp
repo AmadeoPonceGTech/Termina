@@ -142,6 +142,7 @@ void RunicDear::dropArtefacts() {
 void RunicDear::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().AddLog("Runic Dear uses \"Horn Leech\". " + target.getName() + " takes damages.");
 }
 
 void RunicDear::secondAbility(Character& target, Enemy& enemyTarget) {
@@ -149,18 +150,22 @@ void RunicDear::secondAbility(Character& target, Enemy& enemyTarget) {
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     enemyTarget.setCurrentSpeed(enemyTarget.getCurrentSpeed() + (target.getCurrentSpeed() * 15.0f / 100.0f));
+    LogManager::getInstance().AddLog("Runic Dear uses \"Savage Root\". " + target.getName() + " takes damages. " + target.getName() + " takes a Speed buff.");
+
     CD2 = 3;
 }
 
 void RunicDear::thirdAbility() {
     currentArmor = currentArmor + (currentArmor * 5.0f / 100.0f);
     currentPowerResist = currentPowerResist + (currentPowerResist * 5.0f / 100.0f);
+    LogManager::getInstance().AddLog("The passive \"Forest King Aura's\" of Runic Dear increase their defensive stats by 5%.");
 }
 
 void RunicDear::fourthAbility(const std::vector<Character*>& targets) {
     for (auto character : targets) {
         float dmgDealt = currentAttackPower * (1.0f - character->getCurrentPowerResist() / 100.0f);
         character->setCurrentHealth(std::max(0.0f, character->getCurrentHealth() - dmgDealt));
+        LogManager::getInstance().AddLog("Runic Dear uses \"Green Ruler's Wrath\". " + character->getName() + " takes damages.");
     }
 
     CD4 = 7;
@@ -183,6 +188,7 @@ std::shared_ptr<Artefact> RunicDear::createDrop() {
         return nullptr;
     }
     else if (roll < 17.5f) {
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Forest Rune's !");
         //return std::make_shared<ForestRuneS>();
         return nullptr;
     }
