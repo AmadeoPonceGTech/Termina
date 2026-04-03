@@ -3,6 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include "Artefacts/Artefact.h"
+#include "Entities/Characters/Character.h"
 
 class Inventory {
 public:
@@ -16,7 +17,16 @@ public:
 
     void checkArtefactsInventory();
 
+    const std::unordered_map<std::shared_ptr<Character>, std::shared_ptr<Artefact>>& getMapCharacterToArtefact() const {
+        return mapCharacterToArtefact;
+    }
+
+    void setMapCharacterToArtefact(const std::unordered_map<std::shared_ptr<Character>, std::shared_ptr<Artefact>>& newMap) {
+        mapCharacterToArtefact = newMap;
+    }
+
 private:
     std::unordered_map<std::string, int> items;
     std::vector<std::shared_ptr<Artefact>> artefactsInventory;
+    std::unordered_map<std::shared_ptr<Character>, std::shared_ptr<Artefact>> mapCharacterToArtefact;
 };
