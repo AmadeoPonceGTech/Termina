@@ -49,7 +49,6 @@ void Gameplay::StartRun() {
 }
 
 void Gameplay::StartFight() {
-    LogManager::getInstance().AddLog("Fight Start");
     static std::mt19937 rng(rd());
     std::uniform_int_distribution<int> enemyIndex(1, 4);
     std::uniform_int_distribution<int> bossIndex(1, 2);
@@ -178,6 +177,12 @@ void Gameplay::UpdateFight() {
 
             if (currentEntityIndex >= speedManagerVec.size())
                 currentEntityIndex = 0;
+
+            for (auto& e : speedManagerVec) {
+                if (e->getCurrentHealth() <= 0) {
+                    LogManager::getInstance().AddLog( e->getName() + " is dead.", ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+                }
+            }
 
             if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
                 std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
@@ -335,7 +340,10 @@ void Gameplay::Gameloop()
             break;
         case EGameRunState::StartFight :
             StartFight();
+            LogManager::getInstance().addSeparator();
             std::cout << "Fight started" << std::endl;
+            LogManager::getInstance().addSeparator();
+            LogManager::getInstance().AddLog("New Fight");
             runState = EGameRunState::UpdateFight;
             break;
         case EGameRunState::UpdateFight :

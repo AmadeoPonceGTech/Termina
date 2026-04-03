@@ -150,12 +150,12 @@ void Bear::dropArtefacts() {
 void Bear::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
-    LogManager::getInstance().AddLog("Bear attacks " + target.getName() + " \"with Claw\".");
+    LogManager::getInstance().AddLog("Bear attacks " + target.getName() + " with \"Claw\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Bear::secondAbility() {
     currentHealth = currentHealth + maxHealth * 0.15f;
-    LogManager::getInstance().AddLog("Bear heals by 15% with \"Surprise Salmon\".");
+    LogManager::getInstance().AddLog("Bear heals by 15% with \"Surprise Salmon\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -171,7 +171,7 @@ void Bear::fourthAbility(Character& target) {
     target.setIsTaunt(true);
     setTauntCD(3);
 
-    LogManager::getInstance().AddLog("Bear uses \"I am the king\", increasing its defense and resistance. " + target.getName() + " is taunt.");
+    LogManager::getInstance().AddLog("Bear uses \"I Am The King\", increasing its Defense and Resistance. " + target.getName() + " is taunt.", ImVec4(240, 0.518, 0.518, 1));
 
     CD4 = 7;
 }
@@ -184,20 +184,20 @@ std::shared_ptr<Artefact> Bear::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
-        LogManager::getInstance().AddLog("You obtained a Common Artefact: Bear's Foot !");
+        LogManager::getInstance().AddLog("You obtained a Common Artefact: Bear's Foot !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSFoot>();
     }
     else if (roll < 15.f) {
-        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Honey !");
+        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Honey !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<Honey>();
         return nullptr;
     }
     else if (roll < 17.f) {
-        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Bear's Salmon !");
+        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Bear's Salmon !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSSalmon>();
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Great Bear Medal !");
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Great Bear Medal !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<GreatBearMedal>();
         return nullptr;
     }

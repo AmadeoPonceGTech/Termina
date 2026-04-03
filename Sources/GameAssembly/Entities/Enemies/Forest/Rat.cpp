@@ -152,23 +152,23 @@ void Rat::firstAbility(Character& target) {
 
         if (choice == 1) {
             target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - debuff));
-            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Attack Damage. " + target.getName() + " takes damages.");
+            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Attack Damage. " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 2) {
             target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - debuff));
-            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Attack Power. " + target.getName() + " takes damages.");
+            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Attack Power. " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 3) {
             target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - debuff));
-            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Armor. " + target.getName() + " takes damages.");
+            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Armor. " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 4) {
             target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - debuff));
-            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Power Resist. " + target.getName() + " takes damages.");
+            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Power Resist. " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 5) {
             target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() + debuff));
-            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Speed. " + target.getName() + " takes damages.");
+            LogManager::getInstance().AddLog("Rat uses \"Crunch\" and debuff " + target.getName() + "'s Speed. " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
         }
     }
 
@@ -180,7 +180,7 @@ void Rat::firstAbility(Character& target) {
 
 void Rat::secondAbility(Character& target) {
     target.setIsPoisoned(true);
-    LogManager::getInstance().AddLog("Rat uses \"Poisonous Bite\". " + target.getName() + " is poisoned.");
+    LogManager::getInstance().AddLog("Rat uses \"Poisonous Bite\". " + target.getName() + " is poisoned.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -195,7 +195,7 @@ void Rat::thirdAbility(Character& target) {
     if (cd == 1) { percent = 3.0f; }
     float dmgDealt = target.getMaxHealth() * percent / 100.0f;
     target.setCurrentHealth(target.getCurrentHealth() - dmgDealt);
-    LogManager::getInstance().AddLog("The passive \"Living Poison\" of Rat trigger the poison on " + target.getName() + ".");
+    LogManager::getInstance().AddLog("The passive \"Living Poison\" of Rat trigger the poison on " + target.getName() + ".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Rat::fourthAbility(const std::vector<Character*>& targets) {
@@ -206,7 +206,7 @@ void Rat::fourthAbility(const std::vector<Character*>& targets) {
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
         if (target->getIsPoisoned()) { thirdAbility(*target); }
-        LogManager::getInstance().AddLog("Rat uses \"Rat Wave\". " + target->getName() + " takes damages and is poisoned.");
+        LogManager::getInstance().AddLog("Rat uses \"Rat Wave\". " + target->getName() + " takes damages and is poisoned.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 5;
@@ -220,20 +220,20 @@ std::shared_ptr<Artefact> Rat::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
-        LogManager::getInstance().AddLog("You obtained a Common Artefact: Tail !");
+        LogManager::getInstance().AddLog("You obtained a Common Artefact: Tail !", ImVec4(1, 0, 0, 1));
         return std::make_shared<Tail>();
     }
     else if (roll < 15.f) {
-        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Rat tooth !");
+        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Rat tooth !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<RatTooth>();
         return nullptr;
     }
     else if (roll < 17.f) {
-        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Rattata Skull !");
+        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Rattata Skull !", ImVec4(1, 0, 0, 1));
         return std::make_shared<RattataSkull>();
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Rat Eye Talisman !");
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Rat Eye Talisman !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<RatEyeTalisman>();
         return nullptr;
     }

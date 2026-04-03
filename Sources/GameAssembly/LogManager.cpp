@@ -1,5 +1,6 @@
 #include "LogManager.h"
 #include "../ThirdParty/ImGui/imgui.h"
+#include <sstream>
 
 LogManager& LogManager::getInstance()
 {
@@ -7,9 +8,17 @@ LogManager& LogManager::getInstance()
     return instance;
 }
 
-void LogManager::AddLog(const std::string& message)
+void LogManager::AddLog(const std::string& message, ImVec4 color)
 {
-    logs.push_back(message);
+    logs.emplace_back(message, color);
+
+    if (logs.size() > maxLogs)
+        logs.erase(logs.begin());
+}
+
+void LogManager::addSeparator(ImVec4 color)
+{
+    logs.emplace_back("__SEPARATOR__", color);
 
     if (logs.size() > maxLogs)
         logs.erase(logs.begin());
@@ -30,7 +39,10 @@ void LogManager::DrawImGui()
 
     for (size_t i = start; i < logs.size(); i++)
     {
-        ImGui::Text("%s", logs[i].c_str());
+        if (logs[i].message == "__SEPARATOR__")
+            ImGui::Separator();
+        else
+            ImGui::TextColored(logs[i].color, "%s", logs[i].message.c_str());
     }
 
     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())

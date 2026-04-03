@@ -142,7 +142,7 @@ void RunicDear::dropArtefacts() {
 void RunicDear::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
-    LogManager::getInstance().AddLog("Runic Dear uses \"Horn Leech\". " + target.getName() + " takes damages.");
+    LogManager::getInstance().AddLog("Runic Dear uses \"Horn Leech\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RunicDear::secondAbility(Character& target, Enemy& enemyTarget) {
@@ -150,7 +150,7 @@ void RunicDear::secondAbility(Character& target, Enemy& enemyTarget) {
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     enemyTarget.setCurrentSpeed(enemyTarget.getCurrentSpeed() + (target.getCurrentSpeed() * 15.0f / 100.0f));
-    LogManager::getInstance().AddLog("Runic Dear uses \"Savage Root\". " + target.getName() + " takes damages. " + target.getName() + " takes a Speed buff.");
+    LogManager::getInstance().AddLog("Runic Dear uses \"Savage Root\". " + target.getName() + " takes damages. " + target.getName() + " takes a Speed buff.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -158,14 +158,14 @@ void RunicDear::secondAbility(Character& target, Enemy& enemyTarget) {
 void RunicDear::thirdAbility() {
     currentArmor = currentArmor + (currentArmor * 5.0f / 100.0f);
     currentPowerResist = currentPowerResist + (currentPowerResist * 5.0f / 100.0f);
-    LogManager::getInstance().AddLog("The passive \"Forest King Aura's\" of Runic Dear increase their defensive stats by 5%.");
+    LogManager::getInstance().AddLog("The passive \"Forest King Aura's\" of Runic Dear increase their defensive stats by 5%.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RunicDear::fourthAbility(const std::vector<Character*>& targets) {
     for (auto character : targets) {
         float dmgDealt = currentAttackPower * (1.0f - character->getCurrentPowerResist() / 100.0f);
         character->setCurrentHealth(std::max(0.0f, character->getCurrentHealth() - dmgDealt));
-        LogManager::getInstance().AddLog("Runic Dear uses \"Green Ruler's Wrath\". " + character->getName() + " takes damages.");
+        LogManager::getInstance().AddLog("Runic Dear uses \"Green Ruler's Wrath\". " + character->getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 7;
@@ -188,7 +188,7 @@ std::shared_ptr<Artefact> RunicDear::createDrop() {
         return nullptr;
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Forest Rune's !");
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Forest Rune's !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<ForestRuneS>();
         return nullptr;
     }
