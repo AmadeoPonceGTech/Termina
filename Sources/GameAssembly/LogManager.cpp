@@ -13,10 +13,15 @@ void LogManager::DrawImGui()
 {
     ImGui::Begin("Fight Log");
 
-    for (const auto& log : logs)
+    int start = logs.size() > 20 ? logs.size() - 20 : 0;
+
+    for (int i = start; i < logs.size(); i++)
     {
-        ImGui::Text("%s", log.c_str());
+        ImGui::Text("%s", logs[i].c_str());
     }
+
+    if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+        ImGui::SetScrollHereY(1.0f);
 
     ImGui::End();
 }

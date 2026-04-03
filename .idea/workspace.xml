@@ -29,15 +29,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="delete useless coms in alex.cpp">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Inventory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="GameloopDebug" />
+        <entry key="$PROJECT_DIR$" value="Enemies" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -107,31 +101,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Enemies&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "LogManager",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.first.attach.projects": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Enemies\Close DPS" />
@@ -161,7 +155,7 @@
       <workItem from="1774816683017" duration="7092000" />
       <workItem from="1775026299111" duration="2520000" />
       <workItem from="1775112090624" duration="163000" />
-      <workItem from="1775198499048" duration="1927000" />
+      <workItem from="1775198499048" duration="2455000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -515,7 +509,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775123979688</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="added start of LogManager">
+      <option name="closed" value="true" />
+      <created>1775200460667</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1775200460667</updated>
+    </task>
+    <task id="LOCAL-00046" summary="fix">
+      <option name="closed" value="true" />
+      <created>1775200545136</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1775200545136</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,7 +555,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added Kelpie" />
     <MESSAGE value="added Dunkleosteus" />
     <MESSAGE value="added Mermaid" />
     <MESSAGE value="added Eel" />
@@ -560,7 +569,6 @@
     <MESSAGE value="added wolf fur artefact" />
     <MESSAGE value="added malicious eye artefact" />
     <MESSAGE value="added bear's salmon and cursed shield artefact" />
-    <MESSAGE value="fix" />
     <MESSAGE value="added inventory" />
     <MESSAGE value="added CasperSEncyclopedia artefact" />
     <MESSAGE value="merge enemies into gameloop to start StartFight implementation in Game" />
@@ -570,7 +578,9 @@
     <MESSAGE value="balance v0.0.1&#10;-&gt; bear : decrease atk dmg&#10;-&gt; rat : decrease atk dmg&#10;-&gt; wolf : decrease atk dmg" />
     <MESSAGE value="added the artefact logic to all characters" />
     <MESSAGE value="delete useless coms in alex.cpp" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete useless coms in alex.cpp" />
+    <MESSAGE value="added start of LogManager" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
