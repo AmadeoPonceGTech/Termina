@@ -131,10 +131,6 @@ bool Eel::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
     return false;
 }
 
-void Eel::dropArtefacts() {
-
-}
-
 void Eel::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));

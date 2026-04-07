@@ -7,27 +7,23 @@ class Character;
 
 class RedDragon : public Enemy, public TerminaScript::ScriptableComponent
 {
-public :
-    RedDragon(int floor);
-    RedDragon(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
-
-    void startTurn() override;
-    void endTurn() override;
-    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-
-    void Start() override;
-    void Update(float deltaTime) override;
-
-    void dropArtefacts() override;
-
     void firstAbility(Character& target);
     void secondAbility(Character& target);
     void thirdAbility();
 
     void fourthAbility(const std::vector<Character*>& targets);
 
-    std::shared_ptr<Artefact> createDrop() override;
+    void startTurn() override;
+    void endTurn() override;
 
-private:
-    std::shared_ptr<Enemy> selectedTarget = nullptr;
+public :
+    RedDragon(int floor);
+    RedDragon(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    std::shared_ptr<Artefact> createDrop() override;
 };

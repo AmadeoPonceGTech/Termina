@@ -7,29 +7,26 @@ class Character;
 
 class Gargoyle : public Enemy, public TerminaScript::ScriptableComponent
 {
-public :
-    Gargoyle(int floor);
-    Gargoyle(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
-
-    void startTurn() override;
-    void endTurn() override;
-    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-
-    void Start() override;
-    void Update(float deltaTime) override;
-
-    void dropArtefacts() override;
-
     void firstAbility(Character& target);
     void secondAbility();
     void thirdAbility();
 
     void fourthAbility();
 
-    std::shared_ptr<Artefact> createDrop() override;
-
-private:
-    std::shared_ptr<Enemy> selectedTarget = nullptr;
+    void startTurn() override;
+    void endTurn() override;
 
     float powerAbilityOne = 1.2;
+
+public :
+    Gargoyle(int floor);
+    Gargoyle(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    std::shared_ptr<Artefact> createDrop() override;
+
 };

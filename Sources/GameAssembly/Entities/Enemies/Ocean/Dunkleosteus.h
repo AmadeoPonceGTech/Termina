@@ -7,27 +7,23 @@ class Character;
 
 class Dunkleosteus : public Enemy, public TerminaScript::ScriptableComponent
 {
-public :
-    Dunkleosteus(int floor);
-    Dunkleosteus(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
-
-    void startTurn() override;
-    void endTurn() override;
-    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-
-    void Start() override;
-    void Update(float deltaTime) override;
-
-    void dropArtefacts() override;
-
     void firstAbility(Character& target);
     void secondAbility(Character& target1, Character& target2);
     void thirdAbility(Character& target);
 
     void fourthAbility();
 
-    std::shared_ptr<Artefact> createDrop() override;
+    void startTurn() override;
+    void endTurn() override;
 
-private:
-    std::shared_ptr<Enemy> selectedTarget = nullptr;
+public :
+    Dunkleosteus(int floor);
+    Dunkleosteus(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    std::shared_ptr<Artefact> createDrop() override;
 };

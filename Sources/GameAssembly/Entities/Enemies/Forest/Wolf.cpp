@@ -133,10 +133,6 @@ bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     return false;
 }
 
-void Wolf::dropArtefacts() {
-
-}
-
 void Wolf::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));

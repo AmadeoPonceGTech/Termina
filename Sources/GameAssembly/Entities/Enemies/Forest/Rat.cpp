@@ -135,10 +135,6 @@ bool Rat::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
     return false;
 }
 
-void Rat::dropArtefacts() {
-
-}
-
 void Rat::firstAbility(Character& target) {
     static std::random_device rd;
     static std::mt19937 rng(rd());

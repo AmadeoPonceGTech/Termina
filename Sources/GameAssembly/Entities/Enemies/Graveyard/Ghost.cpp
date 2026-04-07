@@ -123,10 +123,6 @@ bool Ghost::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
     return false;
 }
 
-void Ghost::dropArtefacts() {
-
-}
-
 void Ghost::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));

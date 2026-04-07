@@ -126,10 +126,6 @@ bool DarkKnight::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std
     return false;
 }
 
-void DarkKnight::dropArtefacts() {
-
-}
-
 void DarkKnight::firstAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));

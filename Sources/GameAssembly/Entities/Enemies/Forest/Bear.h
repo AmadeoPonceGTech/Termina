@@ -28,7 +28,5 @@ public :
     void Start() override;
     void Update(float deltaTime) override;
 
-    void dropArtefacts() override;
-
     std::shared_ptr<Artefact> createDrop() override;
 };

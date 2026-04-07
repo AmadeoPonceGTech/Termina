@@ -138,10 +138,6 @@ bool AdeptOfTheChaos::entityTurn(std::vector<std::shared_ptr<Entity>> characters
     return false;
 }
 
-void AdeptOfTheChaos::dropArtefacts() {
-
-}
-
 void AdeptOfTheChaos::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));

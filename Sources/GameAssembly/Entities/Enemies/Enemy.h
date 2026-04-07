@@ -77,11 +77,8 @@ protected:
 
     EnemyState enemyState;
 
-
-
 public:
     Enemy();
-    virtual void dropArtefacts() = 0;
     virtual std::shared_ptr<Artefact> createDrop();
 
     float getCurrentExpDrop() const;

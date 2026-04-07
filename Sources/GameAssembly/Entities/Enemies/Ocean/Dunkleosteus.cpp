@@ -129,10 +129,6 @@ bool Dunkleosteus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, s
     return false;
 }
 
-void Dunkleosteus::dropArtefacts() {
-
-}
-
 void Dunkleosteus::firstAbility(Character& target) {
     float multiplier = 1.0f;
     if (target.getClass() == EClass::ASSASSIN | target.getClass() == EClass::SUPPORT) { multiplier = 1.2f; }

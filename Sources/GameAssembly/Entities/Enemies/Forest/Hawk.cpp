@@ -142,11 +142,6 @@ bool Hawk::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     return false;
 }
 
-
-void Hawk::dropArtefacts() {
-
-}
-
 void Hawk::firstAbility(Character& target) {
     static std::random_device rd;
     static std::mt19937 rng(rd());

@@ -7,27 +7,23 @@ class Character;
 
 class RunicDear : public Enemy, public TerminaScript::ScriptableComponent
 {
-public :
-    RunicDear(int floor);
-    RunicDear(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
-
-    void startTurn() override;
-    void endTurn() override;
-    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-
-    void Start() override;
-    void Update(float deltaTime) override;
-
-    void dropArtefacts() override;
-
     void firstAbility(Character& target);
     void secondAbility(Character& target, Enemy& enemyTarget);
     void thirdAbility();
 
     void fourthAbility(const std::vector<Character*>& targets);
 
-    std::shared_ptr<Artefact> createDrop() override;
+    void startTurn() override;
+    void endTurn() override;
 
-private:
-    std::shared_ptr<Enemy> selectedTarget = nullptr;
+public :
+    RunicDear(int floor);
+    RunicDear(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    std::shared_ptr<Artefact> createDrop() override;
 };

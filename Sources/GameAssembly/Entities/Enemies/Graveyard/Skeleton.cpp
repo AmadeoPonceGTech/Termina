@@ -118,10 +118,6 @@ bool Skeleton::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
     return false;
 }
 
-void Skeleton::dropArtefacts() {
-
-}
-
 void Skeleton::firstAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
