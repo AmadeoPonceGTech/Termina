@@ -28,9 +28,9 @@ public:
     Artefact();
     Quality quality;
 
-    virtual void ActingArtefact(Entity& target) = 0;
+    virtual void actingArtefact(Entity& target) = 0;
     virtual void onInflictedDamage(Entity& target) = 0;
-    virtual void ActingArtefactEveryTurns(Entity& target) = 0;
+    virtual void actingArtefactEveryTurns(Entity& target) = 0;
 
 #pragma region Getters
 

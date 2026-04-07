@@ -7,12 +7,12 @@ KnightSBadge::KnightSBadge() {
     quality = Quality::COMMON;
 }
 
-void KnightSBadge::ActingArtefact(Entity& target) {
+void KnightSBadge::actingArtefact(Entity& target) {
     target.setGeneratedShield(target.getGeneratedShield() + target.getGeneratedShield() * 5.0f / 100.0f);
 }
 
 void KnightSBadge::onInflictedDamage(Entity& target) {
 }
 
-void KnightSBadge::ActingArtefactEveryTurns(Entity& target) {
+void KnightSBadge::actingArtefactEveryTurns(Entity& target) {
 }

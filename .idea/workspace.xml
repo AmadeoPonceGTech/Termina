@@ -29,12 +29,49 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added map for character/artefact link">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="fix descriptions">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_29_03_2026_14_12_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_29_03_2026_14_12__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_03_2026_08_36_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_30_03_2026_08_36__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2026_08_47_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_03_2026_08_47__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Artefact.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/BearSFoot.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/EelSEye.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/KnightSBadge.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/SmokeBomb.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/Tail.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/ToeBone.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Common/WolfFur.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/BearSSalmon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CasperSEncyclopedia.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CasperSEncyclopedia.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CasperSEncyclopedia.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CasperSEncyclopedia.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/CursedShield.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/MaliciousEye.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/MaliciousEye.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/MaliciousEye.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/MaliciousEye.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Artefacts/Epic/RattataSkull.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Enemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +82,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="2456" />
+    <option name="cachedIndexableFilesCount" value="2577" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
@@ -62,12 +99,12 @@
     &quot;assignee&quot;: &quot;0ri0546&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-.git&quot;,
-    &quot;accountId&quot;: &quot;3506d733-1a4a-4f6d-83a8-d5617e31580c&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-",
+    "accountId": "800f4601-9186-4cbc-a5a4-189d20bf4342"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" root0="FORCE_HIGHLIGHTING" />
@@ -161,6 +198,7 @@
       <workItem from="1775026299111" duration="2520000" />
       <workItem from="1775112090624" duration="163000" />
       <workItem from="1775198857203" duration="2479000" />
+      <workItem from="1775566677593" duration="1145000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />
@@ -530,7 +568,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775210021108</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="fix descriptions">
+      <option name="closed" value="true" />
+      <created>1775349947134</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1775349947135</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +606,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added Mermaid" />
     <MESSAGE value="added Eel" />
     <MESSAGE value="update hit calcul for enemies" />
     <MESSAGE value="added runicDear" />
@@ -585,7 +630,8 @@
     <MESSAGE value="fix merge main into LogManager" />
     <MESSAGE value="added log messages to all Forests enemies" />
     <MESSAGE value="added map for character/artefact link" />
-    <option name="LAST_COMMIT_MESSAGE" value="added map for character/artefact link" />
+    <MESSAGE value="fix descriptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix descriptions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

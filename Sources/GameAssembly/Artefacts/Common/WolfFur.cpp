@@ -7,7 +7,7 @@ WolfFur::WolfFur() {
     quality = Quality::COMMON;
 }
 
-void WolfFur::ActingArtefact(Entity& target) {
+void WolfFur::actingArtefact(Entity& target) {
     target.setCurrentPowerResist(target.getCurrentPowerResist() + target.getCurrentPowerResist() * (1.0f * level) / 100.0f);
     target.setCurrentArmor(target.getCurrentArmor() + target.getCurrentArmor() * (1.0f * level) / 100.0f);
 }
@@ -15,5 +15,5 @@ void WolfFur::ActingArtefact(Entity& target) {
 void WolfFur::onInflictedDamage(Entity& target) {
 }
 
-void WolfFur::ActingArtefactEveryTurns(Entity& target) {
+void WolfFur::actingArtefactEveryTurns(Entity& target) {
 }

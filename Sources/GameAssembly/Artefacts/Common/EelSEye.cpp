@@ -7,12 +7,12 @@ EelSEye::EelSEye() {
     quality = Quality::COMMON;
 }
 
-void EelSEye::ActingArtefact(Entity& target) {
+void EelSEye::actingArtefact(Entity& target) {
     target.resourcesWon = target.resourcesWon + level;
 }
 
 void EelSEye::onInflictedDamage(Entity& target) {
 }
 
-void EelSEye::ActingArtefactEveryTurns(Entity& target) {
+void EelSEye::actingArtefactEveryTurns(Entity& target) {
 }

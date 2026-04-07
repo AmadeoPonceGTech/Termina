@@ -7,12 +7,12 @@ Tail::Tail() {
     quality = Quality::COMMON;
 }
 
-void Tail::ActingArtefact(Entity& target) {
+void Tail::actingArtefact(Entity& target) {
 }
 
 void Tail::onInflictedDamage(Entity& target) {
 }
 
-void Tail::ActingArtefactEveryTurns(Entity& target) {
+void Tail::actingArtefactEveryTurns(Entity& target) {
     target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * (1.0f * level) / 100.0f);
 }

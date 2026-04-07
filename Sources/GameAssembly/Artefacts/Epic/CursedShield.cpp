@@ -7,13 +7,13 @@ CursedShield::CursedShield() {
     quality = Quality::EPIC;
 }
 
-void CursedShield::ActingArtefact(Entity& target) {
+void CursedShield::actingArtefact(Entity& target) {
 }
 
 void CursedShield::onInflictedDamage(Entity& target) {
 }
 
-void CursedShield::ActingArtefactEveryTurns(Entity& target) {
+void CursedShield::actingArtefactEveryTurns(Entity& target) {
     target.setCurrentHealth(target.getCurrentHealth() - target.getMaxHealth() * (2.0f * level) / 100.0f);
     target.setCurrentAttackDamage(target.getMaxAttackDamage() * 1.0f + (3.0f * level) / 100.0f);
 }

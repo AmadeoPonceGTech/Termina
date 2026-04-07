@@ -172,7 +172,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -262,7 +262,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::StartTurn;

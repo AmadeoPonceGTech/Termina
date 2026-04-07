@@ -7,12 +7,12 @@ CasperSEncyclopedia::CasperSEncyclopedia() {
     quality = Quality::EPIC;
 }
 
-void CasperSEncyclopedia::ActingArtefact(Entity& target) {
+void CasperSEncyclopedia::actingArtefact(Entity& target) {
 }
 
 void CasperSEncyclopedia::onInflictedDamage(Entity& target) {
 }
 
-void CasperSEncyclopedia::ActingArtefactEveryTurns(Entity& target) {
+void CasperSEncyclopedia::actingArtefactEveryTurns(Entity& target) {
     target.setCurrentAttackPower(target.getCurrentAttackPower() * 1.0f + (3.0f * level) / 100.0f);
 }

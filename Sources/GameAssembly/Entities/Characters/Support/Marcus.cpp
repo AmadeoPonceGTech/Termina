@@ -108,7 +108,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -237,7 +237,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::StartTurn;

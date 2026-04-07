@@ -7,12 +7,12 @@ BearSFoot::BearSFoot() {
     quality = Quality::COMMON;
 }
 
-void BearSFoot::ActingArtefact(Entity& target) {
+void BearSFoot::actingArtefact(Entity& target) {
 }
 
 void BearSFoot::onInflictedDamage(Entity& target) {
     target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * (2.0f * level) / 100.0f);
 }
 
-void BearSFoot::ActingArtefactEveryTurns(Entity& target) {
+void BearSFoot::actingArtefactEveryTurns(Entity& target) {
 }

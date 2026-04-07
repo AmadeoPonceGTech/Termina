@@ -44,6 +44,10 @@ void Emilie::firstAbility(std::vector<std::shared_ptr<Entity>> enemies)
         if (target != nullptr){
             float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
             target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+            if (artefact) {
+                artefact->onInflictedDamage(*this);
+            }
         }
     }
 
@@ -63,6 +67,10 @@ void Emilie::thirdAbility(std::vector<std::shared_ptr<Entity>> enemies)
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
         target->setIsStun(true);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD3 = 5;
@@ -102,6 +110,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::StartTurn : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->actingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::ChoosingAbility;
             break;
         }
@@ -208,6 +222,9 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::EndTurn : {
             endTurn();
+            if (artefact) {
+                artefact->actingArtefactEveryTurns(*this);
+            }
             currentState = PlayerState::StartTurn;
             return true;
         }
