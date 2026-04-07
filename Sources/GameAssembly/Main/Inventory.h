@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 #include "../Artefacts/Artefact.h"
-#include "Entities/Characters/Character.h"
+#include "../Entities/Characters/Character.h"
 
 enum class EInventoryState {
     SHOWALL,

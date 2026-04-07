@@ -104,7 +104,7 @@ void Marcus::endTurn()
 bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -112,12 +112,11 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
-            // ===== LEFT: LIST =====
+        case PlayerState::CHOOSINGABILITY : {
 
             ImGui::Begin("Choose Ability");
 
@@ -125,7 +124,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Heal"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -134,7 +133,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Multi Heal"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -143,7 +142,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Cleans"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -151,7 +150,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Resurrection"))
             {
                 abilitySelected = 4;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -159,7 +158,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected != 4)
             {
@@ -170,12 +169,12 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTarget = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -191,13 +190,13 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                         if (ImGui::Button(label.c_str())) {
                             selectedTarget = std::static_pointer_cast<Character>(characters[i]);
-                            currentState = PlayerState::Acting;
+                            currentState = PlayerState::ACTING;
                         }
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -205,7 +204,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -225,22 +224,22 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
 
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
 
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
@@ -248,12 +247,6 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     return false;
 }
 
-void Marcus::Start()
-{
-    // Called once when the scene starts playing->
-}
+void Marcus::Start() {}
 
-void Marcus::Update(float deltaTime)
-{
-
-}
+void Marcus::Update(float deltaTime) {}

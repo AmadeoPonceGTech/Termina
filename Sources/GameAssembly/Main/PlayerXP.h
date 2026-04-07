@@ -1,19 +1,20 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include <random>
-
-enum class ERarities {
-    COMMON,
-    RARE,
-    EPIC,
-    LEGENDARY
-};
+#include <string>
+#include <unordered_map>
 
 enum class EUpgradeState {
     CHECKINGXP,
     GENERATEUPGRADE,
     CHOOSINGUPGRADE,
     APPLYUPGRADE
+};
+
+struct Bonus {
+    std::string name;
+    int rarity;
 };
 
 class PlayerXP {
@@ -23,24 +24,27 @@ class PlayerXP {
     float XPNeeded;
     float finalXPNeeded;
 
+    bool choosing;
+
     EUpgradeState upgradeState;
 
     std::random_device rd;
 
-    std::vector<ERarities> tempVec;
+    std::vector<Bonus> bonusChoices;
+    std::unique_ptr<Bonus> bonusChose;
 
-    ERarities rarity1;
-    ERarities rarity2;
-    ERarities rarity3;
-
-    int upgradeChoose1;
-    int upgradeChoose2;
-    int upgradeChoose3;
+    std::vector<std::string> commonBonusesVector;
+    std::vector<std::string> rareBonusesVector;
+    std::vector<std::string> epicBonusesVector;
+    std::vector<std::string> legendaryBonusesVector;
 
 public:
     PlayerXP();
 
     void upgradeSystem(int level);
     bool levelUp(int level);
+
+    bool getChoosing() const;
+    void addCurrentXP(int xpToAdd);
 };
 

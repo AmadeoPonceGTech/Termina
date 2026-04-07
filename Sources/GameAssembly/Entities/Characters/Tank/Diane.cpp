@@ -4,7 +4,7 @@ Diane::Diane()
 {
     name = "Diane";
     entityClass = EClass::TANK;
-    description = "Diane, a fearless fighter, that doesn't hesitate any instant to protect her fellow companions.";
+    description = "Diane, a fearless fighter, that doesn't hesitate to protect her fellow companions.";
 
     baseHealth = 100;
     finalHP = 1000;
@@ -104,7 +104,7 @@ void Diane::endTurn()
 bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -112,18 +112,18 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Shield Charge"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -132,7 +132,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             if (ImGui::Button("Taunt"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -141,7 +141,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             if (ImGui::Button("Shield Buff"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -149,7 +149,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
@@ -160,12 +160,12 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -179,12 +179,12 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -192,7 +192,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -208,34 +208,28 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
 
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
 
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
     return false;
 }
 
-void Diane::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Diane::Start() {}
 
-void Diane::Update(float deltaTime)
-{
-
-}
+void Diane::Update(float deltaTime) {}

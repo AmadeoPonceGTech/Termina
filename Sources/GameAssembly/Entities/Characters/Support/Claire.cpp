@@ -125,7 +125,7 @@ void Claire::endTurn()
 bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -133,18 +133,18 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Wand Hit"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -153,7 +153,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Defense Buff"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -162,7 +162,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Slow Debuff"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -170,7 +170,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Mega Buff"))
             {
                 abilitySelected = 4;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -178,7 +178,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected == 1 or abilitySelected == 3)
             {
@@ -189,12 +189,12 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -208,12 +208,12 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -221,7 +221,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -241,34 +241,28 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
 
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
 
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
     return false;
 }
 
-void Claire::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Claire::Start() {}
 
-void Claire::Update(float deltaTime)
-{
-
-}
+void Claire::Update(float deltaTime) {}

@@ -6,7 +6,7 @@ Alex::Alex()
 {
     name = "Alex";
     entityClass = EClass::CLOSEDDPS;
-    description = "Alex, the proud and generous white knight, that charges and slashes with “their” shield and big sword, defeating the evil.";
+    description = "Alex, the proud and generous white knight, that charges and slashes with his shield and big sword, defeating the evil.";
 
     baseHealth = 50;
     finalHP = 600;
@@ -168,7 +168,7 @@ void Alex::endTurn()
 bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -176,18 +176,18 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Sword Slash"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -196,7 +196,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             if (ImGui::Button("Parade"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -205,7 +205,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             if (ImGui::Button("Heavy Sword Slash"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -213,7 +213,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             ImGui::Begin("Choose enemy target");
             for (int i = 0; i < enemies.size(); i++)
@@ -222,19 +222,19 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
 
                 if (ImGui::Button(label.c_str())) {
                     selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
-                    currentState = PlayerState::Acting;
+                    currentState = PlayerState::ACTING;
                 }
             }
 
             if (ImGui::Button("Return")) {
-                currentState = PlayerState::ChoosingAbility;
+                currentState = PlayerState::CHOOSINGABILITY;
             }
 
             ImGui::End();
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -250,22 +250,22 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
 
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
 
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }

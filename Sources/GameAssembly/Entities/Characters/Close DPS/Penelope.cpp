@@ -4,7 +4,7 @@ Penelope::Penelope()
 {
     name = "Penelope";
     entityClass = EClass::ASSASSIN;
-    description = "Penelope, hidden in the shadows, she secretly eliminates all that appears in her way with her sharp teeth and her poisonous blades.";
+    description = "Penelope, hidden in the shadows, secretly eliminates all that appears in her way with her poisonous blades.";
 
     baseHealth = 25;
     finalHP = 300;
@@ -92,7 +92,7 @@ void Penelope::endTurn()
 bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -100,18 +100,18 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Cut"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -120,7 +120,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             if (ImGui::Button("Poison"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -129,7 +129,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             if (ImGui::Button("Vampiric Cut"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -137,7 +137,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             ImGui::Begin("Choose enemy target");
             for (int i = 0; i < enemies.size(); i++)
@@ -146,19 +146,19 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
 
                 if (ImGui::Button(label.c_str())) {
                     selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
-                    currentState = PlayerState::Acting;
+                    currentState = PlayerState::ACTING;
                 }
             }
 
             if (ImGui::Button("Return")) {
-                currentState = PlayerState::ChoosingAbility;
+                currentState = PlayerState::CHOOSINGABILITY;
             }
 
             ImGui::End();
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -174,34 +174,28 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
 
             if (artefact) {
                 artefact->ActingArtefactEveryTurns(*this);
             }
 
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
     return false;
 }
 
-void Penelope::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Penelope::Start() {}
 
-void Penelope::Update(float deltaTime)
-{
-
-}
+void Penelope::Update(float deltaTime) {}

@@ -27,11 +27,15 @@ Gameplay::Gameplay() {
     if (!enemyManager) {
         enemyManager = std::make_shared<EnemyManager>();
     }
-    currentBiome = EBiome::FOREST;
-
     if (!inventory) {
         inventory = std::make_shared<Inventory>();
     }
+    if (!playerXP) {
+        playerXP = std::make_unique<PlayerXP>();
+    }
+
+    currentBiome = EBiome::FOREST;
+
 }
 
 void Gameplay::StartRun() {
@@ -210,6 +214,8 @@ void Gameplay::UpdateFight() {
                         std::shared_ptr<Character> c = std::dynamic_pointer_cast<Character>(chara);
                         c->addCurrentXP(xpToAdd);
                     }
+
+                    playerXP->addCurrentXP(e->getCurrentExpDrop());
                 }
             }
             if (std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
@@ -219,7 +225,7 @@ void Gameplay::UpdateFight() {
     }
 
     if (enemyManager->getEnemies().size() == 0) {
-        runState = EGameRunState::EndFight;
+        runState = EGameRunState::ENDFIGHT;
     }
 
     for (auto& chara : activeCharacters) {
@@ -227,7 +233,7 @@ void Gameplay::UpdateFight() {
     }
 
     if (aliveCharaVec.size() == 0) {
-        runState = EGameRunState::EndRun;
+        runState = EGameRunState::ENDRUN;
     }
 }
 
@@ -360,25 +366,34 @@ void Gameplay::drawImGui() {
 void Gameplay::Gameloop()
 {
     switch (runState) {
-        case EGameRunState::StartRun :
+        case EGameRunState::STARTRUN :
             StartRun();
-            runState = EGameRunState::StartFight;
+            runState = EGameRunState::CHECKUPGRADE;
             break;
-        case EGameRunState::StartFight :
+
+        case EGameRunState::CHECKUPGRADE :
+            playerXP->upgradeSystem(currentLevel);
+            if (!playerXP->getChoosing()) runState = EGameRunState::STARTFIGHT;
+            break;
+
+        case EGameRunState::STARTFIGHT :
             StartFight();
             LogManager::getInstance().AddLog("New Fight");
-            runState = EGameRunState::UpdateFight;
+            runState = EGameRunState::UPDATEFIGHT;
             break;
-        case EGameRunState::UpdateFight :
+
+        case EGameRunState::UPDATEFIGHT :
             UpdateFight();
             drawImGui();
             LogManager::getInstance().DrawImGui();
             break;
-        case EGameRunState::EndFight :
+
+        case EGameRunState::ENDFIGHT :
             EndFight();
-            runState = EGameRunState::StartFight;
+            runState = EGameRunState::CHECKUPGRADE;
             break;
-        case EGameRunState::EndRun :
+
+        case EGameRunState::ENDRUN :
             EndRun();
             break;
     }
