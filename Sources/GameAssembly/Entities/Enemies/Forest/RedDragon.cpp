@@ -6,7 +6,7 @@
 RedDragon::RedDragon(int floor) {
     name = "RedDragon";
     entityClass = EClass::BOSS;
-    description = "RedDragon's description.";
+    description = "The Red Dragon is a terrific creature, feared for his burning blazing breath and his majestic shape. The legend says that no one has ever returned alive from his lair.";
     biome = Biome::FOREST;
 
     level = floor;

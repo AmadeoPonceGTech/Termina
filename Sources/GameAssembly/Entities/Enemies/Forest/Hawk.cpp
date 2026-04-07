@@ -4,7 +4,7 @@
 Hawk::Hawk(int floor) {
     name = "Hawk";
     entityClass = EClass::SUPPORT;
-    description = "The Hawk is a sharp-eyed hunter, swift in the sky and deadly in its dive.";
+    description = "Hawk, an incredibly fast and dangerous bird, with sharp claws and aggressive behaviour.";
     biome = Biome::FOREST;
 
     level = floor;

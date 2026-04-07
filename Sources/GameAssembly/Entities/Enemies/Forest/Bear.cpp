@@ -4,7 +4,7 @@
 Bear::Bear(int floor) {
     name = "Bear";
     entityClass = EClass::TANK;
-    description = "The bear is a massive brute, slow to get angry but impossible to stop once it starts.";
+    description = "Bear, a monstrous predator, feared by everyone. Do not touch his food or you'll regret it.";
     biome = Biome::FOREST;
 
     level = floor;

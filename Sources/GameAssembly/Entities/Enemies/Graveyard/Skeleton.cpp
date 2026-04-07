@@ -4,7 +4,7 @@
 Skeleton::Skeleton(int floor) {
     name = "Skeleton";
     entityClass = EClass::CLOSEDDPS;
-    description = "Old pack of bones sticking together";
+    description = "Skeleton, an undead creature made up by a pack of bones sticking up together like if someone had filled it with magic.";
     biome = Biome::GRAVEYARD;
 
     level = floor;

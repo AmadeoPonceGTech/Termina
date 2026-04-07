@@ -4,7 +4,7 @@
 Wolf::Wolf(int floor) {
     name = "Wolf";
     entityClass = EClass::CLOSEDDPS;
-    description = "The wolf is a cunning predator, swift and relentless in the hunt.";
+    description = "While watching the Wolf never forget that he is not chasing alone.";
     biome = Biome::FOREST;
 
     level = floor;

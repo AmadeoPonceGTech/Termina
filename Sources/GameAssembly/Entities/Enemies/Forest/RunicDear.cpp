@@ -4,7 +4,7 @@
 RunicDear::RunicDear(int floor) {
     name = "RunicDear";
     entityClass = EClass::BOSS;
-    description = "RunicDear's description.";
+    description = "The Runic Dear was once the best friend of a very powerful wizard that valued more the wildlife than his own life. When the wizard died, he cast a last very powerful spell to give his magic to the animal making him the Runic Dear.";
     biome = Biome::FOREST;
 
     level = floor;
