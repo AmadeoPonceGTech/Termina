@@ -39,6 +39,7 @@ void Edward::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackPower - currentAttackPower * (target->getCurrentPowerResist() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Edward uses \"Ember\"." + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -53,6 +54,7 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+    LogManager::getInstance().addLog("Edward uses \"Fireball\"." + target->getName() + " takes damages and is burnt.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -64,6 +66,7 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
 void Edward::thirdAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsStun(true);
+    LogManager::getInstance().addLog("Edward uses \"Stun Spell\"." + target->getName() + " is stunned.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD3 = 5;
 }
@@ -74,6 +77,7 @@ void Edward::fourthAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+    LogManager::getInstance().addLog("Edward uses \"Magic Meteor\"." + target->getName() + " takes damages and is burnt.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);

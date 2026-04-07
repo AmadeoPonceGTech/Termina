@@ -41,6 +41,7 @@ void Penelope::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Penelope uses \"Cut\"." + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -53,6 +54,7 @@ void Penelope::secondAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsPoisoned(true);
     target->setPoisonCD(5);
+    LogManager::getInstance().addLog("Penelope uses \"Poison\"." + target->getName() + " is poisoned.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 3;
 }
@@ -62,6 +64,7 @@ void Penelope::thirdAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     currentHealth += dmgDealt * (80 / 100);
+    LogManager::getInstance().addLog("Penelope uses \"Vampiric Cut\"." + target->getName() + " takes damages and a part of the damages inflicted are used to heal Penelope.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);

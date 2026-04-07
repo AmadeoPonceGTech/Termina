@@ -41,6 +41,7 @@ void Brutus::firstAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        LogManager::getInstance().addLog("Brutus uses \"Triple Shoot\"." + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
         if (artefact) {
             artefact->onInflictedDamage(*this);
@@ -62,6 +63,7 @@ void Brutus::secondAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        LogManager::getInstance().addLog("Brutus uses \"Arrow Storm\"." + target->getName() + " takes damages (x" + std::to_string(arrowToShoot) + ").", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
         if (artefact) {
             artefact->onInflictedDamage(*this);
@@ -75,6 +77,7 @@ void Brutus::thirdAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() * 0.2 / 100 );
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Brutus uses \"Piercing Arrow\"." + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -88,6 +91,7 @@ void Brutus::fourthAbility(std::shared_ptr<Enemy>target)
     float dmgAPDealt = currentAttackPower * 4 - currentAttackPower * (target->getCurrentPowerResist() / 100);
     float dmgADDealt = currentAttackDamage * 4 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - (dmgADDealt + dmgAPDealt) / 2);
+    LogManager::getInstance().addLog("Brutus uses \"Explosive Arrow\"." + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
