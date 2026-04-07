@@ -4,7 +4,7 @@
 Bear::Bear(int floor) {
     name = "Bear";
     entityClass = EClass::TANK;
-    description = "The bear is a massive brute, slow to anger but impossible to stop once it starts.";
+    description = "The bear is a massive brute, slow to get angry but impossible to stop once it starts.";
     biome = Biome::FOREST;
 
     level = floor;
@@ -55,12 +55,13 @@ void Bear::startTurn() {
     firstAbilityUp = true;
     if (CD2 == 0) { secondAbilityUp = true; } else { secondAbilityUp = false; }
     thirdAbilityUp = true;
-    if (CD4 == 0 && level > 50) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
+    if (CD4 == 0) { fourthAbilityUp = true; } else { fourthAbilityUp = false; }
 }
 
 void Bear::endTurn() {
     if (CD2 > 0) { CD2--; }
     if (CD4 > 0) { CD4--; }
+    std::cout << CD2 << std::endl;
 
     manageStatusEffect();
 }
@@ -112,7 +113,6 @@ bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             std::uniform_int_distribution<int> distChoice(0, availableChoices.size() - 1);
             int choice = availableChoices[distChoice(rng)];
 
-
             switch (choice)
             {
             case 1:
@@ -150,10 +150,12 @@ void Bear::dropArtefacts() {
 void Bear::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
+    LogManager::getInstance().AddLog("Bear attacks " + target.getName() + " with \"Claw\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Bear::secondAbility() {
     currentHealth = currentHealth + maxHealth * 0.15f;
+    LogManager::getInstance().AddLog("Bear heals by 15% with \"Surprise Salmon\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -169,6 +171,8 @@ void Bear::fourthAbility(Character& target) {
     target.setIsTaunt(true);
     setTauntCD(3);
 
+    LogManager::getInstance().AddLog("Bear uses \"I Am The King\", increasing its Defense and Resistance. " + target.getName() + " is taunt.", ImVec4(240, 0.518, 0.518, 1));
+
     CD4 = 7;
 }
 
@@ -180,16 +184,20 @@ std::shared_ptr<Artefact> Bear::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
+        LogManager::getInstance().AddLog("You obtained a Common Artefact: Bear's Foot !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSFoot>();
     }
     else if (roll < 15.f) {
+        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Honey !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<Honey>();
         return nullptr;
     }
     else if (roll < 17.f) {
+        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Bear's Salmon !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSSalmon>();
     }
     else if (roll < 17.5f) {
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Great Bear Medal !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<GreatBearMedal>();
         return nullptr;
     }

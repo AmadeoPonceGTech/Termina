@@ -52,6 +52,7 @@ private:
 public:
 
     Gameplay();
+
     void StartRun();
     void EndRun();
 

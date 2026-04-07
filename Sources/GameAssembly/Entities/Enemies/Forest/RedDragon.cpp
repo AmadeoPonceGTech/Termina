@@ -144,6 +144,8 @@ void RedDragon::firstAbility(Character& target) {
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     target.setCurrentSpeed(target.getCurrentSpeed() + (target.getCurrentSpeed() * 15.0f / 100.0f));
+
+    LogManager::getInstance().AddLog("Red Dragon uses \"Tail Smash\". " + target.getName() + " takes damages and a Speed debuff.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RedDragon::secondAbility(Character& target) {
@@ -151,6 +153,7 @@ void RedDragon::secondAbility(Character& target) {
     if (target.getIsBurnt() | target.getIsStun() | target.getIsPoisoned() | target.getIsTaunt()) multiplier = 1.5f; else multiplier = 1.0f;
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * multiplier));
+    LogManager::getInstance().AddLog("Red Dragon uses \"Hate Flame\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -158,6 +161,7 @@ void RedDragon::secondAbility(Character& target) {
 void RedDragon::thirdAbility() {
     currentAttackPower = currentAttackPower + (currentAttackPower * 5.0f / 100.0f);
     currentAttackDamage = currentAttackDamage + (currentAttackDamage * 5.0f / 100.0f);
+    LogManager::getInstance().AddLog("The passive \"Hell Territory\" of Red Dragon increase their offensive stats by 5%.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RedDragon::fourthAbility(const std::vector<Character*>& targets) {
@@ -167,6 +171,7 @@ void RedDragon::fourthAbility(const std::vector<Character*>& targets) {
 
         character->setCurrentAttackDamage(character->getCurrentAttackDamage() - character->getCurrentAttackDamage() * 15.0f / 100.0f);
         character->setCurrentAttackPower(character->getCurrentAttackPower() - character->getCurrentAttackPower() * 15.0f / 100.0f);
+        LogManager::getInstance().AddLog("Red Dragon uses \"Grand Fire\". " + character->getName() + " takes damages and offensive debuffs.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 7;
@@ -189,6 +194,7 @@ std::shared_ptr<Artefact> RedDragon::createDrop() {
         return nullptr;
     }
     else if (roll < 17.5f) {
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Eternal Flame !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<EternalFlame>();
         return nullptr;
     }

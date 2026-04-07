@@ -29,10 +29,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="Drop Implemented">
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/PlayerXP.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/PlayerXP.h" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added map for character/artefact link">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +45,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="2442" />
+    <option name="cachedIndexableFilesCount" value="2456" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
@@ -70,6 +72,8 @@
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Game.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/GameAssembly.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -116,7 +120,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;PlayerXpSystem&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;LogManager&quot;,
     &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -129,11 +133,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\mprevost\CLionProjects\EndlessRogue-Termina-\Sources\GameAssembly\Main" />
       <recent name="D:\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Enemies\Close DPS" />
       <recent name="D:\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Enemies\Support" />
       <recent name="D:\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Enemies\Tank" />
       <recent name="C:\Users\momop\source\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Characters\Support" />
+      <recent name="C:\Users\momop\source\repos\EndlessRogue-Termina-\Sources\GameAssembly\Entities\Characters" />
     </key>
   </component>
   <component name="RunManager">
@@ -502,23 +506,31 @@
       <option name="project" value="LOCAL" />
       <updated>1775127625280</updated>
     </task>
-    <task id="LOCAL-00044" summary="Started drop implementation">
+    <task id="LOCAL-00044" summary="fix merge main into LogManager">
       <option name="closed" value="true" />
-      <created>1775203577581</created>
+      <created>1775202228638</created>
       <option name="number" value="00044" />
       <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1775203577581</updated>
+      <updated>1775202228638</updated>
     </task>
-    <task id="LOCAL-00045" summary="Drop Implemented">
+    <task id="LOCAL-00045" summary="added log messages to all Forests enemies">
       <option name="closed" value="true" />
-      <created>1775208595161</created>
+      <created>1775209591372</created>
       <option name="number" value="00045" />
       <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1775208595161</updated>
+      <updated>1775209591372</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="added map for character/artefact link">
+      <option name="closed" value="true" />
+      <created>1775210021108</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1775210021108</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +560,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added Dunkleosteus" />
     <MESSAGE value="added Mermaid" />
     <MESSAGE value="added Eel" />
     <MESSAGE value="update hit calcul for enemies" />
@@ -571,9 +582,10 @@
     <MESSAGE value="debugging loop" />
     <MESSAGE value="Finished UI Display + fixed loop, just need to change loose condition" />
     <MESSAGE value="Needs to find which character make the game crash but finished gameloop" />
-    <MESSAGE value="Started drop implementation" />
-    <MESSAGE value="Drop Implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Drop Implemented" />
+    <MESSAGE value="fix merge main into LogManager" />
+    <MESSAGE value="added log messages to all Forests enemies" />
+    <MESSAGE value="added map for character/artefact link" />
+    <option name="LAST_COMMIT_MESSAGE" value="added map for character/artefact link" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

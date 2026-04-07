@@ -1,4 +1,4 @@
-#include "Gameplay.h"
+#include "../Gameplay/Gameplay.h"
 
 #include <algorithm>
 
@@ -182,6 +182,12 @@ void Gameplay::UpdateFight() {
             if (currentEntityIndex >= speedManagerVec.size())
                 currentEntityIndex = 0;
 
+            for (auto& e : speedManagerVec) {
+                if (e->getCurrentHealth() <= 0) {
+                    LogManager::getInstance().AddLog( e->getName() + " is dead.", ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+                }
+            }
+
             if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
                 std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
             }
@@ -360,11 +366,13 @@ void Gameplay::Gameloop()
             break;
         case EGameRunState::StartFight :
             StartFight();
+            LogManager::getInstance().AddLog("New Fight");
             runState = EGameRunState::UpdateFight;
             break;
         case EGameRunState::UpdateFight :
             UpdateFight();
             drawImGui();
+            LogManager::getInstance().DrawImGui();
             break;
         case EGameRunState::EndFight :
             EndFight();
@@ -420,6 +428,7 @@ void Gameplay::RemoveFromTeam(const std::shared_ptr<Entity>& entity)
     activeCharacters.erase(it);
     std::cout << entity->getName() << " remove from team" << std::endl;
 }
+
 
 ////////// Check if Team is Complete or If the character is already in team
 bool Gameplay::TeamIsComplete() {
