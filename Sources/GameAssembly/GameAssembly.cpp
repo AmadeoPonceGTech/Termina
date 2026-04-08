@@ -13,7 +13,7 @@
 #include "Entities/Characters/Range DPS/Edward.h"
 #include "Entities/Characters/Close DPS/Penelope.h"
 #include "Entities/Characters/Support/Claire.h"
-//#include "Entities/Characters/Range DPS/Brutus.h"
+#include "Entities/Characters/Range DPS/Brutus.h"
 #include "Entities/Characters/Tank/Emilie.h"
 
 #include "Entities/Enemies/Forest/Rat.h"
