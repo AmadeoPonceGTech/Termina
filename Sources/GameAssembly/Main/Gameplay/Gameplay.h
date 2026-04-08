@@ -10,6 +10,8 @@
 
 #include "../../Entities/Enemies/EnemyManager.h"
 #include "../../Entities/Characters/Character.h"
+#include "../Inventory.h"
+#include "../PlayerXP.h"
 
 enum class EBiome {
     FOREST,
@@ -19,22 +21,26 @@ enum class EBiome {
 
 enum class EGameRunState
 {
-    StartRun,
-    StartFight,
-    UpdateFight,
-    EndFight,
-    EndRun
+    STARTRUN,
+    CHECKUPGRADE,
+    STARTFIGHT,
+    UPDATEFIGHT,
+    ENDFIGHT,
+    ENDRUN
 };
 
 class Gameplay {
 private:
     std::shared_ptr<EnemyManager> enemyManager;
+    std::unique_ptr<PlayerXP> playerXP;
     std::vector<std::shared_ptr<Entity>> activeCharacters;
     std::vector<std::shared_ptr<Entity>> speedManagerVec;
     std::vector<std::shared_ptr<Entity>> aliveCharaVec;
+    std::shared_ptr<Inventory> inventory;
 
     EGameRunState runState;
     EBiome currentBiome;
+
 
     bool spawnBoss = false;
     std::random_device rd;
@@ -46,21 +52,21 @@ private:
 
     int currentEntityIndex = 0;
 
-public:
-
-    Gameplay();
-
     void StartRun();
     void EndRun();
 
     void StartFight();
     void EndFight();
 
-    void Gameloop();
     void UpdateFight();
 
-    void showEnemiesStats();
-    void showAlliesStats();
+    void drawImGui();
+
+public:
+
+    Gameplay();
+
+    void Gameloop();
 
     bool HasSameType(const Entity& entity) const;
     void AddToTeam(const std::shared_ptr<Entity>& entity);

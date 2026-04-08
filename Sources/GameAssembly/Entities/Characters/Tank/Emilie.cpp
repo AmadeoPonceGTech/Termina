@@ -111,7 +111,7 @@ void Emilie::endTurn()
 bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
@@ -119,18 +119,18 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 artefactAlreadyUsed = true;
             }
 
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Earthquake"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -139,7 +139,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Share"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -148,7 +148,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Punch'em all"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -156,7 +156,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
@@ -167,12 +167,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -186,12 +186,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -199,7 +199,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -215,20 +215,20 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
             if (artefact) {
                 artefact->actingArtefactEveryTurns(*this);
             }
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
@@ -245,12 +245,6 @@ void Emilie::endFight() {
     currentEnemies.clear();
 }
 
-void Emilie::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Emilie::Start() {}
 
-void Emilie::Update(float deltaTime)
-{
-
-}
+void Emilie::Update(float deltaTime) {}

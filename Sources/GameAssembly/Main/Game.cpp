@@ -3,17 +3,17 @@
 #include <iostream>
 #include <ostream>
 
-#include "../Termina/Renderer/Components/CameraComponent.hpp"
-#include "../Termina/Renderer/Components/MeshComponent.hpp"
+#include "../../Termina/Renderer/Components/CameraComponent.hpp"
+#include "../../Termina/Renderer/Components/MeshComponent.hpp"
 
-#include "Entities/Characters/Close DPS/Alex.h"
-#include "Entities/Characters/Close DPS/Penelope.h"
-#include "Entities/Characters/Tank/Diane.h"
-#include "Entities/Characters/Tank/Emilie.h"
-#include "Entities/Characters/Support/Marcus.h"
-#include "Entities/Characters/Support/Claire.h"
-#include "Entities/Characters/Range DPS/Brutus.h"
-#include "Entities/Characters/Range DPS/Edward.h"
+#include "../Entities/Characters/Close DPS/Alex.h"
+#include "../Entities/Characters/Close DPS/Penelope.h"
+#include "../Entities/Characters/Tank/Diane.h"
+#include "../Entities/Characters/Tank/Emilie.h"
+#include "../Entities/Characters/Support/Marcus.h"
+#include "../Entities/Characters/Support/Claire.h"
+#include "../Entities/Characters/Range DPS/Brutus.h"
+#include "../Entities/Characters/Range DPS/Edward.h"
 
 
 void Game::Start()
@@ -137,7 +137,7 @@ void Game::Update(float deltaTime)
         }
         case EGameState::Run :
             if (!runStarted) {
-                gameplay->setRunState(EGameRunState::StartRun);
+                gameplay->setRunState(EGameRunState::STARTRUN);
                 runStarted = true;
             }
             gameplay->Gameloop();

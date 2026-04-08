@@ -3,12 +3,12 @@
 #include <vector>
 #include <string>
 #include <Termina/Scripting/API/ScriptingAPI.hpp>
-#include "../ThirdParty/ImGui/imgui.h"
-#include "../ThirdParty/ImGui/imgui_internal.h"
+#include "../../ThirdParty/ImGui/imgui.h"
+#include "../../ThirdParty/ImGui/imgui_internal.h"
 
 #pragma region Gameplayincludes
-#include "Entities/Characters/Range DPS/Brutus.h"
-#include "Main/Gameplay/Gameplay.h"
+#include "../Entities/Characters/Range DPS/Brutus.h"
+#include "Gameplay/Gameplay.h"
 #pragma endregion Gameplayincludes
 
 using namespace TerminaScript;

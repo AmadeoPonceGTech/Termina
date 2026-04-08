@@ -1,5 +1,7 @@
 #pragma once
 #include "../Entity.h"
+#include "../../Artefacts/Artefact.h"
+#pragma once
 
 #pragma once
 
@@ -8,9 +10,10 @@
 #include "../../Artefacts/Common/BearSFoot.h"
 #include "../../Artefacts/Common/KnightsBadge.h"
 #include "../../Artefacts/Common/EelsEye.h"
-#include "../../Artefacts/Common/Tail.h"
+//#include "../../Artefacts/Common/AbandonedTail.h"
 #include "../../Artefacts/Common/ToeBone.h"
 #include "../../Artefacts/Common/WolfFur.h"
+#include "../../Artefacts/Common/Tail.h"
 
 // Rare
 //#include "../../Artefacts/Rare/ChaoticArmor.h"
@@ -28,7 +31,7 @@
 #include "../../Artefacts/Epic/CursedShield.h"
 #include "../../Artefacts/Epic/CaspersEncyclopedia.h"
 //#include "../../Artefacts/Epic/MermaidTail.h"
-#include "../../Artefacts/Epic/RattataSkull.h"
+//#include "../../Artefacts/Epic/RattataSkull.h"
 //#include "../../Artefacts/Epic/PackAura.h"
 
 // Legendary

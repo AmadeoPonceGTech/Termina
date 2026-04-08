@@ -27,6 +27,13 @@ Gameplay::Gameplay() {
     if (!enemyManager) {
         enemyManager = std::make_shared<EnemyManager>();
     }
+    if (!inventory) {
+        inventory = std::make_shared<Inventory>();
+    }
+    if (!playerXP) {
+        playerXP = std::make_unique<PlayerXP>();
+    }
+
     currentBiome = EBiome::FOREST;
 }
 
@@ -201,11 +208,19 @@ void Gameplay::UpdateFight() {
                     }
 
                     std::shared_ptr<Enemy> e = std::dynamic_pointer_cast<Enemy>(enemy);
+
+                    auto drop = e->createDrop();
+                    if (drop != nullptr) {
+                        inventory->addArtefact(drop);
+                    }
+
                     float xpToAdd = e->getCurrentExpDrop() / 4;
                     for (auto& chara : aliveCharaVec) {
                         std::shared_ptr<Character> c = std::dynamic_pointer_cast<Character>(chara);
                         c->addCurrentXP(xpToAdd);
                     }
+
+                    playerXP->addCurrentXP(e->getCurrentExpDrop());
                 }
             }
             if (std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
@@ -215,7 +230,7 @@ void Gameplay::UpdateFight() {
     }
 
     if (enemyManager->getEnemies().size() == 0) {
-        runState = EGameRunState::EndFight;
+        runState = EGameRunState::ENDFIGHT;
     }
 
     for (auto& chara : activeCharacters) {
@@ -223,7 +238,7 @@ void Gameplay::UpdateFight() {
     }
 
     if (aliveCharaVec.size() == 0) {
-        runState = EGameRunState::EndRun;
+        runState = EGameRunState::ENDRUN;
     }
 }
 
@@ -272,7 +287,9 @@ void Gameplay::EndRun() {
     ImGui::End();
 }
 
-void Gameplay::showEnemiesStats() {
+void Gameplay::drawImGui() {
+
+    // ENEMY
 
     ImGui::Begin("Enemies Stats");
 
@@ -286,7 +303,7 @@ void Gameplay::showEnemiesStats() {
 
         ImGui::BeginChild(("Enemy" + std::to_string(i)).c_str(), ImVec2(-1, 70), true);
 
-        ImGui::Text("Character: %s,                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
+        ImGui::Text("Character: %s                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
         ImGui::Dummy(ImVec2(0,5));
         ImGui::Text("Class : %s", enemy->getStringClass().c_str());
 
@@ -298,8 +315,8 @@ void Gameplay::showEnemiesStats() {
 
     ImGui::Columns(1);
     ImGui::End();
-}
-void Gameplay::showAlliesStats() {
+
+    // CHARA
 
     ImGui::Begin("Characters Stats");
 
@@ -335,35 +352,55 @@ void Gameplay::showAlliesStats() {
 
     ImGui::Columns(1);
     ImGui::End();
+
+    // Vector Speed
+
+    ImGui::Begin("Entity Turn Order");
+
+    for (const auto& e : speedManagerVec) {
+        ImGui::Text("%s", e->getName().c_str());
+    }
+
+    ImGui::End();
+
+    // Inventory
+
+    if (!aliveCharaVec.empty()) { inventory->drawArtefactsInventory(aliveCharaVec); }
 }
 
 void Gameplay::Gameloop()
 {
     switch (runState) {
-        case EGameRunState::StartRun :
+        case EGameRunState::STARTRUN :
             StartRun();
-            std::cout << "Run started" << std::endl;
-            runState = EGameRunState::StartFight;
+            runState = EGameRunState::CHECKUPGRADE;
             break;
-        case EGameRunState::StartFight :
+
+        case EGameRunState::CHECKUPGRADE :
+            playerXP->upgradeSystem(currentLevel);
+            if (!playerXP->getChoosing()) runState = EGameRunState::STARTFIGHT;
+            break;
+
+        case EGameRunState::STARTFIGHT :
             StartFight();
             LogManager::getInstance().addSeparator();
             std::cout << "Fight started" << std::endl;
             LogManager::getInstance().addSeparator();
             LogManager::getInstance().addLog("New Fight");
-            runState = EGameRunState::UpdateFight;
+            runState = EGameRunState::UPDATEFIGHT;
             break;
-        case EGameRunState::UpdateFight :
+        case EGameRunState::UPDATEFIGHT :
             UpdateFight();
-            showEnemiesStats();
-            showAlliesStats();
+            drawImGui();
             LogManager::getInstance().drawImGui();
             break;
-        case EGameRunState::EndFight :
+
+        case EGameRunState::ENDFIGHT :
             EndFight();
-            runState = EGameRunState::StartFight;
+            runState = EGameRunState::CHECKUPGRADE;
             break;
-        case EGameRunState::EndRun :
+
+        case EGameRunState::ENDRUN :
             EndRun();
             break;
     }
