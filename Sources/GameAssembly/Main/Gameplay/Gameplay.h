@@ -3,8 +3,15 @@
 #include <vector>
 #include <memory>
 #include <random>
+
+#include "../../../ThirdParty/ImGui/imgui.h"
+#include "../../../ThirdParty/ImGui/ImGuizmo.h"
+#include "../../../ThirdParty/ImGui/imgui_internal.h"
+
 #include "../../Entities/Enemies/EnemyManager.h"
 #include "../../Entities/Characters/Character.h"
+#include "../Inventory.h"
+#include "../PlayerXP.h"
 
 enum class EBiome {
     FOREST,
@@ -14,32 +21,36 @@ enum class EBiome {
 
 enum class EGameRunState
 {
-    StartRun,
-    StartFight,
-    UpdateFight,
-    EndFight,
-    EndRun
+    STARTRUN,
+    CHECKUPGRADE,
+    STARTFIGHT,
+    UPDATEFIGHT,
+    ENDFIGHT,
+    ENDRUN
 };
 
 class Gameplay {
 private:
     std::shared_ptr<EnemyManager> enemyManager;
+    std::unique_ptr<PlayerXP> playerXP;
     std::vector<std::shared_ptr<Entity>> activeCharacters;
     std::vector<std::shared_ptr<Entity>> speedManagerVec;
+    std::vector<std::shared_ptr<Entity>> aliveCharaVec;
+    std::shared_ptr<Inventory> inventory;
 
     EGameRunState runState;
     EBiome currentBiome;
+
 
     bool spawnBoss = false;
     std::random_device rd;
 
     int currentLevel = 1;
-    int charaDeathCount = 0;
     int biomeCount = 0;
 
     bool runEnded = false;
 
-public:
+    int currentEntityIndex = 0;
 
     Gameplay();
     void startRun();
@@ -54,6 +65,8 @@ public:
     bool hasSameType(const Entity& entity) const;
     void addToTeam(const std::shared_ptr<Entity>& entity);
     void removeFromTeam(const std::shared_ptr<Entity>& entity);
+
+    void drawImGui();
 
     bool teamIsComplete();
     bool isInTeam(const std::shared_ptr<Entity>& entity);

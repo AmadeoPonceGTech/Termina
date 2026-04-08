@@ -6,7 +6,7 @@
 #include "ParticleSystem.hpp"
 #include "PhysicsTestComponent.hpp"
 
-#include "Game.h"
+#include "Main/Game.h"
 #include "Entities/Characters/Tank/Diane.h"
 #include "Entities/Characters/Close DPS/Alex.h"
 #include "Entities/Characters/Support/Marcus.h"

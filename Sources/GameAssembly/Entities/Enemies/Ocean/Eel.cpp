@@ -173,3 +173,25 @@ void Eel::fourthAbility(Character& target) {
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
     CD4 = 6;
 }
+
+std::shared_ptr<Artefact> Eel::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return std::make_shared<EelSEye>();
+    }
+    else if (roll < 15.f) {
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        return nullptr;
+    }
+    return nullptr;
+}

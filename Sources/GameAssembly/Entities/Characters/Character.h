@@ -4,11 +4,11 @@
 #include "../../../ThirdParty/ImGui/imgui_internal.h"
 
 enum class PlayerState {
-    StartTurn,
-    ChoosingAbility,
-    ChoosingTarget,
-    Acting,
-    EndTurn
+    STARTTURN,
+    CHOOSINGABILITY,
+    CHOOSINGTARGET,
+    ACTING,
+    ENDTURN
 };
 
 class Artefact;
@@ -33,12 +33,14 @@ protected :
 
     int abilitySelected;
 
-public:
-    Character();
-
     void levelUp();
     bool manageXP();
+
+public:
+    Character();
     void endRun();
+
+    void addCurrentXP(float newXP);
 
     float getCurrentXP() const;
     float getXPNeeded() const;

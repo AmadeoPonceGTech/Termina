@@ -14,15 +14,15 @@ Emilie::Emilie()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 0;
-    finalAD = 0;
-    maxAttackDamage = 0;
-    currentAttackDamage = 0;
+    baseAttackDamage = 5;
+    finalAD = 300;
+    maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
+    currentAttackDamage = baseAttackDamage;
 
-    baseAttackPower = 5;
-    finalAP = 300;
-    maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
-    currentAttackPower = baseAttackPower;
+    baseAttackPower = 0;
+    finalAP = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
     baseArmor = 2;
     finalArmor = 20;
@@ -38,26 +38,13 @@ Emilie::Emilie()
     currentSpeed = baseSpeed;
 }
 
-void Emilie::firstAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4)
+void Emilie::firstAbility(std::vector<std::shared_ptr<Entity>> enemies)
 {
-    if (target != nullptr){
-        float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
-        target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
-    }
-
-    if (target2 != nullptr) {
-        float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
-        target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 3);
-    }
-
-    if (target3 != nullptr) {
-        float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
-        target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 3);
-    }
-
-    if (target4 != nullptr) {
-        float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
-        target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 3);
+    for (auto& target : enemies) {
+        if (target != nullptr){
+            float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
+            target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        }
     }
 
     CD1 = 1;
@@ -70,23 +57,13 @@ void Emilie::secondAbility(std::shared_ptr<Character> target)
     CD2 = 5;
 }
 
-void Emilie::thirdAbility(std::shared_ptr<Enemy>target, std::shared_ptr<Enemy>target2, std::shared_ptr<Enemy>target3, std::shared_ptr<Enemy>target4)
+void Emilie::thirdAbility(std::vector<std::shared_ptr<Entity>> enemies)
 {
-    float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
-    target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
-    target->setIsStun(true);
-
-    float dmgDealt2 = currentAttackDamage - currentAttackDamage * (target2->getCurrentArmor() / 100);
-    target2->setCurrentHealth(target2->getCurrentHealth() - dmgDealt2 / 4);
-    target->setIsStun(true);
-
-    float dmgDealt3 = currentAttackDamage - currentAttackDamage * (target3->getCurrentArmor() / 100);
-    target3->setCurrentHealth(target3->getCurrentHealth() - dmgDealt3 / 4);
-    target->setIsStun(true);
-
-    float dmgDealt4 = currentAttackDamage - currentAttackDamage * (target4->getCurrentArmor() / 100);
-    target4->setCurrentHealth(target4->getCurrentHealth() - dmgDealt4 / 4);
-    target->setIsStun(true);
+    for (auto& target : enemies) {
+        float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
+        target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
+        target->setIsStun(true);
+    }
 
     CD3 = 5;
 }
@@ -123,38 +100,38 @@ void Emilie::endTurn()
 bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
-            currentState = PlayerState::ChoosingAbility;
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
-            if (ImGui::Button("Shield Charge"))
+            if (ImGui::Button("Earthquake"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
 
             ImGui::BeginDisabled(!secondAbilityUp);
-            if (ImGui::Button("Taunt"))
+            if (ImGui::Button("Share"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
 
             ImGui::BeginDisabled(!thirdAbilityUp);
-            if (ImGui::Button("Shield Buff"))
+            if (ImGui::Button("Punch'em all"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -162,7 +139,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
@@ -173,12 +150,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetE = std::static_pointer_cast<Enemy>(enemies[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -192,12 +169,12 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTargetC = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -205,19 +182,11 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
-                    std::shared_ptr<Enemy> target;
-                    target = std::dynamic_pointer_cast<Enemy>(enemies[0]);
-                    std::shared_ptr<Enemy> target2;
-                    target2 = std::dynamic_pointer_cast<Enemy>(enemies[1]);
-                    std::shared_ptr<Enemy> target3;
-                    target3 = std::dynamic_pointer_cast<Enemy>(enemies[2]);
-                    std::shared_ptr<Enemy> target4;
-                    target4 = std::dynamic_pointer_cast<Enemy>(enemies[3]);
-                    firstAbility(target, target2, target3, target4);
+                    firstAbility(enemies);
                     break;
                 }
                 case 2 : {
@@ -225,29 +194,21 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 case 3 : {
-                    std::shared_ptr<Enemy> target;
-                    target = std::dynamic_pointer_cast<Enemy>(enemies[0]);
-                    std::shared_ptr<Enemy> target2;
-                    target2 = std::dynamic_pointer_cast<Enemy>(enemies[1]);
-                    std::shared_ptr<Enemy> target3;
-                    target3 = std::dynamic_pointer_cast<Enemy>(enemies[2]);
-                    std::shared_ptr<Enemy> target4;
-                    target4 = std::dynamic_pointer_cast<Enemy>(enemies[3]);
-                    thirdAbility(target, target2, target3, target4);
+                    thirdAbility(enemies);
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
-            currentState = PlayerState::StartTurn;
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
@@ -264,12 +225,6 @@ void Emilie::endFight() {
     currentEnemies.clear();
 }
 
-void Emilie::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Emilie::Start() {}
 
-void Emilie::Update(float deltaTime)
-{
-
-}
+void Emilie::Update(float deltaTime) {}

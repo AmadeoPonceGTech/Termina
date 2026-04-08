@@ -231,3 +231,25 @@ void Mermaid::fourthAbility(std::vector<std::shared_ptr<Entity>> enemies)
 
     CD4 = 7;
 }
+
+std::shared_ptr<Artefact> Mermaid::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return nullptr;
+    }
+    else if (roll < 15.f) {
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        return nullptr;
+    }
+    return nullptr;
+}

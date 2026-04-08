@@ -40,6 +40,10 @@ void Edward::firstAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackPower - currentAttackPower * (target->getCurrentPowerResist() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     CD1 = 1;
 }
 
@@ -49,6 +53,10 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD2 = 3;
 }
@@ -66,6 +74,10 @@ void Edward::fourthAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD4 = 7;
 }
@@ -93,20 +105,26 @@ void Edward::endTurn()
 bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
-            currentState = PlayerState::ChoosingAbility;
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Ember"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -115,7 +133,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Fireball"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -124,7 +142,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Stun Spell"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -132,7 +150,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Magic Meteor"))
             {
                 abilitySelected = 4;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -140,7 +158,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             ImGui::Begin("Choose enemy target");
             for (int i = 0; i < enemies.size(); i++)
@@ -149,19 +167,19 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                 if (ImGui::Button(label.c_str())) {
                     selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
-                    currentState = PlayerState::Acting;
+                    currentState = PlayerState::ACTING;
                 }
             }
 
             if (ImGui::Button("Return")) {
-                currentState = PlayerState::ChoosingAbility;
+                currentState = PlayerState::CHOOSINGABILITY;
             }
 
             ImGui::End();
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -181,29 +199,28 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
-            currentState = PlayerState::StartTurn;
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
     return false;
 }
 
-void Edward::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Edward::Start() {}
 
-void Edward::Update(float deltaTime)
-{
-
-}
+void Edward::Update(float deltaTime) {}

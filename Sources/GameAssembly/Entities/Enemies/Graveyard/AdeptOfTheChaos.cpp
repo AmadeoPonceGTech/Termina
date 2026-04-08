@@ -170,3 +170,26 @@ void AdeptOfTheChaos::fourthAbility(const std::vector<Character*>& targets) {
 
     CD4 = 7;
 }
+
+std::shared_ptr<Artefact> AdeptOfTheChaos::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return std::make_shared<SmokeBomb>();
+    }
+    else if (roll < 15.f) {
+        //return std::make_shared<ChaoticArmor>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return std::make_shared<MaliciousEye>();
+    }
+    else if (roll < 17.5f) {
+        return nullptr;
+    }
+    return nullptr;
+}

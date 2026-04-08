@@ -4,7 +4,7 @@ Brutus::Brutus()
 {
     name = "Brutus";
     entityClass = EClass::RANGEDDPS;
-    description = "Brutus, the solitary archer, he is used to stay alone but knows how to be useful in a group in the battlefield. He often invents new arrows to content his best friend; his bow.";
+    description = "Brutus, the solitary archer, he is used to stay alone but knows how to be useful in a group in the battlefield. He often invents new arrows to content his best friend : his bow.";
 
     baseHealth = 40;
     finalHP = 500;
@@ -41,6 +41,10 @@ void Brutus::firstAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD1 = 1;
@@ -58,6 +62,10 @@ void Brutus::secondAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD2 = 5;
@@ -68,6 +76,10 @@ void Brutus::thirdAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() * 0.2 / 100 );
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
 
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
+
     CD3 = 6;
 }
 
@@ -76,6 +88,10 @@ void Brutus::fourthAbility(std::shared_ptr<Enemy>target)
     float dmgAPDealt = currentAttackPower * 4 - currentAttackPower * (target->getCurrentPowerResist() / 100);
     float dmgADDealt = currentAttackDamage * 4 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - (dmgADDealt + dmgAPDealt) / 2);
+
+    if (artefact) {
+        artefact->onInflictedDamage(*this);
+    }
 
     CD4 = 11;
 }
@@ -103,20 +119,26 @@ void Brutus::endTurn()
 bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
-            currentState = PlayerState::ChoosingAbility;
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Triple Shoot"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -125,7 +147,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Arrow's Storm"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -134,7 +156,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Piercing Arrow"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -142,7 +164,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Explosive Arrow"))
             {
                 abilitySelected = 4;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -150,7 +172,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             ImGui::Begin("Choose enemy target");
             for (int i = 0; i < enemies.size(); i++)
@@ -159,19 +181,19 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                 if (ImGui::Button(label.c_str())) {
                     selectedTarget = std::static_pointer_cast<Enemy>(enemies[i]);
-                    currentState = PlayerState::Acting;
+                    currentState = PlayerState::ACTING;
                 }
             }
 
             if (ImGui::Button("Return")) {
-                currentState = PlayerState::ChoosingAbility;
+                currentState = PlayerState::CHOOSINGABILITY;
             }
 
             ImGui::End();
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -192,29 +214,29 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
-            currentState = PlayerState::StartTurn;
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
+
     return false;
 }
 
-void Brutus::Start()
-{
-    // Called once when the scene starts playing.
-}
+void Brutus::Start() {}
 
-void Brutus::Update(float deltaTime)
-{
-
-}
+void Brutus::Update(float deltaTime) {}

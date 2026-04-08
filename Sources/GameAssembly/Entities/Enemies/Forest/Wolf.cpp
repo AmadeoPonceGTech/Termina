@@ -17,7 +17,7 @@ Wolf::Wolf(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 45.0f;
+    baseAttackDamage = 25.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
@@ -140,11 +140,13 @@ void Wolf::dropArtefacts() {
 void Wolf::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
+    LogManager::getInstance().AddLog("Wolf uses \"Claw\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Wolf::secondAbility(Character& target) { // powerAbilityTwo=1.1f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityTwo));
+    LogManager::getInstance().AddLog("Wolf uses \"Violent Bite\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -166,6 +168,7 @@ void Wolf::fourthAbility(Character& target, int numberOfWolf) { // Every Wolf at
 
     for (int i = 0; i < attacks; i++) {
         firstAbility(target);
+        LogManager::getInstance().AddLog(std::to_string(numberOfWolf) + " Wolf(s) uses \"Coordinate Attack\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 4;
@@ -179,4 +182,31 @@ int Wolf::countWolves(const std::vector<std::shared_ptr<Entity>>& enemies)
         if (e->getName() == "Wolf") count++;
     }
     return count;
+}
+
+std::shared_ptr<Artefact> Wolf::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        LogManager::getInstance().AddLog("You obtained a Common Artefact: Wolf Fur !", ImVec4(1, 0, 0, 1));
+        return std::make_shared<WolfFur>();
+    }
+    else if (roll < 15.f) {
+        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Wolf Tooth !", ImVec4(1, 0, 0, 1));
+        //return std::make_shared<WolfTooth>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Alpha Medal !", ImVec4(1, 0, 0, 1));
+        //return std::make_shared<AlphaMedal>();
+        return nullptr;
+    }
+    return nullptr;
 }

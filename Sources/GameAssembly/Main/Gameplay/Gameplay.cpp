@@ -27,7 +27,15 @@ Gameplay::Gameplay() {
     if (!enemyManager) {
         enemyManager = std::make_shared<EnemyManager>();
     }
+    if (!inventory) {
+        inventory = std::make_shared<Inventory>();
+    }
+    if (!playerXP) {
+        playerXP = std::make_unique<PlayerXP>();
+    }
+
     currentBiome = EBiome::FOREST;
+
 }
 
 void Gameplay::startRun() {
@@ -43,6 +51,7 @@ void Gameplay::startRun() {
 
     for (auto chara: activeCharacters) {
         speedManagerVec.push_back(chara);
+        aliveCharaVec.push_back(chara);
     }
     currentLevel = 1;
 }
@@ -143,7 +152,7 @@ void Gameplay::startFight() {
             break;
     }
 
-    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy); std::cout << enemy->getName() << std::endl; }
+    for (auto enemy : enemyManager->getEnemies()) { speedManagerVec.push_back(enemy);}
 
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
             return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
@@ -153,6 +162,8 @@ void Gameplay::startFight() {
         std::shared_ptr<Emilie> emilie = std::dynamic_pointer_cast<Emilie>(*it);
         emilie->startFight(enemyManager->getEnemies());
     }
+
+    std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
 }
 
 void Gameplay::updateFight() {
@@ -167,24 +178,78 @@ void Gameplay::updateFight() {
     }
     std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; });
 
-    if (enemyManager->getEnemies().size() == 0) {
-        runState = EGameRunState::EndFight;
-    }
+    if (!speedManagerVec.empty())
+    {
+        auto& entity = speedManagerVec[currentEntityIndex];
 
-    for (auto& chara : activeCharacters) {
-        if (chara->getCurrentHealth() <= 0) {
-            charaDeathCount++;
+        bool finished = false;
+
+        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty()) {
+            finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
+        }
+
+        if (finished)
+        {
+            std::cout << entity->getName() << " finished turn " << std::endl;
+            currentEntityIndex++;
+
+            if (currentEntityIndex >= speedManagerVec.size())
+                currentEntityIndex = 0;
+
+            for (auto& e : speedManagerVec) {
+                if (e->getCurrentHealth() <= 0) {
+                    LogManager::getInstance().AddLog( e->getName() + " is dead.", ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+                }
+            }
+
+            if (std::erase_if(speedManagerVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            if (std::erase_if(aliveCharaVec, [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
+            for (auto& enemy : enemyManager->getEnemies())
+            {
+                if (enemy->getCurrentHealth() <= 0) {
+                    std::shared_ptr<Enemy> e = std::dynamic_pointer_cast<Enemy>(enemy);
+
+                    auto drop = e->createDrop();
+                    if (drop != nullptr) {
+                        inventory->addArtefact(drop);
+                    }
+
+                    float xpToAdd = e->getCurrentExpDrop() / 4;
+
+                    for (auto& chara : aliveCharaVec) {
+                        std::shared_ptr<Character> c = std::dynamic_pointer_cast<Character>(chara);
+                        c->addCurrentXP(xpToAdd);
+                    }
+
+                    playerXP->addCurrentXP(e->getCurrentExpDrop());
+                }
+            }
+            if (std::erase_if(enemyManager->getEnemies(), [](const std::shared_ptr<Entity>& entity) { return entity->getCurrentHealth() <= 0; })) {
+                std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
+            }
         }
     }
 
-    if (charaDeathCount == 4) {
-        runState = EGameRunState::EndRun;
+    if (enemyManager->getEnemies().size() == 0) {
+        runState = EGameRunState::ENDFIGHT;
+    }
+
+    for (auto& chara : activeCharacters) {
+        if (chara->getCurrentHealth() <= 0) chara->setCurrentHealth(0);
+    }
+
+    if (aliveCharaVec.size() == 0) {
+        runState = EGameRunState::ENDRUN;
     }
 }
 
 void Gameplay::endFight() {
     enemyManager->clearEnemies();
-
+    currentEntityIndex = 0;
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
             return std::dynamic_pointer_cast<Emilie>(e) != nullptr;
         });
@@ -218,31 +283,128 @@ void Gameplay::endRun() {
         chara->setArtefact(nullptr);
         chara->endRun();
     }
-    runEnded = true;
+    ImGui::Begin("YOU LOOSE");
+
+    if (ImGui::Button("Main Menu")) {
+        runEnded = true;
+    }
+
+    ImGui::End();
+}
+
+void Gameplay::drawImGui() {
+
+    // ENEMY
+
+    ImGui::Begin("Enemies Stats");
+
+    ImGui::Columns(4, nullptr, true);
+
+    auto& enemies = enemyManager->getEnemies();
+
+    for (int i = 0; i < enemies.size(); i++)
+    {
+        auto& enemy = enemies[i];
+
+        ImGui::BeginChild(("Enemy" + std::to_string(i)).c_str(), ImVec2(-1, 70), true);
+
+        ImGui::Text("Character: %s                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
+        ImGui::Dummy(ImVec2(0,5));
+        ImGui::Text("Class : %s", enemy->getStringClass().c_str());
+
+        ImGui::EndChild();
+
+        if ((i + 1) % 4 != 0)
+            ImGui::NextColumn();
+    }
+
+    ImGui::Columns(1);
+    ImGui::End();
+
+    // CHARA
+
+    ImGui::Begin("Characters Stats");
+
+    ImGui::Columns(4, nullptr, true);
+
+    auto& characters = activeCharacters;
+
+    for (int i = 0; i < characters.size(); i++)
+    {
+        auto& chara = characters[i];
+
+        ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, 200), true);
+
+        ImGui::Text("Character: %s,                    HP : %.0f", chara->getName().c_str(), chara->getCurrentHealth());
+        ImGui::Dummy(ImVec2(0,5));
+        ImGui::Text("Statistics");
+        ImVec2 p_min = ImGui::GetItemRectMin();
+        ImVec2 p_max = ImGui::GetItemRectMax();
+        ImGui::GetWindowDrawList()->AddLine(ImVec2(p_min.x, p_max.y - 1),ImVec2(p_max.x, p_max.y - 1),IM_COL32(255, 255, 255, 255),1.0f );
+
+        ImGui::Dummy(ImVec2(0,10));
+        ImGui::Text("Attack Damage : %.0f", chara->getCurrentAttackDamage());
+        ImGui::Text("Magic Damage : %.0f", chara->getCurrentAttackPower());
+        ImGui::Text("Armor : %.2f", chara->getCurrentArmor());
+        ImGui::Text("Magic Resistance : %.2f", chara->getCurrentPowerResist());
+        ImGui::Text("Speed : %.1f", chara->getCurrentSpeed());
+
+        ImGui::EndChild();
+
+        if ((i + 1) % 4 != 0)
+            ImGui::NextColumn();
+    }
+
+    ImGui::Columns(1);
+    ImGui::End();
+
+    // Vector Speed
+
+    ImGui::Begin("Entity Turn Order");
+
+    for (const auto& e : speedManagerVec) {
+        ImGui::Text("%s", e->getName().c_str());
+    }
+
+    ImGui::End();
+
+    // Inventory
+
+    if (!aliveCharaVec.empty()) { inventory->drawArtefactsInventory(aliveCharaVec); }
 }
 
 void Gameplay::gameloop()
 {
     switch (runState) {
-        case EGameRunState::StartRun :
-            startRun();
-            std::cout << "Run started" << std::endl;
-            runState = EGameRunState::StartFight;
+        case EGameRunState::STARTRUN :
+            StartRun();
+            runState = EGameRunState::CHECKUPGRADE;
             break;
-        case EGameRunState::StartFight :
-            startFight();
-            std::cout << "Fight started" << std::endl;
-            runState = EGameRunState::UpdateFight;
+
+        case EGameRunState::CHECKUPGRADE :
+            playerXP->upgradeSystem(currentLevel);
+            if (!playerXP->getChoosing()) runState = EGameRunState::STARTFIGHT;
             break;
-        case EGameRunState::UpdateFight :
-            updateFight();
+
+        case EGameRunState::STARTFIGHT :
+            StartFight();
+            LogManager::getInstance().AddLog("New Fight");
+            runState = EGameRunState::UPDATEFIGHT;
             break;
-        case EGameRunState::EndFight :
-            endFight();
-            runState = EGameRunState::StartFight;
+
+        case EGameRunState::UPDATEFIGHT :
+            UpdateFight();
+            drawImGui();
+            LogManager::getInstance().DrawImGui();
             break;
-        case EGameRunState::EndRun :
-            endRun();
+
+        case EGameRunState::ENDFIGHT :
+            EndFight();
+            runState = EGameRunState::CHECKUPGRADE;
+            break;
+
+        case EGameRunState::ENDRUN :
+            EndRun();
             break;
     }
 }

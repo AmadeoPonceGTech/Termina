@@ -4,7 +4,7 @@
 Hawk::Hawk(int floor) {
     name = "Hawk";
     entityClass = EClass::SUPPORT;
-    description = "The hawk is a sharp-eyed hunter, swift in the sky and deadly in its dive.";
+    description = "The Hawk is a sharp-eyed hunter, swift in the sky and deadly in its dive.";
     biome = Biome::FOREST;
 
     level = floor;
@@ -160,18 +160,23 @@ void Hawk::firstAbility(Character& target) {
 
         if (choice == 1) {
             target.setCurrentAttackDamage(std::max(0.0f, target.getCurrentAttackDamage() - debuff));
+            LogManager::getInstance().AddLog("Hawk uses \"Peck\" and debuff " + target.getName() + "'s Attack Damage.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 2) {
             target.setCurrentAttackPower(std::max(0.0f, target.getCurrentAttackPower() - debuff));
+            LogManager::getInstance().AddLog("Hawk uses \"Peck\" and debuff " + target.getName() + "'s Attack Power.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 3) {
             target.setCurrentArmor(std::max(0.0f, target.getCurrentArmor() - debuff));
+            LogManager::getInstance().AddLog("Hawk uses \"Peck\" and debuff " + target.getName() + "'s Armor.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 4) {
             target.setCurrentPowerResist(std::max(0.0f, target.getCurrentPowerResist() - debuff));
+            LogManager::getInstance().AddLog("Hawk uses \"Peck\" and debuff " + target.getName() + "'s Power Resist.", ImVec4(240, 0.518, 0.518, 1));
         }
         else if (choice == 5) {
             target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() + debuff));
+            LogManager::getInstance().AddLog("Hawk uses \"Peck\" and debuff " + target.getName() + "'s Speed.", ImVec4(240, 0.518, 0.518, 1));
         }
     }
 }
@@ -179,15 +184,44 @@ void Hawk::firstAbility(Character& target) {
 void Hawk::secondAbility(Enemy& target) {
     target.setCurrentAttackDamage(target.getCurrentAttackDamage() + target.getCurrentAttackDamage() * 0.10f);
     target.setCurrentSpeed(target.getCurrentSpeed() - target.getCurrentSpeed() * 0.10f);
+    LogManager::getInstance().AddLog("Hawk uses \"Hunter's Scream\" and buff " + target.getName() + "'s Attack Damage and Speed.", ImVec4(240, 0.518, 0.518, 1));
+
     CD2 = 4;
 }
 
 void Hawk::thirdAbility(Enemy& target) {
-    target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * 0.05f);
+    target.setCurrentHealth(std::max(target.getMaxHealth(), target.getCurrentHealth() + target.getMaxHealth() * 0.05f));
+    LogManager::getInstance().AddLog("\"Surprise Rabbit\" of Hawk heals " + target.getName() + " by 5%.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Hawk::fourthAbility(Enemy& target1, Enemy& target2) {
     target1.setCurrentSpeed(target1.getCurrentSpeed() - target1.getCurrentSpeed() * 0.10f);
     target2.setCurrentSpeed(target2.getCurrentSpeed() - target2.getCurrentSpeed() * 0.10f);
+    LogManager::getInstance().AddLog("Hawk uses \"Hawk's Rush\" and buff " + target1.getName() + "'s and " + target2.getName() + "'s Speed by 10%.", ImVec4(240, 0.518, 0.518, 1));
+
     CD4 = 5;
+}
+
+std::shared_ptr<Artefact> Hawk::createDrop() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    std::uniform_real_distribution<float> dist(0.f, 100.f);
+
+    float roll = dist(rng);
+
+    if (roll < 10.f) {
+        return nullptr;
+    }
+    else if (roll < 15.f) {
+        LogManager::getInstance().AddLog("You obtained a Common Artefact: Feather !", ImVec4(1, 0, 0, 1));
+        //return std::make_shared<Feather>();
+        return nullptr;
+    }
+    else if (roll < 17.f) {
+        return nullptr;
+    }
+    else if (roll < 17.5f) {
+        return nullptr;
+    }
+    return nullptr;
 }

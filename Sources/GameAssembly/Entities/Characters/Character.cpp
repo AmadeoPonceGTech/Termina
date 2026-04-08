@@ -13,7 +13,7 @@ Character::Character()
     currentXP = 0;
     XPNeeded = XPNeededForLvl2 + (finalXPNeeded - XPNeededForLvl2) * ((level - 1) / (maxLevel - 1));
 
-    currentState = PlayerState::StartTurn;
+    currentState = PlayerState::STARTTURN;
 }
 
 bool Character::manageXP()
@@ -48,6 +48,8 @@ void Character::endRun() {
         levelUp();
     }
 }
+
+void Character::addCurrentXP(float newXP) { currentXP += newXP; }
 
 float Character::getCurrentXP() const {return currentXP;}
 float Character::getXPNeeded() const { return XPNeeded; }

@@ -1,10 +1,12 @@
 #include "Marcus.h"
 
+#include "../../../Artefacts/Artefact.h"
+
 Marcus::Marcus()
 {
     name = "Marcus";
     entityClass = EClass::SUPPORT;
-    description = "Marcus, born among the priests of the local church, he became himself a monk capable of the most incredibles spells. Expelled from his home because of the fear of those who taught him, he now travels to where his destiny calls him according to him.";
+    description = "Marcus, born among the priests of the local church, he became himself a monk capable of the most incredible spells. Expelled from his home because of the fear of those who taught him, he now travels to where his destiny calls him according to him.";
 
     baseHealth = 30;
     finalHP = 300;
@@ -37,7 +39,7 @@ Marcus::Marcus()
 
 void Marcus::firstAbility(std::shared_ptr<Character>target)
 {
-    float HPHealed = currentHealth / 2;
+    float HPHealed = currentAttackPower / 2;
 
     target->setCurrentHealth(target->getCurrentHealth() + HPHealed);
     if (target->getCurrentHealth() > target->getMaxHealth()) { target->setCurrentHealth(target->getMaxHealth()); }
@@ -45,18 +47,14 @@ void Marcus::firstAbility(std::shared_ptr<Character>target)
     CD1 = 1;
 }
 
-void Marcus::secondAbility(std::shared_ptr<Character>target, std::shared_ptr<Character>target2, std::shared_ptr<Character>target3, std::shared_ptr<Character>target4)
+void Marcus::secondAbility(std::vector<std::shared_ptr<Entity>>& characters)
 {
     float HPHealed = currentAttackPower / 4;
 
-    target->setCurrentHealth(target->getCurrentHealth() + HPHealed);
-    if (target->getCurrentHealth() > target->getMaxHealth()) { target->setCurrentHealth(target->getMaxHealth()); }
-    target2->setCurrentHealth(target2->getCurrentHealth() + HPHealed);
-    if (target2->getCurrentHealth() > target2->getMaxHealth()) { target2->setCurrentHealth(target2->getMaxHealth()); }
-    target3->setCurrentHealth(target3->getCurrentHealth() + HPHealed);
-    if (target3->getCurrentHealth() > target3->getMaxHealth()) { target3->setCurrentHealth(target3->getMaxHealth()); }
-    target4->setCurrentHealth(target4->getCurrentHealth() + HPHealed);
-    if (target4->getCurrentHealth() > target4->getMaxHealth()) { target4->setCurrentHealth(target4->getMaxHealth()); }
+    for (auto& target : characters) {
+        target->setCurrentHealth(target->getCurrentHealth() + HPHealed);
+        if (target->getCurrentHealth() > target->getMaxHealth()) { target->setCurrentHealth(target->getMaxHealth()); }
+    }
 
     CD2 = 4;
 }
@@ -106,20 +104,27 @@ void Marcus::endTurn()
 bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies)
 {
     switch (currentState) {
-        case PlayerState::StartTurn : {
+        case PlayerState::STARTTURN : {
             startTurn();
-            currentState = PlayerState::ChoosingAbility;
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->ActingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
+            currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
-        case PlayerState::ChoosingAbility : {
+        case PlayerState::CHOOSINGABILITY : {
+
             ImGui::Begin("Choose Ability");
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Heal"))
             {
                 abilitySelected = 1;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -128,7 +133,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Multi Heal"))
             {
                 abilitySelected = 2;
-                currentState = PlayerState::Acting;
+                currentState = PlayerState::ACTING;
             }
             ImGui::EndDisabled();
 
@@ -137,7 +142,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Cleans"))
             {
                 abilitySelected = 3;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -145,7 +150,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             if (ImGui::Button("Resurrection"))
             {
                 abilitySelected = 4;
-                currentState = PlayerState::ChoosingTarget;
+                currentState = PlayerState::CHOOSINGTARGET;
             }
             ImGui::EndDisabled();
 
@@ -153,23 +158,23 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::ChoosingTarget :
+        case PlayerState::CHOOSINGTARGET :
         {
             if (abilitySelected != 4)
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::Begin("Choose Ally target");
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
 
                     if (ImGui::Button(label.c_str())) {
                         selectedTarget = std::static_pointer_cast<Character>(characters[i]);
-                        currentState = PlayerState::Acting;
+                        currentState = PlayerState::ACTING;
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -185,13 +190,13 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
                         if (ImGui::Button(label.c_str())) {
                             selectedTarget = std::static_pointer_cast<Character>(characters[i]);
-                            currentState = PlayerState::Acting;
+                            currentState = PlayerState::ACTING;
                         }
                     }
                 }
 
                 if (ImGui::Button("Return")) {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
                 ImGui::End();
@@ -199,7 +204,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             break;
         }
 
-        case PlayerState::Acting :
+        case PlayerState::ACTING :
         {
             switch (abilitySelected) {
                 case 1 : {
@@ -207,16 +212,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 case 2 : {
-                    std::shared_ptr<Character> target;
-                    target = std::static_pointer_cast<Character>(characters[0]);
-                    std::shared_ptr<Character> target2;
-                    target2 = std::static_pointer_cast<Character>(characters[1]);
-                    std::shared_ptr<Character> target3;
-                    target3 = std::static_pointer_cast<Character>(characters[2]);
-                    std::shared_ptr<Character> target4;
-                    target4 = std::static_pointer_cast<Character>(characters[3]);
-
-                    secondAbility(target, target2, target3, target4);
+                    secondAbility(characters);
                     break;
                 }
                 case 3 : {
@@ -228,29 +224,29 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                     break;
                 }
                 default : {
-                    currentState = PlayerState::ChoosingAbility;
+                    currentState = PlayerState::CHOOSINGABILITY;
                 }
 
             }
-            currentState = PlayerState::EndTurn;
+            currentState = PlayerState::ENDTURN;
             break;
         }
 
-        case PlayerState::EndTurn : {
+        case PlayerState::ENDTURN : {
             endTurn();
-            currentState = PlayerState::StartTurn;
+
+            if (artefact) {
+                artefact->ActingArtefactEveryTurns(*this);
+            }
+
+            currentState = PlayerState::STARTTURN;
             return true;
         }
     }
+
     return false;
 }
 
-void Marcus::Start()
-{
-    // Called once when the scene starts playing->
-}
+void Marcus::Start() {}
 
-void Marcus::Update(float deltaTime)
-{
-
-}
+void Marcus::Update(float deltaTime) {}

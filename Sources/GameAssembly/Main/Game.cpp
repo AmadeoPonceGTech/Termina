@@ -8,14 +8,14 @@
 #include "../Termina/Scripting/API/ScriptableComponent.hpp"
 #include "../Termina/World/Actor.hpp"
 
-#include "Entities/Characters/Close DPS/Alex.h"
-#include "Entities/Characters/Close DPS/Penelope.h"
-#include "Entities/Characters/Tank/Diane.h"
-#include "Entities/Characters/Tank/Emilie.h"
-#include "Entities/Characters/Support/Marcus.h"
-#include "Entities/Characters/Support/Claire.h"
-#include "Entities/Characters/Range DPS/Brutus.h"
-#include "Entities/Characters/Range DPS/Edward.h"
+#include "../Entities/Characters/Close DPS/Alex.h"
+#include "../Entities/Characters/Close DPS/Penelope.h"
+#include "../Entities/Characters/Tank/Diane.h"
+#include "../Entities/Characters/Tank/Emilie.h"
+#include "../Entities/Characters/Support/Marcus.h"
+#include "../Entities/Characters/Support/Claire.h"
+#include "../Entities/Characters/Range DPS/Brutus.h"
+#include "../Entities/Characters/Range DPS/Edward.h"
 
 
 void Game::Start()
@@ -165,13 +165,14 @@ void Game::Update(float deltaTime)
             }
             runStarted = true;
             if (!runStarted) {
-                gameplay->setRunState(EGameRunState::StartRun);
+                gameplay->setRunState(EGameRunState::STARTRUN);
                 runStarted = true;
-                gameplay->setRunEnded(false);
             }
             gameplay->gameloop();
             if (gameplay->getRunEnded()) {
                 gameState = EGameState::Menu;
+                gameplay->setRunEnded(false);
+                runStarted = false;
             }
             break;
 
