@@ -31,12 +31,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added logs characters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Bear.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Hawk.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RedDragon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RedDragon.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDear.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDear.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Wolf.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Wolf.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Graveyard/Skeleton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Graveyard/Skeleton.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,12 +60,12 @@
     &quot;assignee&quot;: &quot;0ri0546&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-",
-    "accountId": "800f4601-9186-4cbc-a5a4-189d20bf4342"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-&quot;,
+    &quot;accountId&quot;: &quot;800f4601-9186-4cbc-a5a4-189d20bf4342&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" root0="FORCE_HIGHLIGHTING" />
