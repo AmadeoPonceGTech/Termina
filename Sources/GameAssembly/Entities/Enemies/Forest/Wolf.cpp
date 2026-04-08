@@ -193,7 +193,7 @@ std::shared_ptr<Artefact> Wolf::createDrop() {
     }
     else if (roll < 15.f) {
         LogManager::getInstance().addLog("You obtained a Rare Artefact: Wolf Tooth !", ImVec4(1, 0, 0, 1));
-        //return std::make_shared<WolfTooth>();
+        return std::make_shared<WolfTooth>();
         return nullptr;
     }
     else if (roll < 17.f) {

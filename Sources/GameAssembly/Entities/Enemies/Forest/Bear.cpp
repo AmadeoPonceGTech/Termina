@@ -192,7 +192,7 @@ std::shared_ptr<Artefact> Bear::createDrop() {
     }
     else if (roll < 17.5f) {
         LogManager::getInstance().addLog("You obtained a Legendary Artefact: Great Bear Medal !", ImVec4(1, 0, 0, 1));
-        //return std::make_shared<GreatBearMedal>();
+        return std::make_shared<GreatBearMedal>();
         return nullptr;
     }
     return nullptr;

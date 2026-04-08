@@ -22,7 +22,7 @@
 //#include "../../Artefacts/Rare/Feather.h"
 //#include "../../Artefacts/Rare/BurningBone.h"
 #include "../../Artefacts/Rare/RatTooth.h"
-//#include "../../Artefacts/Rare/WolfTooth.h"
+#include "../../Artefacts/Rare/WolfTooth.h"
 
 // Epic
 #include "../../Artefacts/Epic/MaliciousEye.h"
@@ -35,7 +35,7 @@
 
 // Legendary
 //#include "../../Artefacts/Legendary/ChaosScepter.h"
-//#include "../../Artefacts/Legendary/GreatBearMedal.h"
+#include "../../Artefacts/Legendary/GreatBearMedal.h"
 //#include "../../Artefacts/Legendary/DarkSword.h"
 //#include "../../Artefacts/Legendary/Ectoplasm.h"
 //#include "../../Artefacts/Legendary/Seaweed.h"
