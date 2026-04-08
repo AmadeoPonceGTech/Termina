@@ -66,6 +66,8 @@ private :
     TerminaScript::Prefab p_Penelope;
 
     TerminaScript::Prefab p_Rat;
+    TerminaScript::Prefab p_Wolf;
+    TerminaScript::Prefab p_Bear;
 
     std::unordered_map<std::string, TerminaScript::Prefab> characterPrefabMap;
     std::vector<Termina::Actor*> gameEntity;

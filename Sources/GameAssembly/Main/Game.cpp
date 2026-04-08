@@ -48,6 +48,8 @@ void Game::Start()
     p_Penelope = TerminaScript::Prefab("Assets/Prefabs/Penelope.trp");
 
     p_Rat = TerminaScript::Prefab("Assets/Prefabs/Rat.trp");
+    p_Wolf = TerminaScript::Prefab("Assets/Prefabs/Wolf.trp");
+    p_Bear = TerminaScript::Prefab("Assets/Prefabs/Bear.trp");
 
     characterPrefabMap["Diane"] = p_Diane;
     characterPrefabMap["Emilie"] = p_Emilie;
@@ -59,6 +61,8 @@ void Game::Start()
     characterPrefabMap["Penelope"] = p_Penelope;
 
     characterPrefabMap["Rat"] = p_Rat;
+    characterPrefabMap["Wolf"] = p_Wolf;
+    characterPrefabMap["Bear"] = p_Bear;
 #pragma endregion
 }
 
@@ -179,16 +183,27 @@ void Game::Update(float deltaTime)
                 {
                     auto entityActor = Instantiate(it->second);
                     entityActor->SetName(ennemi->getName().c_str());
-                    gameEntity.push_back(entityActor);
-                    std::cout << ennemi->getName().c_str() << std::endl;
+                    enemyEntity.push_back(entityActor);
+
+                    for (auto& child : GetChildren()) {
+                        std::string name = child->GetName();
+                        if (name.find("Enemy") != std::string::npos) {
+                            size_t pos = name.find("Enemy ");
+                            int slotIndex = std::stoi(name.substr(pos + 6)) - 1;
+                            if (slotIndex >= 0 && slotIndex < gameplay->getEnemyVector().size()) {
+                                auto enemy = enemyEntity[slotIndex];
+                                glm::vec3 slotPos = child->GetComponent<Termina::Transform>().GetPosition();
+                                enemy->GetComponent<Termina::Transform>().SetPosition(glm::vec3(slotPos.x,enemy->GetComponent<Termina::Transform>().GetPosition().y, slotPos.z));
+                            }
+                        }
+                    }
                 }
-                else
-                    std::cout << "Not Found" << std::endl;
             }
             gameplay->setEnemySpawned(false);
         }
 
-            if (gameplay->getRunEnded()) {
+            if (gameplay->getRunEnded())
+            {
                 gameState = EGameState::Menu;
                 gameplay->setRunEnded(false);
                 runStarted = false;
@@ -212,6 +227,7 @@ void Game::initRun() {
             auto entityActor = Instantiate(it->second);
             entityActor->SetName(character->getName().c_str());
             gameEntity.push_back(entityActor);
+
             for (auto& child : GetChildren()) {
                 std::string name = child->GetName();
                 if (name.find("Slot") != std::string::npos) {
