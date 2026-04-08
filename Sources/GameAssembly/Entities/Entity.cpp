@@ -13,6 +13,8 @@ Entity::Entity()
     isBurnt = false;
     isTaunt = false;
     isStun = false;
+
+    poisonMultiplier = 1.0f;
 }
 
 void Entity::manageStatusEffect()
@@ -20,23 +22,23 @@ void Entity::manageStatusEffect()
     if (isPoisoned)
     {
         if (poisonCD == 5) {
-            currentHealth -= maxHealth * (15 / 100);
+            currentHealth -= maxHealth * (15 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 4) {
-            currentHealth -= maxHealth * (12 / 100);
+            currentHealth -= maxHealth * (12 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 3) {
-            currentHealth -= maxHealth * (8 / 100);
+            currentHealth -= maxHealth * (8 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 2) {
-            currentHealth -= maxHealth * (5 / 100);
+            currentHealth -= maxHealth * (5 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 1) {
-            currentHealth -= maxHealth * (3 / 100);
+            currentHealth -= maxHealth * (3 / 100 * poisonMultiplier);
             poisonCD--;
             isPoisoned = false;
         }
@@ -90,6 +92,7 @@ void Entity::resetStats() {
     currentPowerResist = maxPowerResist;
     currentSpeed = baseSpeed;
     artefactAlreadyUsed = false;
+    poisonMultiplier = 1.0f;
 }
 
 #pragma region Getters
@@ -186,5 +189,7 @@ void Entity::setGeneratedShield(float newShield) { generatedShield = newShield; 
 void Entity::setHasARevive(bool _hasARevive) { hasARevive = _hasARevive; }
 
 void Entity::setLevel(int newLevel) { level = newLevel; }
+
+void Entity::setPoisonMultiplier(float newPoisonMultiplier) { poisonMultiplier = newPoisonMultiplier; }
 
 #pragma endregion

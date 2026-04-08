@@ -77,6 +77,7 @@ protected:
     float generatedShield = 0.5f;
 
     bool hasARevive;
+    float poisonMultiplier = 1.0f;
 
 public:
     virtual ~Entity() = default;
@@ -173,6 +174,7 @@ public:
     void setHasARevive(bool _hasARevive);
 
     void setLevel(int newLevel);
+    void setPoisonMultiplier(float newPoisonMultiplier);
 
 #pragma endregion
 
