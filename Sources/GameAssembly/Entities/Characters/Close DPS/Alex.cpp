@@ -13,7 +13,7 @@ Alex::Alex()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 10.f;
+    baseAttackDamage = 12.f;
     finalAD = 400;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -28,8 +28,8 @@ Alex::Alex()
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.5f;
-    finalPR = 10;
+    basePowerResist = 2.f;
+    finalPR = 20;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 

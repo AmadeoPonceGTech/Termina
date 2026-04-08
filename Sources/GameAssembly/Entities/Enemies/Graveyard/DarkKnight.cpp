@@ -13,23 +13,23 @@ DarkKnight::DarkKnight(int floor) {
     finalArmor = 70.0f;
     finalPR = 70.0f;
 
-    baseHealth = 80.0f;
+    baseHealth = 110.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 35.0f;
+    baseAttackDamage = 20.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 15.0f;
+    baseAttackPower = 10.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.6f;
+    baseArmor = 15.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.6f;
+    basePowerResist = 12.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

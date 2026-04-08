@@ -17,19 +17,19 @@ Hawk::Hawk(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 25.0f;
+    baseAttackDamage = 6.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 10.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.3f;
+    baseArmor = 3;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.3f;
+    basePowerResist = 5;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

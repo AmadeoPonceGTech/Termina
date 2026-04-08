@@ -13,31 +13,31 @@ RunicDear::RunicDear(int floor) {
     finalArmor = 40.0f;
     finalPR = 70.0f;
 
-    baseHealth = 100.0f;
+    baseHealth = 300.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
     baseAttackDamage = 0.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 40.0f;
+    baseAttackPower = 30.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.5f;
+    baseArmor = 15;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.5f;
+    basePowerResist = 20;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
     baseSpeed = 75.0f;
     currentSpeed = baseSpeed;
 
-    baseExpDrop = 50.0f;
-    maxExpDrop = 1700.0f;
+    baseExpDrop = 500.0f;
+    maxExpDrop = 5000.0f;
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 

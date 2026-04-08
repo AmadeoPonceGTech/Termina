@@ -13,23 +13,23 @@ AdeptOfTheChaos::AdeptOfTheChaos(int floor) {
     finalArmor = 40.0f;
     finalPR = 50.0f;
 
-    baseHealth = 20.0f;
+    baseHealth = 30.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 0.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 25.0f;
+    baseAttackPower = 28.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.2f;
+    baseArmor = 3.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 6.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

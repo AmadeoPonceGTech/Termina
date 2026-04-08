@@ -13,23 +13,23 @@ Skeleton::Skeleton(int floor) {
     finalArmor = 15.0f;
     finalPR = 30.0f;
 
-    baseHealth = 25.0f;
+    baseHealth = 40.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 40.0f;
+    baseAttackDamage = 32.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 0.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.1f;
+    baseArmor = 4.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 4.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

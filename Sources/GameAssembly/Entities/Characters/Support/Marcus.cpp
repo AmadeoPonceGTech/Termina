@@ -18,17 +18,17 @@ Marcus::Marcus()
     maxAttackDamage = 0;
     currentAttackDamage = 0;
 
-    baseAttackPower = 30;
+    baseAttackPower = 10;
     finalAP = 300;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.5;
+    baseArmor = 3;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.5;
+    basePowerResist = 5;
     finalPR = 15;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;

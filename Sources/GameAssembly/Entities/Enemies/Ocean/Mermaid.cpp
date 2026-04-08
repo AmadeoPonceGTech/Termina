@@ -13,23 +13,23 @@ Mermaid::Mermaid(int floor) {
     finalArmor = 40.0f;
     finalPR = 40.0f;
 
-    baseHealth = 40.0f;
+    baseHealth = 50.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0.0f;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 35.0f;
+    baseAttackPower = 15.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.3f;
+    baseArmor = 5.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.3f;
+    basePowerResist = 10.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

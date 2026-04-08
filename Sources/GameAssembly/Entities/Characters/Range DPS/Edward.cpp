@@ -16,17 +16,17 @@ Edward::Edward()
     maxAttackDamage = 0;
     currentAttackDamage = 0;
 
-    baseAttackPower = 20;
-    finalAP = 200;
+    baseAttackPower = 16;
+    finalAP = 500;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.25;
+    baseArmor = 1;
     finalArmor = 10;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.25;
+    basePowerResist = 3;
     finalPR = 10;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;

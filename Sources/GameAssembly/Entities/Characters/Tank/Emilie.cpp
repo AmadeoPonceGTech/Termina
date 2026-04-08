@@ -14,7 +14,7 @@ Emilie::Emilie()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 5;
+    baseAttackDamage = 6;
     finalAD = 300;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;

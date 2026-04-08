@@ -11,7 +11,7 @@ Penelope::Penelope()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 15;
+    baseAttackDamage = 18;
     finalAD = 450;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -21,12 +21,12 @@ Penelope::Penelope()
     maxAttackPower = 0;
     currentAttackPower = 0;
 
-    baseArmor = 0.5f;
+    baseArmor = 1.f;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 1;
+    basePowerResist = 1.f;
     finalPR = 20;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;

@@ -13,23 +13,23 @@ Kelpie::Kelpie(int floor) {
     finalArmor = 30.0f;
     finalPR = 55.0f;
 
-    baseHealth = 50.0f;
+    baseHealth = 60.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0.0f;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 40.0f;
+    baseAttackPower = 16.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.5f;
+    baseArmor = 6.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.5f;
+    basePowerResist = 8.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

@@ -11,7 +11,7 @@ Diane::Diane()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 2.5f;
+    baseAttackDamage = 5.f;
     finalAD = 250;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -21,12 +21,12 @@ Diane::Diane()
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 5;
+    baseArmor = 8;
     finalArmor = 50;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 4;
+    basePowerResist = 6;
     finalPR = 30;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;

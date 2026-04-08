@@ -13,23 +13,23 @@ Ghost::Ghost(int floor) {
     finalArmor = 30.0f;
     finalPR = 40.0f;
 
-    baseHealth = 25.0f;
+    baseHealth = 35.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 0.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 20.0f;
+    baseAttackPower = 15.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.1f;
+    baseArmor = 2.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 8.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

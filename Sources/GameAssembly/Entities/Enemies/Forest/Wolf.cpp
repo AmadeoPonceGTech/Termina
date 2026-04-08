@@ -17,19 +17,19 @@ Wolf::Wolf(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 25.0f;
+    baseAttackDamage = 18.f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
     baseAttackPower = 0.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.5f;
+    baseArmor = 5;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.6f;
+    basePowerResist = 5;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

@@ -13,23 +13,23 @@ Bear::Bear(int floor) {
     finalArmor = 80.0f;
     finalPR = 60.0f;
 
-    baseHealth = 75.0f;
+    baseHealth = 100.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 25.0f;
+    baseAttackDamage = 12.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 10.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.75f;
+    baseArmor = 12.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.65f;
+    basePowerResist = 10.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

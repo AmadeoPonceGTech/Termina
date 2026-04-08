@@ -13,23 +13,23 @@ Whale::Whale(int floor) {
     finalArmor = 60.0f;
     finalPR = 60.0f;
 
-    baseHealth = 100.0f;
+    baseHealth = 420.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 10.0f;
+    baseAttackDamage = 20.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 10.0f;
+    baseAttackPower = 18.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 1.0f;
+    baseArmor = 25.0f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 1.0f;
+    basePowerResist = 25.0f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

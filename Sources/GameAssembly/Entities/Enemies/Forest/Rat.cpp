@@ -19,19 +19,19 @@ Rat::Rat(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
+    baseAttackDamage = 22.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 15.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.3f;
+    baseArmor = 2.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.5f;
+    basePowerResist = 2.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 

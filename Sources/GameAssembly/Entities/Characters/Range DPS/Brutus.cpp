@@ -11,22 +11,22 @@ Brutus::Brutus()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 8;
-    finalAD = 325;
+    baseAttackDamage = 10;
+    finalAD = 300;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
 
-    baseAttackPower = 5;
-    finalAP = 300;
+    baseAttackPower = 3;
+    finalAP = 120;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.4;
+    baseArmor = 2.f;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.2;
+    basePowerResist = 2.f;
     finalPR = 10;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
