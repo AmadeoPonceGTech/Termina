@@ -11,7 +11,7 @@ PlayerXP::PlayerXP() {
 
     XPNeededForLvl2 = 100;
     finalXPNeeded = 100000;
-    currentXP = 100;
+    currentXP = 0;
     XPNeeded = XPNeededForLvl2;
 }
 
