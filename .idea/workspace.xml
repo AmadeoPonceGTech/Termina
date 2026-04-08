@@ -32,16 +32,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="added comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Alex.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Alex.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Brutus.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Brutus.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Claire.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Claire.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Diane.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Diane.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Edward.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Edward.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Emilie.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Emilie.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Marcus.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Marcus.trp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Penelope.trp" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Penelope.trp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EndlessRogueMap" beforeDir="false" afterPath="$PROJECT_DIR$/EndlessRogueMap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Game.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +166,7 @@
       <workItem from="1775207712411" duration="4747000" />
       <workItem from="1775556227911" duration="14000" />
       <workItem from="1775557750926" duration="509000" />
-      <workItem from="1775631505857" duration="5422000" />
+      <workItem from="1775631505857" duration="8482000" />
     </task>
     <task id="LOCAL-00001" summary="added all abilities to Rat">
       <option name="closed" value="true" />

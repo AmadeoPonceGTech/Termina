@@ -39,6 +39,8 @@ public:
     void Start()  override;
     void Update(float deltaTime) override;
 
+    void intiRun();
+
 private :
     std::unique_ptr<Gameplay> gameplay;
     EGameState gameState;

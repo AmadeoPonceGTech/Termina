@@ -314,6 +314,6 @@ void Gameplay::setRunEnded(bool gameEnded) { runEnded = gameEnded; }
 
 bool Gameplay::getRunEnded() const { return runEnded; }
 
-std::vector<std::shared_ptr<Entity> > Gameplay::getActiveCharacters() {
-    return activeCharacters;
-};
+std::vector<std::shared_ptr<Entity> > Gameplay::getActiveCharacters() { return activeCharacters;};
+
+std::vector<std::shared_ptr<Entity> > Gameplay::getEnemyVector() {return enemyManager->getEnemies();}

@@ -25,6 +25,7 @@ void Game::Start()
     }
     gameState = EGameState::Title;
 
+#pragma region FillAllCharacters
     allCharacters.emplace_back(std::make_shared<Diane>());
     allCharacters.emplace_back(std::make_shared<Emilie>());
     allCharacters.emplace_back(std::make_shared<Claire>());
@@ -33,7 +34,7 @@ void Game::Start()
     allCharacters.emplace_back(std::make_shared<Edward>());
     allCharacters.emplace_back(std::make_shared<Alex>());
     allCharacters.emplace_back(std::make_shared<Penelope>());
-
+#pragma endregion
 
     /////// Link Names -> Prefab
 #pragma region MappingPrefab-Names
@@ -160,41 +161,18 @@ void Game::Update(float deltaTime)
         }
         case EGameState::Run :
             if (gameplay->teamIsComplete() && !runStarted) {
-                std::vector<Termina::Actor*> gameEntity;
-
-                for (auto& character : gameplay->getActiveCharacters()) {
-                    auto it = characterPrefabMap.find(character->getName());
-                    if (it != characterPrefabMap.end()) {
-
-                        auto entityActor = Instantiate(it->second);
-                        entityActor->SetName(character->getName().c_str());
-                        gameEntity.push_back(entityActor);
-                        for (auto& child : GetChildren()) {
-                            std::string name = child->GetName();
-                            if (name.find("Slot") != std::string::npos) {
-                                size_t pos = name.find("Slot ");
-                                int slotIndex = std::stoi(name.substr(pos + 5)) - 1;
-                                if (slotIndex >= 0 && slotIndex < gameEntity.size()) {
-                                    auto entity = gameEntity[slotIndex];
-                                    glm::vec3 slotPos = child->GetComponent<Termina::Transform>().GetPosition();
-                                    entity->GetComponent<Termina::Transform>().SetPosition(glm::vec3(slotPos.x,entity->GetComponent<Termina::Transform>().GetPosition().y, slotPos.z));
-                                }
-                            }
-                        }
-
-                    }
-                }
+                intiRun();
             }
             runStarted = true;
-            // if (!runStarted) {
-            //     gameplay->setRunState(EGameRunState::StartRun);
-            //     runStarted = true;
-            //     gameplay->setRunEnded(false);
-            // }
-            // gameplay->Gameloop();
-            // if (gameplay->getRunEnded()) {
-            //     gameState = EGameState::Menu;
-            // }
+            if (!runStarted) {
+                gameplay->setRunState(EGameRunState::StartRun);
+                runStarted = true;
+                gameplay->setRunEnded(false);
+            }
+            gameplay->gameloop();
+            if (gameplay->getRunEnded()) {
+                gameState = EGameState::Menu;
+            }
             break;
 
         case EGameState::End :
@@ -204,4 +182,34 @@ void Game::Update(float deltaTime)
             break;
     }
 
+}
+
+void Game::intiRun() {
+    std::vector<Termina::Actor*> gameEntity;
+
+    for (auto& character : gameplay->getActiveCharacters()) {
+        auto it = characterPrefabMap.find(character->getName());
+        if (it != characterPrefabMap.end()) {
+
+            auto entityActor = Instantiate(it->second);
+            entityActor->SetName(character->getName().c_str());
+            gameEntity.push_back(entityActor);
+            for (auto& child : GetChildren()) {
+                std::string name = child->GetName();
+                if (name.find("Slot") != std::string::npos) {
+                    size_t pos = name.find("Slot ");
+                    int slotIndex = std::stoi(name.substr(pos + 5)) - 1;
+                    if (slotIndex >= 0 && slotIndex < gameEntity.size()) {
+                        auto entity = gameEntity[slotIndex];
+                        glm::vec3 slotPos = child->GetComponent<Termina::Transform>().GetPosition();
+                        entity->GetComponent<Termina::Transform>().SetPosition(glm::vec3(slotPos.x,entity->GetComponent<Termina::Transform>().GetPosition().y, slotPos.z));
+                    }
+                }
+            }
+
+        }
+    }
+    for (auto& ennemi : gameplay->getEnemyVector()) {
+        std::cout << ennemi->getName().c_str() << std::endl;
+    }
 }
