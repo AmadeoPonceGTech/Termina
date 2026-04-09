@@ -11,7 +11,7 @@ Diane::Diane()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 5.f;
+    baseAttackDamage = 10.f;
     finalAD = 250;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;

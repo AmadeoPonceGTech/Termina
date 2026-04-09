@@ -8,7 +8,7 @@ Claire::Claire()
     entityClass = EClass::SUPPORT;
     description = "Claire; Her deep learning of magic is now put to action and make her a big support for her team. She doesn't bright by her bodily acts but by her intelligence.";
 
-    baseHealth = 30;
+    baseHealth = 50;
     finalHP = 400;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;

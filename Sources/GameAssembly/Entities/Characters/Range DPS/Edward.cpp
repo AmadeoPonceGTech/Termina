@@ -6,7 +6,7 @@ Edward::Edward()
     entityClass = EClass::RANGEDDPS;
     description = "Edward, cast powerful spells among the enemies to inflict them terrible magic induced injuries.";
 
-    baseHealth = 20;
+    baseHealth = 30;
     finalHP = 250;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -16,7 +16,7 @@ Edward::Edward()
     maxAttackDamage = 0;
     currentAttackDamage = 0;
 
-    baseAttackPower = 16;
+    baseAttackPower = 20;
     finalAP = 500;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;

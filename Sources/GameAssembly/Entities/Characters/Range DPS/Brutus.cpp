@@ -11,7 +11,7 @@ Brutus::Brutus()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 10;
+    baseAttackDamage = 15;
     finalAD = 300;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;

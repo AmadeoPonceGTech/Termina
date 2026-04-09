@@ -8,7 +8,7 @@ Marcus::Marcus()
     entityClass = EClass::SUPPORT;
     description = "Marcus, born among the priests of the local church, he became himself a monk capable of the most incredible spells. Expelled from his home because of the fear of those who taught him, he now travels to where his destiny calls him according to him.";
 
-    baseHealth = 30;
+    baseHealth = 40;
     finalHP = 300;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;

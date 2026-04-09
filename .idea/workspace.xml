@@ -30,10 +30,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="fix overheal">
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="finish start menu 3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/PlayerXP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/PlayerXP.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Penelope.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Brutus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Range DPS/Edward.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Claire.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Support/Marcus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Diane.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Tank/Emilie.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,14 +168,6 @@
       <workItem from="1775198857203" duration="2479000" />
       <workItem from="1775716999928" duration="1817000" />
       <workItem from="1775718852550" duration="5977000" />
-    </task>
-    <task id="LOCAL-00013" summary="Finished Character">
-      <option name="closed" value="true" />
-      <created>1774255593450</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1774255593450</updated>
     </task>
     <task id="LOCAL-00014" summary="Added turn system inside entity almost finish Alex">
       <option name="closed" value="true" />
@@ -554,7 +553,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775724077876</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="finish start menu 3">
+      <option name="closed" value="true" />
+      <created>1775729167668</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1775729167668</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -584,7 +591,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added inventory" />
     <MESSAGE value="added CasperSEncyclopedia artefact" />
     <MESSAGE value="merge enemies into gameloop to start StartFight implementation in Game" />
     <MESSAGE value="added all descriptions" />
@@ -609,7 +615,8 @@
     <MESSAGE value="finished ui correction with printing status effect on characters and enemies" />
     <MESSAGE value="draw artefacts info on chara" />
     <MESSAGE value="fix overheal" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix overheal" />
+    <MESSAGE value="finish start menu 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish start menu 3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

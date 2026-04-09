@@ -13,7 +13,7 @@ Alex::Alex()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 12.f;
+    baseAttackDamage = 20.f;
     finalAD = 400;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;

@@ -94,7 +94,10 @@ void Inventory::drawArtefactsInventory(std::vector<std::shared_ptr<Entity>>& cha
         }
 
         case EInventoryState::SHOWONE : {
-            ImGui::Begin("Artefact Info");
+            ImGui::SetNextWindowPos(ImVec2(viewport->Size.x - logsWindowWidth, viewport->Size.y - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y / 4.0f));
+            ImGui::SetNextWindowSize(ImVec2(logsWindowWidth, viewport->Size.y / 4.0f)); // viewport->Size.y / 4.0f pour les artefacts
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Artefact Info",nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::Text("Name : %s", targetArtefact->getName().c_str());
             ImGui::Text("Description : %s", targetArtefact->getDescription().c_str());
@@ -107,11 +110,15 @@ void Inventory::drawArtefactsInventory(std::vector<std::shared_ptr<Entity>>& cha
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case EInventoryState::ASSIGNONE : {
-            ImGui::Begin("Assign Artefact");
+            ImGui::SetNextWindowPos(ImVec2(viewport->Size.x - logsWindowWidth, viewport->Size.y - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y / 4.0f));
+            ImGui::SetNextWindowSize(ImVec2(logsWindowWidth, viewport->Size.y / 4.0f)); // viewport->Size.y / 4.0f pour les artefacts
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Assign Artefact",nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             for (int i = 0; i < characters.size(); i++)
             {
@@ -128,6 +135,7 @@ void Inventory::drawArtefactsInventory(std::vector<std::shared_ptr<Entity>>& cha
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
     }

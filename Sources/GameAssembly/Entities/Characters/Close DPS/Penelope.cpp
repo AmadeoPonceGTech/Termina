@@ -6,7 +6,7 @@ Penelope::Penelope()
     entityClass = EClass::CLOSEDDPS;
     description = "Penelope, hidden in the shadows, secretly eliminates all that appears in her way with her poisonous blades.";
 
-    baseHealth = 25;
+    baseHealth = 45;
     finalHP = 300;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
