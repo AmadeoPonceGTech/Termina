@@ -6,7 +6,7 @@ Edward::Edward()
     entityClass = EClass::RANGEDDPS;
     description = "Edward, cast powerful spells among the enemies to inflict them terrible magic induced injuries.";
 
-    baseHealth = 20;
+    baseHealth = 30;
     finalHP = 250;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -17,16 +17,16 @@ Edward::Edward()
     currentAttackDamage = 0;
 
     baseAttackPower = 20;
-    finalAP = 200;
+    finalAP = 500;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.25;
+    baseArmor = 1;
     finalArmor = 10;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.25;
+    basePowerResist = 3;
     finalPR = 10;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
@@ -39,6 +39,7 @@ void Edward::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackPower - currentAttackPower * (target->getCurrentPowerResist() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Edward uses \"Ember\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -53,6 +54,7 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+    LogManager::getInstance().addLog("Edward uses \"Fireball\". " + target->getName() + " takes damages and is burnt.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -64,6 +66,7 @@ void Edward::secondAbility(std::shared_ptr<Enemy>target)
 void Edward::thirdAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsStun(true);
+    LogManager::getInstance().addLog("Edward uses \"Stun Spell\". " + target->getName() + " is stunned.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD3 = 5;
 }
@@ -74,6 +77,7 @@ void Edward::fourthAbility(std::shared_ptr<Enemy>target)
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     target->setIsBurnt(true);
     target->setBurnCD(3);
+    LogManager::getInstance().addLog("Edward uses \"Magic Meteor\". " + target->getName() + " takes damages and is burnt.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -109,7 +113,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -118,7 +122,10 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Edward", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Ember"))
@@ -155,12 +162,16 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case PlayerState::CHOOSINGTARGET :
         {
-            ImGui::Begin("Choose enemy target");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
             for (int i = 0; i < enemies.size(); i++)
             {
                 std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -176,6 +187,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -211,7 +223,7 @@ bool Edward::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

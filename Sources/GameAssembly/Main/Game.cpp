@@ -90,52 +90,103 @@ void Game::Start()
 void Game::Update(float deltaTime)
 {
 
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec4 BgColor = ImVec4(0.200f, 0.133f, 0.075f, 1.0f);
+    ImVec4 ItemsColor = ImVec4(0.349f, 0.251f, 0.169f, 1.0f);
+
+    ImVec4 normalColor  = ImVec4(0.231f, 0.153f, 0.086f, 1.0f);
+    ImVec4 hoverColor   = ImVec4(0.212f, 0.133f, 0.071f, 1.0f);
+    ImVec4 activeColor  = ImVec4(0.161f, 0.094f, 0.043f, 1.0f);
+
     switch (gameState)
     {
 
-        case EGameState::Title :
-            ImGui::SetNextWindowSize(ImVec2(800, 800));
-            ImGui::Begin("MainWindow");
+        case EGameState::Title : {
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+            ImGui::Dummy(ImVec2(0,100));
+            ImGui::SetWindowFontScale(5.f);
+            std::string title = "ENDLESS ROGUE";
+            float textWidth = ImGui::CalcTextSize(title.c_str()).x;
+            float avail = ImGui::GetContentRegionAvail().x;
+            ImGui::SetCursorPosX((avail - textWidth) * 0.5f);
             ImGui::Text("ENDLESS ROGUE");
 
+            ImGui::Dummy(ImVec2(0,250));
+
+            float buttonWidth = 120.0f;
+            ImGui::SetCursorPosX((avail - buttonWidth) * 0.5f);
+            ImGui::PushStyleColor(ImGuiCol_Button, normalColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
             if (ImGui::Button("Play")) { gameState = EGameState::Menu; }
+            ImGui::PopStyleColor(3);
 
             ImGui::End();
+            ImGui::PopStyleColor();
+            }
             break;
 
         case EGameState::Menu :
         {
-            //cleanGameEntity();
-            ImGui::SetNextWindowSize(ImVec2(800, 800));
-            ImGui::Begin("MainWindow");
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
+            ImGui::SetWindowFontScale(2.f);
             ImGui::Text("Select your characters");
             ImGui::SameLine();
             ImGui::BeginDisabled(!gameplay->teamIsComplete());
+            ImGui::PushStyleColor(ImGuiCol_Button, normalColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
             if (ImGui::Button("Launch Run")) {
                 gameState = EGameState::Run;
             };
+            ImGui::PopStyleColor(3);
             ImGui::EndDisabled();
 
             // ===== LAYOUT SIMPLE =====
-            ImGui::Columns(2, nullptr, true);
+            ImGui::Columns(2, nullptr, false);
+            ImGui::SetColumnOffset(1, viewport->Size.x / 5.0f + 0.0f);
             // ===== LEFT: LIST =====
-            ImGui::BeginChild("CharacterList", ImVec2(0, 0), true);
+            ImGui::SetWindowFontScale(1.5f);
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
+            ImGui::BeginChild("CharacterList", ImVec2(viewport->Size.x / 2.0f , 0), true);
             for (int i = 0; i < allCharacters.size(); i++) {
                 if (ImGui::Selectable(allCharacters[i]->getName().c_str(), selectedCharacter == i)) {
                     selectedCharacter = i;
                 }
             }
 
+            ImGui::Dummy(ImVec2(0,305));
+
+            ImGui::SetWindowFontScale(1.5f);
+            ImGui::Text("Character Selected :");
+
+            ImGui::Dummy(ImVec2(0,10));
+
+            for (int i = 0; i < gameplay->getActiveCharacters().size(); i++) {
+                ImGui::Text("%s", gameplay->getActiveCharacters()[i]->getName().c_str());
+            }
+
             ImGui::EndChild();
+            ImGui::PopStyleColor();
             ImGui::NextColumn();
 
             // ===== RIGHT: DETAILS =====
-            ImGui::BeginChild("CharacterDetails", ImVec2(0, 0), true);
+            ImGui::SetWindowFontScale(3.f);
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
+            ImGui::BeginChild("CharacterDetails", ImVec2(viewport->Size.x * 4.0f / 5.0f, 0), true, ImGuiWindowFlags_HorizontalScrollbar);
 
             if (selectedCharacter != -1) {
                 auto& character = allCharacters[selectedCharacter];
 
+                ImGui::SetWindowFontScale(1.5f);
                 ImGui::Text("Character: %s", character->getName().c_str());
                 ImGui::Dummy(ImVec2(0,10));
                 ImGui::Text("Level : %i", character->getLevel());
@@ -168,15 +219,23 @@ void Game::Update(float deltaTime)
                 ImGui::Dummy(ImVec2(0,20));
 
                 ImGui::BeginDisabled(gameplay->isInTeam(character) or gameplay->teamIsComplete());
+                ImGui::PushStyleColor(ImGuiCol_Button, normalColor);
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
                 if (ImGui::Button("Select")) {
                     gameplay->addToTeam(character);
                 }
+                ImGui::PopStyleColor(3);
                ImGui::EndDisabled();
 
                 ImGui::BeginDisabled(!gameplay->isInTeam(character));
+                ImGui::PushStyleColor(ImGuiCol_Button, normalColor);
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, activeColor);
                 if (ImGui::Button("UnSelect")) {
                     gameplay->removeFromTeam(character);
                 }
+                ImGui::PopStyleColor(3);
                 ImGui::EndDisabled();
             }
             else {
@@ -184,8 +243,10 @@ void Game::Update(float deltaTime)
             }
 
             ImGui::EndChild();
+            ImGui::PopStyleColor();
             ImGui::Columns(1);
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
         case EGameState::Run :

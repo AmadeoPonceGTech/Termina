@@ -13,23 +13,23 @@ Mermaid::Mermaid(int floor) {
     finalArmor = 40.0f;
     finalPR = 40.0f;
 
-    baseHealth = 40.0f;
+    baseHealth = 50.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0.0f;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 35.0f;
+    baseAttackPower = 15.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.3f;
+    baseArmor = 5.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.3f;
+    basePowerResist = 10.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -138,18 +138,16 @@ bool Mermaid::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::v
     return false;
 }
 
-void Mermaid::dropArtefacts() {
-
-}
-
 void Mermaid::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Mermaid attacks " + target.getName() + " with \"Water bubble\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Mermaid::secondAbility(Character& target, std::vector<std::shared_ptr<Entity>> enemies) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Mermaid attacks " + target.getName() + " with \"Cursed Melody\".", ImVec4(240, 0.518, 0.518, 1));
 
     static std::random_device rd;
     static std::mt19937 rng(rd());
@@ -164,18 +162,23 @@ void Mermaid::secondAbility(Character& target, std::vector<std::shared_ptr<Entit
 
     if (choice == 1) {
         targetEnemy->setCurrentAttackDamage(std::max(0.0f, targetEnemy->getCurrentAttackDamage() + debuff));
+        LogManager::getInstance().addLog(target.getName() + " takes Attack Damage bonus.", ImVec4(240, 0.518, 0.518, 1));
     }
     else if (choice == 2) {
         targetEnemy->setCurrentAttackPower(std::max(0.0f, targetEnemy->getCurrentAttackPower() + debuff));
+        LogManager::getInstance().addLog(target.getName() + " takes Power Damage bonus.", ImVec4(240, 0.518, 0.518, 1));
     }
     else if (choice == 3) {
         targetEnemy->setCurrentArmor(std::max(0.0f, targetEnemy->getCurrentArmor() + debuff));
+        LogManager::getInstance().addLog(target.getName() + " takes Armor bonus.", ImVec4(240, 0.518, 0.518, 1));
     }
     else if (choice == 4) {
         targetEnemy->setCurrentPowerResist(std::max(0.0f, targetEnemy->getCurrentPowerResist() + debuff));
+        LogManager::getInstance().addLog(target.getName() + " takes Power Resist bonus.", ImVec4(240, 0.518, 0.518, 1));
     }
     else if (choice == 5) {
         targetEnemy->setCurrentSpeed(std::max(0.0f, targetEnemy->getCurrentSpeed() - debuff));
+        LogManager::getInstance().addLog(target.getName() + " takes Speed bonus.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD2 = 4;
@@ -183,6 +186,7 @@ void Mermaid::secondAbility(Character& target, std::vector<std::shared_ptr<Entit
 
 void Mermaid::thirdAbility(Enemy& target) {
     target.resetStats();
+    LogManager::getInstance().addLog("Mermaid uses \"Evil Attraction\". All " + target.getName() + "'bonuses are removed.", ImVec4(240, 0.518, 0.518, 1));
 
     CD3 = 5;
 }
@@ -206,22 +210,27 @@ void Mermaid::fourthAbility(std::vector<std::shared_ptr<Entity>> enemies)
         {
         case 1:
             targetEnemy->setCurrentAttackDamage(targetEnemy->getCurrentAttackDamage() + buff);
+            LogManager::getInstance().addLog("Mermaid uses \"Melancholic Aria\". " + targetEnemy->getName() + " takes Attack Damage bonus.", ImVec4(240, 0.518, 0.518, 1));
             break;
 
         case 2:
             targetEnemy->setCurrentAttackPower(targetEnemy->getCurrentAttackPower() + buff);
+                LogManager::getInstance().addLog("Mermaid uses \"Melancholic Aria\". " + targetEnemy->getName() + " takes Attack Power bonus.", ImVec4(240, 0.518, 0.518, 1));
             break;
 
         case 3:
             targetEnemy->setCurrentArmor(targetEnemy->getCurrentArmor() + buff);
+                LogManager::getInstance().addLog("Mermaid uses \"Melancholic Aria\". " + targetEnemy->getName() + " takes Armor bonus.", ImVec4(240, 0.518, 0.518, 1));
             break;
 
         case 4:
             targetEnemy->setCurrentPowerResist(targetEnemy->getCurrentPowerResist() + buff);
+                LogManager::getInstance().addLog("Mermaid uses \"Melancholic Aria\". " + targetEnemy->getName() + " takes Power Resist bonus.", ImVec4(240, 0.518, 0.518, 1));
             break;
 
         case 5:
             targetEnemy->setCurrentSpeed(targetEnemy->getCurrentSpeed() + buff);
+                LogManager::getInstance().addLog("Mermaid uses \"Melancholic Aria\". " + targetEnemy->getName() + " takes Speed bonus.", ImVec4(240, 0.518, 0.518, 1));
             break;
 
         default:

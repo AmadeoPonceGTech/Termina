@@ -11,22 +11,22 @@ Brutus::Brutus()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 8;
-    finalAD = 325;
+    baseAttackDamage = 15;
+    finalAD = 300;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
 
-    baseAttackPower = 5;
-    finalAP = 300;
+    baseAttackPower = 3;
+    finalAP = 120;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.4;
+    baseArmor = 2.f;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.2;
+    basePowerResist = 2.f;
     finalPR = 10;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
@@ -41,6 +41,7 @@ void Brutus::firstAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        LogManager::getInstance().addLog("Brutus uses \"Triple Shoot\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
         if (artefact) {
             artefact->onInflictedDamage(*this);
@@ -62,6 +63,7 @@ void Brutus::secondAbility(std::shared_ptr<Enemy>target)
     {
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+        LogManager::getInstance().addLog("Brutus uses \"Arrow Storm\". " + target->getName() + " takes damages (x" + std::to_string(arrowToShoot) + ").", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
         if (artefact) {
             artefact->onInflictedDamage(*this);
@@ -75,6 +77,7 @@ void Brutus::thirdAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() * 0.2 / 100 );
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Brutus uses \"Piercing Arrow\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -88,6 +91,7 @@ void Brutus::fourthAbility(std::shared_ptr<Enemy>target)
     float dmgAPDealt = currentAttackPower * 4 - currentAttackPower * (target->getCurrentPowerResist() / 100);
     float dmgADDealt = currentAttackDamage * 4 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - (dmgADDealt + dmgAPDealt) / 2);
+    LogManager::getInstance().addLog("Brutus uses \"Explosive Arrow\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -123,7 +127,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -132,7 +136,10 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Brutus", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Triple Shoot"))
@@ -169,12 +176,16 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case PlayerState::CHOOSINGTARGET :
         {
-            ImGui::Begin("Choose enemy target");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
             for (int i = 0; i < enemies.size(); i++)
             {
                 std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -190,6 +201,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -226,7 +238,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

@@ -56,6 +56,7 @@ private:
     bool destroyCharacter = false;
     bool destroyEnemy = false;
 
+
 public:
 
     Gameplay();

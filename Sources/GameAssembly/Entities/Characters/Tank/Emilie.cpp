@@ -14,7 +14,7 @@ Emilie::Emilie()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 5;
+    baseAttackDamage = 8;
     finalAD = 300;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -44,6 +44,11 @@ void Emilie::firstAbility(std::vector<std::shared_ptr<Entity>> enemies)
         if (target != nullptr){
             float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
             target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 3);
+            LogManager::getInstance().addLog("Emilie uses \"Earthquake\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
+
+            if (artefact) {
+                artefact->onInflictedDamage(*this);
+            }
         }
     }
 
@@ -53,6 +58,7 @@ void Emilie::firstAbility(std::vector<std::shared_ptr<Entity>> enemies)
 void Emilie::secondAbility(std::shared_ptr<Character> target)
 {
     target->setCurrentPowerResist(target->getCurrentPowerResist() + maxPowerResist / 2);
+    LogManager::getInstance().addLog("Emilie uses \"Share\". " + target->getName() + " takes Power Resist bonus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 5;
 }
@@ -63,6 +69,11 @@ void Emilie::thirdAbility(std::vector<std::shared_ptr<Entity>> enemies)
         float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
         target->setCurrentHealth(target->getCurrentHealth() - dmgDealt / 4);
         target->setIsStun(true);
+        LogManager::getInstance().addLog("Emilie uses \"Punch'em all\". " + target->getName() + " takes damages and is stunned.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
+
+        if (artefact) {
+            artefact->onInflictedDamage(*this);
+        }
     }
 
     CD3 = 5;
@@ -102,12 +113,21 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     switch (currentState) {
         case PlayerState::STARTTURN : {
             startTurn();
+
+            if (artefact && !artefactAlreadyUsed) {
+                artefact->actingArtefact(*this);
+                artefactAlreadyUsed = true;
+            }
+
             currentState = PlayerState::CHOOSINGABILITY;
             break;
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Emilie", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Earthquake"))
@@ -136,6 +156,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -143,7 +164,10 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
-                ImGui::Begin("Choose enemy target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < enemies.size(); i++)
                 {
                     std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -159,10 +183,14 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -178,6 +206,7 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }
@@ -208,6 +237,10 @@ bool Emilie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::ENDTURN : {
             endTurn();
+            if (artefact) {
+                artefact->actingArtefactEveryTurns(*this);
+            }
+
             currentState = PlayerState::STARTTURN;
             return true;
         }

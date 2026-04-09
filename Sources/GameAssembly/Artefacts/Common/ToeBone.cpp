@@ -7,12 +7,12 @@ ToeBone::ToeBone() {
     quality = Quality::COMMON;
 }
 
-void ToeBone::ActingArtefact(Entity& target) {
+void ToeBone::actingArtefact(Entity& target) {
     target.setCurrentPowerResist(target.getCurrentPowerResist() + target.getCurrentPowerResist() * (2.0f * level) / 100.0f);
 }
 
 void ToeBone::onInflictedDamage(Entity& target) {
 }
 
-void ToeBone::ActingArtefactEveryTurns(Entity& target) {
+void ToeBone::actingArtefactEveryTurns(Entity& target) {
 }

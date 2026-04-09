@@ -21,16 +21,16 @@ protected:
     std::string name;
     std::string description;
     std::string droppedBy;
+    Quality quality;
     int level = 1;
 
 public:
     virtual ~Artefact() = default;
     Artefact();
-    Quality quality;
 
-    virtual void ActingArtefact(Entity& target) = 0;
+    virtual void actingArtefact(Entity& target) = 0;
     virtual void onInflictedDamage(Entity& target) = 0;
-    virtual void ActingArtefactEveryTurns(Entity& target) = 0;
+    virtual void actingArtefactEveryTurns(Entity& target) = 0;
 
 #pragma region Getters
 
@@ -38,6 +38,7 @@ public:
     virtual std::string getDescription();
     virtual std::string getDroppedBy();
     virtual int getLevel();
+    virtual Quality getQuality();
 
 #pragma endregion
 

@@ -8,7 +8,7 @@ Marcus::Marcus()
     entityClass = EClass::SUPPORT;
     description = "Marcus, born among the priests of the local church, he became himself a monk capable of the most incredible spells. Expelled from his home because of the fear of those who taught him, he now travels to where his destiny calls him according to him.";
 
-    baseHealth = 30;
+    baseHealth = 40;
     finalHP = 300;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -18,17 +18,17 @@ Marcus::Marcus()
     maxAttackDamage = 0;
     currentAttackDamage = 0;
 
-    baseAttackPower = 30;
+    baseAttackPower = 10;
     finalAP = 300;
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 0.5;
+    baseArmor = 3;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.5;
+    basePowerResist = 5;
     finalPR = 15;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
@@ -43,6 +43,7 @@ void Marcus::firstAbility(std::shared_ptr<Character>target)
 
     target->setCurrentHealth(target->getCurrentHealth() + HPHealed);
     if (target->getCurrentHealth() > target->getMaxHealth()) { target->setCurrentHealth(target->getMaxHealth()); }
+    LogManager::getInstance().addLog("Marcus uses \"Heal\". " + target->getName() + " is healed.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD1 = 1;
 }
@@ -54,6 +55,7 @@ void Marcus::secondAbility(std::vector<std::shared_ptr<Entity>>& characters)
     for (auto& target : characters) {
         target->setCurrentHealth(target->getCurrentHealth() + HPHealed);
         if (target->getCurrentHealth() > target->getMaxHealth()) { target->setCurrentHealth(target->getMaxHealth()); }
+        LogManager::getInstance().addLog("Marcus uses \"Multi-Heal\". " + target->getName() + " is healed.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
     }
 
     CD2 = 4;
@@ -70,6 +72,7 @@ void Marcus::thirdAbility(std::shared_ptr<Character>target)
     target->setCurrentAttackDamage(target->getMaxAttackDamage());
     target->setCurrentArmor(target->getMaxArmor());
     target->setCurrentPowerResist(target->getMaxPowerResist());
+    LogManager::getInstance().addLog("Marcus uses \"Cleans\". " + target->getName() + "'s debuffs are suppressed.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD3 = 3;
 }
@@ -77,6 +80,7 @@ void Marcus::thirdAbility(std::shared_ptr<Character>target)
 void Marcus::fourthAbility(std::shared_ptr<Character>target)
 {
     target->setCurrentHealth(target->getMaxHealth() / 2);
+    LogManager::getInstance().addLog("Marcus uses \"Resurrection\". " + target->getName() + " is revived.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD4 = 11;
 }
@@ -108,7 +112,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -118,7 +122,10 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::CHOOSINGABILITY : {
 
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Marcus", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Heal"))
@@ -155,6 +162,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -162,7 +170,10 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         {
             if (abilitySelected != 4)
             {
-                ImGui::Begin("Choose Ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose Ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -178,10 +189,14 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     if (characters[i]->getCurrentHealth() <= 0)
@@ -200,6 +215,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }
@@ -236,7 +252,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

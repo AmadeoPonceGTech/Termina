@@ -13,23 +13,23 @@ Dunkleosteus::Dunkleosteus(int floor) {
     finalArmor = 60.0f;
     finalPR = 60.0f;
 
-    baseHealth = 85.0f;
+    baseHealth = 130.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
+    baseAttackDamage = 15.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 10.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.65f;
+    baseArmor = 20.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.65f;
+    basePowerResist = 15.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -129,27 +129,26 @@ bool Dunkleosteus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, s
     return false;
 }
 
-void Dunkleosteus::dropArtefacts() {
-
-}
-
 void Dunkleosteus::firstAbility(Character& target) {
     float multiplier = 1.0f;
-    if (target.getClass() == EClass::ASSASSIN | target.getClass() == EClass::SUPPORT) { multiplier = 1.2f; }
+    if (target.getClass() == EClass::CLOSEDDPS | target.getClass() == EClass::SUPPORT) { multiplier = 1.2f; }
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * multiplier));
+    LogManager::getInstance().addLog("Dunkleosteus attacks " + target.getName() + " with \"Bite\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Dunkleosteus::secondAbility(Character& target1, Character& target2) {
     float multiplier1 = 1.0f;
-    if (target1.getClass() == EClass::ASSASSIN | target1.getClass() == EClass::SUPPORT) { multiplier1 = 1.2f; }
+    if (target1.getClass() == EClass::CLOSEDDPS | target1.getClass() == EClass::SUPPORT) { multiplier1 = 1.2f; }
     float dmgDealt1 = currentAttackDamage * (1.0f - target1.getCurrentArmor() / 100.0f);
     target1.setCurrentHealth(std::max(0.0f, target1.getCurrentHealth() - dmgDealt1 * multiplier1));
+    LogManager::getInstance().addLog("Dunkleosteus attacks " + target1.getName() + " with \"Abyssal Tail\".", ImVec4(240, 0.518, 0.518, 1));
 
     float multiplier2 = 1.0f;
-    if (target2.getClass() == EClass::ASSASSIN | target2.getClass() == EClass::SUPPORT) { multiplier2 = 1.2f; }
+    if (target2.getClass() == EClass::CLOSEDDPS | target2.getClass() == EClass::SUPPORT) { multiplier2 = 1.2f; }
     float dmgDealt2 = currentAttackDamage * (1.0f - target2.getCurrentArmor() / 100.0f);
     target2.setCurrentHealth(std::max(0.0f, target2.getCurrentHealth() - dmgDealt2 * multiplier2));
+    LogManager::getInstance().addLog("Dunkleosteus attacks " + target2.getName() + " with \"Abyssal Tail\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 4;
 }
@@ -160,6 +159,7 @@ void Dunkleosteus::thirdAbility(Character& target) {
 
 void Dunkleosteus::fourthAbility() {
     //Cast a wave who give a shield to all allies except self
+    LogManager::getInstance().addLog("Dunkleosteus uses \"Protective Tide\".", ImVec4(240, 0.518, 0.518, 1));
     CD4 = 5;
 }
 

@@ -8,12 +8,12 @@ Alex::Alex()
     entityClass = EClass::CLOSEDDPS;
     description = "Alex, the proud and generous white knight, that charges and slashes with his shield and big sword, defeating the evil.";
 
-    baseHealth = 50000;
+    baseHealth = 50;
     finalHP = 600;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 10000.f;
+    baseAttackDamage = 20.f;
     finalAD = 400;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -28,8 +28,8 @@ Alex::Alex()
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 0.5f;
-    finalPR = 10;
+    basePowerResist = 2.f;
+    finalPR = 20;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
 
@@ -43,6 +43,7 @@ void Alex::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Alex uses \"Sword Slash\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -54,6 +55,7 @@ void Alex::firstAbility(std::shared_ptr<Enemy>target)
 void Alex::secondAbility()
 {
     isParring = true;
+    LogManager::getInstance().addLog("Alex uses \"Parade\". ", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 3;
 }
@@ -62,6 +64,7 @@ void Alex::thirdAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Alex uses \"Heavy Sword Slash\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
     if (artefact) {
         artefact->onInflictedDamage(*this);
     }
@@ -172,7 +175,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -181,7 +184,10 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Alex", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Sword Slash"))
@@ -210,12 +216,16 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case PlayerState::CHOOSINGTARGET :
         {
-            ImGui::Begin("Choose enemy target");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
             for (int i = 0; i < enemies.size(); i++)
             {
                 std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -231,6 +241,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -262,7 +273,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

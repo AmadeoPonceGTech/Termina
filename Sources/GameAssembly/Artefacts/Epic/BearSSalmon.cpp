@@ -7,12 +7,12 @@ BearSSalmon::BearSSalmon() {
     quality = Quality::EPIC;
 }
 
-void BearSSalmon::ActingArtefact(Entity& target) {
+void BearSSalmon::actingArtefact(Entity& target) {
 }
 
 void BearSSalmon::onInflictedDamage(Entity& target) {
 }
 
-void BearSSalmon::ActingArtefactEveryTurns(Entity& target) {
+void BearSSalmon::actingArtefactEveryTurns(Entity& target) {
     target.setCurrentHealth(target.getCurrentHealth() + target.getMaxHealth() * (3.0f * level) / 100.0f);
 }

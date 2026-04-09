@@ -3,7 +3,7 @@
 
 Eel::Eel(int floor) {
     name = "Eel";
-    entityClass = EClass::ASSASSIN;
+    entityClass = EClass::CLOSEDDPS;
     description = "A sneaky fish slipping away when caught.";
     biome = Biome::OCEAN;
 
@@ -13,23 +13,23 @@ Eel::Eel(int floor) {
     finalArmor = 40.0f;
     finalPR = 40.0f;
 
-    baseHealth = 25.0f;
+    baseHealth = 35.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 10.0f;
+    baseAttackDamage = 8.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 35.0f;
+    baseAttackPower = 28.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.2f;
+    baseArmor = 3.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 5.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -131,13 +131,10 @@ bool Eel::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vecto
     return false;
 }
 
-void Eel::dropArtefacts() {
-
-}
-
 void Eel::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Eel attacks " + target.getName() + " with \"Electric Charge\".", ImVec4(240, 0.518, 0.518, 1));
 
     static std::random_device rd;
     static std::mt19937 rng(rd());
@@ -146,12 +143,14 @@ void Eel::firstAbility(Character& target) {
     if (proc(rng) <= 30) {
         float slow = 10.0f;
         target.setCurrentSpeed(std::max(0.0f, target.getCurrentSpeed() - slow));
+        LogManager::getInstance().addLog(target.getName() + " takes a Speed malus.", ImVec4(240, 0.518, 0.518, 1));
     }
 }
 
 void Eel::secondAbility() {
     float buff = currentAttackDamage * 0.2f;
     currentAttackDamage += buff;
+    LogManager::getInstance().addLog("Eel uses \"Charge Up\". He takes Attack Damage bonus.", ImVec4(240, 0.518, 0.518, 1));
     CD2 = 4;
 }
 
@@ -163,6 +162,7 @@ void Eel::thirdAbility() {
     tauntCD = 0;
     isTaunt = false;
     isStun = false;
+    LogManager::getInstance().addLog("Eel uses \"Slippery Mucus\". He removes all status effects to himself.", ImVec4(240, 0.518, 0.518, 1));
 
     CD3 = 5;
 }
@@ -171,6 +171,7 @@ void Eel::fourthAbility(Character& target) {
     float multiplier = (target.getCurrentHealth() < target.getMaxHealth() * 0.5f) ? 2.5f : 1.5f;
     float dmgDealt = currentAttackPower * multiplier * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Eel attacks " + target.getName() + " with \"Lightning Embrace\".", ImVec4(240, 0.518, 0.518, 1));
     CD4 = 6;
 }
 
@@ -182,6 +183,7 @@ std::shared_ptr<Artefact> Eel::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
+        LogManager::getInstance().addLog("You obtained a Common Artefact: Eel's Eye !", ImVec4(1, 0, 0, 1));
         return std::make_shared<EelSEye>();
     }
     else if (roll < 15.f) {

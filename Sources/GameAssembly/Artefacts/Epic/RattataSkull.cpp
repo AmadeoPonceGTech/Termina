@@ -7,12 +7,12 @@ RattataSkull::RattataSkull() {
     quality = Quality::EPIC;
 }
 
-void RattataSkull::ActingArtefact(Entity& target) {
+void RattataSkull::actingArtefact(Entity& target) {
     target.resourcesWon = target.resourcesWon + 2 * level;
 }
 
 void RattataSkull::onInflictedDamage(Entity& target) {
 }
 
-void RattataSkull::ActingArtefactEveryTurns(Entity& target) {
+void RattataSkull::actingArtefactEveryTurns(Entity& target) {
 }

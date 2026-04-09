@@ -4,7 +4,7 @@
 Bear::Bear(int floor) {
     name = "Bear";
     entityClass = EClass::TANK;
-    description = "The bear is a massive brute, slow to get angry but impossible to stop once it starts.";
+    description = "Bear, a monstrous predator, feared by everyone. Do not touch his food or you'll regret it.";
     biome = Biome::FOREST;
 
     level = floor;
@@ -13,23 +13,23 @@ Bear::Bear(int floor) {
     finalArmor = 80.0f;
     finalPR = 60.0f;
 
-    baseHealth = 75.0f;
+    baseHealth = 100.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 25.0f;
+    baseAttackDamage = 12.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 10.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    baseAttackPower = 0;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.75f;
+    baseArmor = 12.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.65f;
+    basePowerResist = 10.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -143,19 +143,15 @@ bool Bear::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     return false;
 }
 
-void Bear::dropArtefacts() {
-
-}
-
 void Bear::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
-    LogManager::getInstance().AddLog("Bear attacks " + target.getName() + " with \"Claw\".", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Bear attacks " + target.getName() + " with \"Claw\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Bear::secondAbility() {
     currentHealth = currentHealth + maxHealth * 0.15f;
-    LogManager::getInstance().AddLog("Bear heals by 15% with \"Surprise Salmon\".", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Bear heals by 15% with \"Surprise Salmon\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -171,7 +167,7 @@ void Bear::fourthAbility(Character& target) {
     target.setIsTaunt(true);
     setTauntCD(3);
 
-    LogManager::getInstance().AddLog("Bear uses \"I Am The King\", increasing its Defense and Resistance. " + target.getName() + " is taunt.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Bear uses \"I Am The King\", increasing its Defense and Resistance. " + target.getName() + " is taunt.", ImVec4(240, 0.518, 0.518, 1));
 
     CD4 = 7;
 }
@@ -184,22 +180,19 @@ std::shared_ptr<Artefact> Bear::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
-        LogManager::getInstance().AddLog("You obtained a Common Artefact: Bear's Foot !", ImVec4(1, 0, 0, 1));
+        LogManager::getInstance().addLog("You obtained a Common Artefact: Bear's Foot !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSFoot>();
     }
     else if (roll < 15.f) {
-        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Honey !", ImVec4(1, 0, 0, 1));
-        //return std::make_shared<Honey>();
         return nullptr;
     }
     else if (roll < 17.f) {
-        LogManager::getInstance().AddLog("You obtained an Epic Artefact: Bear's Salmon !", ImVec4(1, 0, 0, 1));
+        LogManager::getInstance().addLog("You obtained an Epic Artefact: Bear's Salmon !", ImVec4(1, 0, 0, 1));
         return std::make_shared<BearSSalmon>();
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Great Bear Medal !", ImVec4(1, 0, 0, 1));
-        //return std::make_shared<GreatBearMedal>();
-        return nullptr;
+        LogManager::getInstance().addLog("You obtained a Legendary Artefact: Great Bear Medal !", ImVec4(1, 0, 0, 1));
+        return std::make_shared<GreatBearMedal>();
     }
     return nullptr;
 }

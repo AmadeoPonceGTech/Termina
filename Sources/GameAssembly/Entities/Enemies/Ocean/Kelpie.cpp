@@ -13,23 +13,23 @@ Kelpie::Kelpie(int floor) {
     finalArmor = 30.0f;
     finalPR = 55.0f;
 
-    baseHealth = 50.0f;
+    baseHealth = 60.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 20.0f;
-    maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
-    currentAttackDamage = maxAttackDamage;
+    baseAttackDamage = 0.0f;
+    maxAttackDamage = 0;
+    currentAttackDamage = 0;
 
-    baseAttackPower = 40.0f;
+    baseAttackPower = 16.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.5f;
+    baseArmor = 6.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.5f;
+    basePowerResist = 8.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -75,6 +75,7 @@ bool Kelpie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             {
                 character->setIsPoisoned(false);
                 setIsPoisoned(true);
+                LogManager::getInstance().addLog("Kelpie absorbs the poison of " + character->getName() + " with her passive \"Absorb Poison\".", ImVec4(240, 0.518, 0.518, 1));
             }
         }
         break;
@@ -127,24 +128,24 @@ bool Kelpie::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
     return false;
 }
 
-void Kelpie::dropArtefacts() {
-
-}
-
 void Kelpie::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Kelpie attacks " + target.getName() + " with \"Kelpies’s tackle\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Kelpie::secondAbility(Character& target1, Character& target2, Character& target3) {
     float dmgDealt1 = currentAttackPower * (1.0f - target1.getCurrentPowerResist() / 100.0f);
     target1.setCurrentHealth(std::max(0.0f, target1.getCurrentHealth() - dmgDealt1));
+    LogManager::getInstance().addLog("Kelpie attacks " + target1.getName() + " with \"Waterfall\".", ImVec4(240, 0.518, 0.518, 1));
 
     float dmgDealt2 = currentAttackPower * (1.0f - target2.getCurrentPowerResist() / 100.0f);
     target2.setCurrentHealth(std::max(0.0f, target2.getCurrentHealth() - dmgDealt2));
+    LogManager::getInstance().addLog("Kelpie attacks " + target3.getName() + " with \"Waterfall\".", ImVec4(240, 0.518, 0.518, 1));
 
     float dmgDealt3 = currentAttackPower * (1.0f - target3.getCurrentPowerResist() / 100.0f);
     target3.setCurrentHealth(std::max(0.0f, target3.getCurrentHealth() - dmgDealt3));
+    LogManager::getInstance().addLog("Kelpie attacks " + target3.getName() + " with \"Waterfall\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 4;
 }
@@ -182,6 +183,7 @@ void Kelpie::manageKelpieEffects()
             poisonCD--;
             isPoisoned = false;
         }
+        LogManager::getInstance().addLog("The passive \"Healing Poison\" of Kelpie cured her.", ImVec4(0.141f, 0.039f, 0.200f, 1.0f));
     }
 
     if (isBurnt)
@@ -199,6 +201,7 @@ void Kelpie::manageKelpieEffects()
             isBurnt = false;
             burnCD--;
         }
+        LogManager::getInstance().addLog(this->getName() + "takes damages from its burn !", ImVec4(1.0f, 0.2f, 0.0f, 1.0f));
     }
 
     if (isTaunt)
@@ -213,10 +216,12 @@ void Kelpie::manageKelpieEffects()
             tauntCD--;
             isTaunt = false;
         }
+        LogManager::getInstance().addLog(this->getName() + "is taunt !", ImVec4(1.0f, 0.6f, 0.0f, 1.0f));
     }
 
     if (isStun) {
         isStun = false;
+        LogManager::getInstance().addLog(this->getName() + "is stun !", ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
     }
 }
 

@@ -6,7 +6,7 @@
 RedDragon::RedDragon(int floor) {
     name = "RedDragon";
     entityClass = EClass::BOSS;
-    description = "RedDragon's description.";
+    description = "The Red Dragon is a terrific creature, feared for his burning blazing breath and his majestic shape. The legend says that no one has ever returned alive from his lair.";
     biome = Biome::FOREST;
 
     level = floor;
@@ -15,11 +15,11 @@ RedDragon::RedDragon(int floor) {
     finalArmor = 70.0f;
     finalPR = 40.0f;
 
-    baseHealth = 100.0f;
+    baseHealth = 350.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 40.0f;
+    baseAttackDamage = 35.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
@@ -27,19 +27,19 @@ RedDragon::RedDragon(int floor) {
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.5f;
+    baseArmor = 20;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.5f;
+    basePowerResist = 15;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
     baseSpeed = 50.0f;
     currentSpeed = baseSpeed;
 
-    baseExpDrop = 50.0f;
-    maxExpDrop = 1700.0f;
+    baseExpDrop = 500.0f;
+    maxExpDrop = 5000.0f;
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 
@@ -135,17 +135,13 @@ bool RedDragon::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std:
     return false;
 }
 
-void RedDragon::dropArtefacts() {
-
-}
-
 void RedDragon::firstAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
 
     target.setCurrentSpeed(target.getCurrentSpeed() + (target.getCurrentSpeed() * 15.0f / 100.0f));
 
-    LogManager::getInstance().AddLog("Red Dragon uses \"Tail Smash\". " + target.getName() + " takes damages and a Speed debuff.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Red Dragon uses \"Tail Smash\". " + target.getName() + " takes damages and a Speed debuff.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RedDragon::secondAbility(Character& target) {
@@ -153,7 +149,7 @@ void RedDragon::secondAbility(Character& target) {
     if (target.getIsBurnt() | target.getIsStun() | target.getIsPoisoned() | target.getIsTaunt()) multiplier = 1.5f; else multiplier = 1.0f;
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * multiplier));
-    LogManager::getInstance().AddLog("Red Dragon uses \"Hate Flame\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Red Dragon uses \"Hate Flame\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -161,7 +157,7 @@ void RedDragon::secondAbility(Character& target) {
 void RedDragon::thirdAbility() {
     currentAttackPower = currentAttackPower + (currentAttackPower * 5.0f / 100.0f);
     currentAttackDamage = currentAttackDamage + (currentAttackDamage * 5.0f / 100.0f);
-    LogManager::getInstance().AddLog("The passive \"Hell Territory\" of Red Dragon increase their offensive stats by 5%.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("The passive \"Hell Territory\" of Red Dragon increase their offensive stats by 5%.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void RedDragon::fourthAbility(const std::vector<Character*>& targets) {
@@ -171,7 +167,7 @@ void RedDragon::fourthAbility(const std::vector<Character*>& targets) {
 
         character->setCurrentAttackDamage(character->getCurrentAttackDamage() - character->getCurrentAttackDamage() * 15.0f / 100.0f);
         character->setCurrentAttackPower(character->getCurrentAttackPower() - character->getCurrentAttackPower() * 15.0f / 100.0f);
-        LogManager::getInstance().AddLog("Red Dragon uses \"Grand Fire\". " + character->getName() + " takes damages and offensive debuffs.", ImVec4(240, 0.518, 0.518, 1));
+        LogManager::getInstance().addLog("Red Dragon uses \"Grand Fire\". " + character->getName() + " takes damages and offensive debuffs.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 7;
@@ -194,7 +190,6 @@ std::shared_ptr<Artefact> RedDragon::createDrop() {
         return nullptr;
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Eternal Flame !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<EternalFlame>();
         return nullptr;
     }

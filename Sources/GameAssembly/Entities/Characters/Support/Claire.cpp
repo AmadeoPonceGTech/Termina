@@ -8,7 +8,7 @@ Claire::Claire()
     entityClass = EClass::SUPPORT;
     description = "Claire; Her deep learning of magic is now put to action and make her a big support for her team. She doesn't bright by her bodily acts but by her intelligence.";
 
-    baseHealth = 30;
+    baseHealth = 50;
     finalHP = 400;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
@@ -41,6 +41,7 @@ void Claire::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -57,18 +58,23 @@ void Claire::firstAbility(std::shared_ptr<Enemy>target)
 
         if (choice == 1) {
             target->setCurrentAttackDamage(target->getCurrentAttackDamage() - target->getCurrentAttackDamage() * 0.05);
+            LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes Attack Damage malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
         else if (choice == 2) {
             target->setCurrentAttackPower(target->getCurrentAttackPower() - target->getCurrentAttackPower() * 0.05);
+            LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes Attack Power malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
         else if (choice == 3) {
             target->setCurrentArmor(target->getCurrentArmor() - target->getCurrentArmor() * 0.05);
+            LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes Armor malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
         else if (choice == 4) {
             target->setCurrentPowerResist(target->getCurrentPowerResist() - target->getCurrentPowerResist() * 0.05);
+            LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes Power Resist malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
         else if (choice == 5) {
             target->setCurrentSpeed(target->getCurrentSpeed() + currentAttackPower);
+            LogManager::getInstance().addLog("Claire uses \"Wand Hit\". " + target->getName() + " takes Speed malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
     }
 
@@ -79,6 +85,7 @@ void Claire::secondAbility(std::shared_ptr<Character>target)
 {
     target->setCurrentArmor(target->getCurrentArmor() * 1.05);
     target->setCurrentPowerResist(target->getCurrentPowerResist() * 1.05);
+    LogManager::getInstance().addLog("Claire uses \"Resist Buff\". " + target->getName() + " takes Armor and Power Resist bonus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 4;
 }
@@ -86,6 +93,7 @@ void Claire::secondAbility(std::shared_ptr<Character>target)
 void Claire::thirdAbility(std::shared_ptr<Enemy>target)
 {
     target->setCurrentSpeed(target->getCurrentSpeed() + currentAttackPower);
+    LogManager::getInstance().addLog("Claire uses \"Slow Debuff\". " + target->getName() + " takes Speed malus.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD3 = 6;
 }
@@ -97,6 +105,8 @@ void Claire::fourthAbility(std::shared_ptr<Character>target)
     target->setCurrentArmor(target->getCurrentArmor() * 1.1);
     target->setCurrentPowerResist(target->getCurrentPowerResist() * 1.1);
     target->setCurrentSpeed(target->getCurrentSpeed() - currentAttackPower);
+
+    LogManager::getInstance().addLog("Claire uses \"Mega Buff\". " + target->getName() + " takes a bonus in all stats.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD4 = 11;
 }
@@ -129,7 +139,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -138,7 +148,10 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Claire", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Wand Hit"))
@@ -175,6 +188,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -182,7 +196,10 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         {
             if (abilitySelected == 1 or abilitySelected == 3)
             {
-                ImGui::Begin("Choose enemy target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < enemies.size(); i++)
                 {
                     std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -198,10 +215,14 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -217,6 +238,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }
@@ -253,7 +275,7 @@ bool Claire::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

@@ -4,7 +4,7 @@
 Wolf::Wolf(int floor) {
     name = "Wolf";
     entityClass = EClass::CLOSEDDPS;
-    description = "The wolf is a cunning predator, swift and relentless in the hunt.";
+    description = "While watching the Wolf never forget that he is not chasing alone.";
     biome = Biome::FOREST;
 
     level = floor;
@@ -17,19 +17,19 @@ Wolf::Wolf(int floor) {
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 25.0f;
+    baseAttackDamage = 18.f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
     baseAttackPower = 0.0f;
-    maxAttackPower = baseAttackPower * pow(1.1f, landing);
-    currentAttackPower = maxAttackPower;
+    maxAttackPower = 0;
+    currentAttackPower = 0;
 
-    baseArmor = 0.5f;
+    baseArmor = 5;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.6f;
+    basePowerResist = 5;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -133,20 +133,16 @@ bool Wolf::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
     return false;
 }
 
-void Wolf::dropArtefacts() {
-
-}
-
 void Wolf::firstAbility(Character& target) { // powerAbilityOne=0.9f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
-    LogManager::getInstance().AddLog("Wolf uses \"Claw\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Wolf uses \"Claw\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Wolf::secondAbility(Character& target) { // powerAbilityTwo=1.1f
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityTwo));
-    LogManager::getInstance().AddLog("Wolf uses \"Violent Bite\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
+    LogManager::getInstance().addLog("Wolf uses \"Violent Bite\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
 
     CD2 = 3;
 }
@@ -168,7 +164,7 @@ void Wolf::fourthAbility(Character& target, int numberOfWolf) { // Every Wolf at
 
     for (int i = 0; i < attacks; i++) {
         firstAbility(target);
-        LogManager::getInstance().AddLog(std::to_string(numberOfWolf) + " Wolf(s) uses \"Coordinate Attack\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
+        LogManager::getInstance().addLog(std::to_string(numberOfWolf) + " Wolf(s) uses \"Coordinate Attack\". " + target.getName() + " takes damages.", ImVec4(240, 0.518, 0.518, 1));
     }
 
     CD4 = 4;
@@ -192,19 +188,17 @@ std::shared_ptr<Artefact> Wolf::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
-        LogManager::getInstance().AddLog("You obtained a Common Artefact: Wolf Fur !", ImVec4(1, 0, 0, 1));
+        LogManager::getInstance().addLog("You obtained a Common Artefact: Wolf Fur !", ImVec4(1, 0, 0, 1));
         return std::make_shared<WolfFur>();
     }
     else if (roll < 15.f) {
-        LogManager::getInstance().AddLog("You obtained a Rare Artefact: Wolf Tooth !", ImVec4(1, 0, 0, 1));
-        //return std::make_shared<WolfTooth>();
-        return nullptr;
+        LogManager::getInstance().addLog("You obtained a Rare Artefact: Wolf Tooth !", ImVec4(1, 0, 0, 1));
+        return std::make_shared<WolfTooth>();
     }
     else if (roll < 17.f) {
         return nullptr;
     }
     else if (roll < 17.5f) {
-        LogManager::getInstance().AddLog("You obtained a Legendary Artefact: Alpha Medal !", ImVec4(1, 0, 0, 1));
         //return std::make_shared<AlphaMedal>();
         return nullptr;
     }

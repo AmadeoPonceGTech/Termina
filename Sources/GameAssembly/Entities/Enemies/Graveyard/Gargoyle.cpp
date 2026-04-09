@@ -13,31 +13,31 @@ Gargoyle::Gargoyle(int floor) {
     finalArmor = 30.0f;
     finalPR = 30.0f;
 
-    baseHealth = 80.0f;
+    baseHealth = 320.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 70.0f;
+    baseAttackDamage = 30.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 70.0f;
+    baseAttackPower = 30.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.2f;
+    baseArmor = 18.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.2f;
+    basePowerResist = 18.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
     baseSpeed = 100.0f;
     currentSpeed = baseSpeed;
 
-    baseExpDrop = 50.0f;
-    maxExpDrop = 1500.0f;
+    baseExpDrop = 500.0f;
+    maxExpDrop = 5000.0f;
     float t = std::min(landing / 100.0f, 1.0f);
     currentExpDrop = baseExpDrop + (maxExpDrop - baseExpDrop) * t;
 
@@ -121,6 +121,7 @@ bool Gargoyle::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
 
     case EnemyState::ENDTURN:
         endTurn();
+        LogManager::getInstance().addLog("Dark Knight is immune to all status effects.", ImVec4(240, 0.518, 0.518, 1));
         enemyState = EnemyState::STARTTURN;
         return true;
     }
@@ -128,13 +129,10 @@ bool Gargoyle::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
     return false;
 }
 
-void Gargoyle::dropArtefacts() {
-
-}
-
 void Gargoyle::firstAbility(Character& target) {
     float dmgDealt = currentAttackPower * (1.0f - target.getCurrentPowerResist() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityOne));
+    LogManager::getInstance().addLog("Gargoyle attacks " + target.getName() + " with \"Rapid Strikes\" two times.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void Gargoyle::secondAbility() {

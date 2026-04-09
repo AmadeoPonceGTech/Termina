@@ -7,13 +7,13 @@ MaliciousEye::MaliciousEye() {
     quality = Quality::EPIC;
 }
 
-void MaliciousEye::ActingArtefact(Entity& target) {
+void MaliciousEye::actingArtefact(Entity& target) {
 }
 
 void MaliciousEye::onInflictedDamage(Entity& target) {
 }
 
-void MaliciousEye::ActingArtefactEveryTurns(Entity& target) {
+void MaliciousEye::actingArtefactEveryTurns(Entity& target) {
     int chance = 5 * level;
 
     if (rand() % 100 < chance)

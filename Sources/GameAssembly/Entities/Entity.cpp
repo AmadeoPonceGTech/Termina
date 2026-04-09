@@ -7,6 +7,14 @@ Entity::Entity()
     CD2 = 0;
     CD3 = 0;
     CD4 = 0;
+
+    hasARevive = false;
+    isPoisoned = false;
+    isBurnt = false;
+    isTaunt = false;
+    isStun = false;
+
+    poisonMultiplier = 1.0f;
 }
 
 void Entity::manageStatusEffect()
@@ -14,26 +22,27 @@ void Entity::manageStatusEffect()
     if (isPoisoned)
     {
         if (poisonCD == 5) {
-            currentHealth -= maxHealth * (15 / 100);
+            currentHealth -= maxHealth * (15 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 4) {
-            currentHealth -= maxHealth * (12 / 100);
+            currentHealth -= maxHealth * (12 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 3) {
-            currentHealth -= maxHealth * (8 / 100);
+            currentHealth -= maxHealth * (8 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 2) {
-            currentHealth -= maxHealth * (5 / 100);
+            currentHealth -= maxHealth * (5 / 100 * poisonMultiplier);
             poisonCD--;
         }
         else if (poisonCD == 1) {
-            currentHealth -= maxHealth * (3 / 100);
+            currentHealth -= maxHealth * (3 / 100 * poisonMultiplier);
             poisonCD--;
             isPoisoned = false;
         }
+        LogManager::getInstance().addLog(this->getName() + " takes damages from the poison !", ImVec4(0.141f, 0.039f, 0.200f, 1.0f));
     }
 
     if (isBurnt)
@@ -51,6 +60,7 @@ void Entity::manageStatusEffect()
             isBurnt = false;
             burnCD--;
         }
+        LogManager::getInstance().addLog(this->getName() + " takes damages from its burn !", ImVec4(1.0f, 0.2f, 0.0f, 1.0f));
     }
 
     if (isTaunt)
@@ -65,10 +75,12 @@ void Entity::manageStatusEffect()
             tauntCD--;
             isTaunt = false;
         }
+        LogManager::getInstance().addLog(this->getName() + " is taunt !", ImVec4(1.0f, 0.6f, 0.0f, 1.0f));
     }
 
     if (isStun) {
         isStun = false;
+        LogManager::getInstance().addLog(this->getName() + " is stun !", ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
     }
 }
 
@@ -80,6 +92,7 @@ void Entity::resetStats() {
     currentPowerResist = maxPowerResist;
     currentSpeed = baseSpeed;
     artefactAlreadyUsed = false;
+    poisonMultiplier = 1.0f;
 }
 
 #pragma region Getters
@@ -87,8 +100,6 @@ void Entity::resetStats() {
 std::string Entity::getName() const { return name; }
 std::string Entity::getStringClass() const {
     switch (entityClass) {
-        case EClass::ASSASSIN :
-            return "Assassin";
         case EClass::CLOSEDDPS :
             return "Close DPS";
         case EClass::RANGEDDPS :
@@ -143,6 +154,8 @@ EClass Entity::getClass() const { return entityClass; }
 
 float Entity::getGeneratedShield() const { return generatedShield; }
 
+bool Entity::getHasARevive() { return hasARevive; }
+
 #pragma endregion
 
 #pragma region Setters
@@ -171,5 +184,10 @@ void Entity::setIsStun(bool const newIsStun) { isStun = newIsStun; }
 void Entity::setIsDead(bool const newIsDead) { isDead = newIsDead; }
 
 void Entity::setGeneratedShield(float newShield) { generatedShield = newShield; }
+void Entity::setHasARevive(bool _hasARevive) { hasARevive = _hasARevive; }
+
+void Entity::setLevel(int newLevel) { level = newLevel; }
+
+void Entity::setPoisonMultiplier(float newPoisonMultiplier) { poisonMultiplier = newPoisonMultiplier; }
 
 #pragma endregion

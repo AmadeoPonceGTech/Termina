@@ -9,7 +9,6 @@
 #include "../LogManager.h"
 
 enum class EClass {
-    ASSASSIN,
     CLOSEDDPS,
     RANGEDDPS,
     TANK,
@@ -76,6 +75,9 @@ protected:
 
     float generatedShield = 0.5f;
 
+    bool hasARevive;
+    float poisonMultiplier = 1.0f;
+
 public:
     virtual ~Entity() = default;
 
@@ -91,6 +93,10 @@ public:
 
     int resourcesWon = 1;
     bool artefactAlreadyUsed;
+
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec4 BgColor = ImVec4(0.200f, 0.133f, 0.075f, 1.0f);
+    ImVec4 ItemsColor = ImVec4(0.349f, 0.251f, 0.169f, 1.0f);
 
 #pragma region Getters
 
@@ -138,6 +144,7 @@ public:
     EClass getClass() const;
 
     float getGeneratedShield() const;
+    bool getHasARevive();
 
 #pragma endregion
 
@@ -167,6 +174,10 @@ public:
     void setIsDead(bool newIsDead);
 
     void setGeneratedShield(float newShield);
+    void setHasARevive(bool _hasARevive);
+
+    void setLevel(int newLevel);
+    void setPoisonMultiplier(float newPoisonMultiplier);
 
 #pragma endregion
 

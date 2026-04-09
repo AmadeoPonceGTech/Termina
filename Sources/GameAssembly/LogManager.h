@@ -14,7 +14,6 @@ struct LogEntry
 
 class LogManager
 {
-private:
     LogManager() = default;
 
     std::vector<LogEntry> logs;
@@ -23,7 +22,7 @@ private:
 public:
     static LogManager& getInstance();
 
-    void AddLog(const std::string& message, ImVec4 color = ImVec4(1,1,1,1));
-    void DrawImGui();
+    void addLog(const std::string& message, ImVec4 color = ImVec4(1,1,1,1));
+    void drawImGui();
     void addSeparator(ImVec4 color = ImVec4(1,1,1,1));
 };

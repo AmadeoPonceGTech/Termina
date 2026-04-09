@@ -13,23 +13,23 @@ DarkKnight::DarkKnight(int floor) {
     finalArmor = 70.0f;
     finalPR = 70.0f;
 
-    baseHealth = 80.0f;
+    baseHealth = 110.0f;
     maxHealth = baseHealth * pow(1.1f, landing);
     currentHealth = maxHealth;
 
-    baseAttackDamage = 35.0f;
+    baseAttackDamage = 20.0f;
     maxAttackDamage = baseAttackDamage * pow(1.1f, landing);
     currentAttackDamage = maxAttackDamage;
 
-    baseAttackPower = 15.0f;
+    baseAttackPower = 10.0f;
     maxAttackPower = baseAttackPower * pow(1.1f, landing);
     currentAttackPower = maxAttackPower;
 
-    baseArmor = 0.6f;
+    baseArmor = 15.f;
     maxArmor = baseArmor * pow(1.1f, landing);
     currentArmor = maxArmor;
 
-    basePowerResist = 0.6f;
+    basePowerResist = 12.f;
     maxPowerResist = basePowerResist * pow(1.1f, landing);
     currentPowerResist = maxPowerResist;
 
@@ -126,20 +126,17 @@ bool DarkKnight::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std
     return false;
 }
 
-void DarkKnight::dropArtefacts() {
-
-}
-
 void DarkKnight::firstAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Dark Knight attacks " + target.getName() + " with \"Sword Slash\".", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void DarkKnight::secondAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt));
+    LogManager::getInstance().addLog("Dark Knight attacks " + target.getName() + " with \"Shield Bash\".", ImVec4(240, 0.518, 0.518, 1));
 
-    //add shield here
     CD3 = 3;
 }
 
@@ -148,11 +145,14 @@ void DarkKnight::thirdAbility() {
     currentPowerResist = currentPowerResist - (currentPowerResist * 20.0f / 100.0f);
 
     currentAttackPower = currentAttackPower + (currentAttackPower * 20.0f / 100.0f);
+
+    LogManager::getInstance().addLog("The passive \"Last Resort Rage\" of Dark Knight decrease their defensive stats and increase his Attack Power.", ImVec4(240, 0.518, 0.518, 1));
 }
 
 void DarkKnight::fourthAbility(Character& target) {
     float dmgDealt = currentAttackDamage * (1.0f - target.getCurrentArmor() / 100.0f);
     target.setCurrentHealth(std::max(0.0f, target.getCurrentHealth() - dmgDealt * powerAbilityFour));
+    LogManager::getInstance().addLog("Dark Knight attacks " + target.getName() + " with \"Shadow Rush\".", ImVec4(240, 0.518, 0.518, 1));
 
     CD3 = 7;
 }
@@ -165,6 +165,7 @@ std::shared_ptr<Artefact> DarkKnight::createDrop() {
     float roll = dist(rng);
 
     if (roll < 10.f) {
+        LogManager::getInstance().addLog("You obtained a Common Artefact: Knight's Badge !", ImVec4(1, 0, 0, 1));
         return std::make_shared<KnightSBadge>();
     }
     else if (roll < 15.f) {
@@ -172,6 +173,7 @@ std::shared_ptr<Artefact> DarkKnight::createDrop() {
         return nullptr;
     }
     else if (roll < 17.f) {
+        LogManager::getInstance().addLog("You obtained an Epic Artefact: Cursed Shield !", ImVec4(1, 0, 0, 1));
         return std::make_shared<CursedShield>();
     }
     else if (roll < 17.5f) {

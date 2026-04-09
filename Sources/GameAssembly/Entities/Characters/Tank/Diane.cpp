@@ -11,7 +11,7 @@ Diane::Diane()
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = baseHealth;
 
-    baseAttackDamage = 2.5f;
+    baseAttackDamage = 10.f;
     finalAD = 250;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -21,12 +21,12 @@ Diane::Diane()
     maxAttackPower = baseAttackPower + (finalAP - baseAttackPower) * ((level - 1) / (maxLevel - 1));
     currentAttackPower = baseAttackPower;
 
-    baseArmor = 5;
+    baseArmor = 8;
     finalArmor = 50;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 4;
+    basePowerResist = 6;
     finalPR = 30;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
@@ -39,6 +39,7 @@ void Diane::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Diane uses \"Shield Charge\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -51,6 +52,7 @@ void Diane::secondAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsTaunt(true);
     target->setTauntCD(3);
+    LogManager::getInstance().addLog("Diane uses \"Taunt\". " + target->getName() + " is taunted.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 6;
 }
@@ -59,6 +61,7 @@ void Diane::thirdAbility(std::shared_ptr<Character>target)
 {
     shield += currentAttackPower;
     target->setShield(target->getShield() + currentAttackPower);
+    LogManager::getInstance().addLog("Diane uses \"Shield Buff\". " + target->getName() + " and Diane get a Shield.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD3 = 4;
 }
@@ -68,6 +71,7 @@ void Diane::fourthAbility(std::vector<std::shared_ptr<Entity>> &targets)
     for (auto character : targets) {
         if (character->getName() == getName()) {
             currentArmor = currentArmor * 1.3;
+            LogManager::getInstance().addLog("The passive \"Bulk up\" of Diane give 30% Armor bonus to Diane, and 20% Armor bonus to the other characters.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
         }
         else {
             character->setCurrentArmor(character->getCurrentArmor() * 1.2);
@@ -108,7 +112,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -117,7 +121,10 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Diane", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Shield Charge"))
@@ -146,6 +153,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -153,7 +161,10 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
-                ImGui::Begin("Choose enemy target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < enemies.size(); i++)
                 {
                     std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -169,10 +180,14 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -188,6 +203,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }
@@ -220,7 +236,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

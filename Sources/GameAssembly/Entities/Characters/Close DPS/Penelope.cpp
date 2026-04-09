@@ -3,15 +3,15 @@
 Penelope::Penelope()
 {
     name = "Penelope";
-    entityClass = EClass::ASSASSIN;
+    entityClass = EClass::CLOSEDDPS;
     description = "Penelope, hidden in the shadows, secretly eliminates all that appears in her way with her poisonous blades.";
 
-    baseHealth = 25;
+    baseHealth = 45;
     finalHP = 300;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 15;
+    baseAttackDamage = 18;
     finalAD = 450;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;
@@ -21,12 +21,12 @@ Penelope::Penelope()
     maxAttackPower = 0;
     currentAttackPower = 0;
 
-    baseArmor = 0.5f;
+    baseArmor = 1.f;
     finalArmor = 15;
     maxArmor = baseArmor + (finalArmor - baseArmor) * ((level - 1) / (maxLevel - 1));
     currentArmor = baseArmor;
 
-    basePowerResist = 1;
+    basePowerResist = 1.f;
     finalPR = 20;
     maxPowerResist = basePowerResist + (finalPR - basePowerResist) * ((level - 1) / (maxLevel - 1));
     currentPowerResist = basePowerResist;
@@ -41,6 +41,7 @@ void Penelope::firstAbility(std::shared_ptr<Enemy>target)
 {
     float dmgDealt = currentAttackDamage - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
+    LogManager::getInstance().addLog("Penelope uses \"Cut\". " + target->getName() + " takes damages.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -53,6 +54,7 @@ void Penelope::secondAbility(std::shared_ptr<Enemy>target)
 {
     target->setIsPoisoned(true);
     target->setPoisonCD(5);
+    LogManager::getInstance().addLog("Penelope uses \"Poison\". " + target->getName() + " is poisoned.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     CD2 = 3;
 }
@@ -62,6 +64,7 @@ void Penelope::thirdAbility(std::shared_ptr<Enemy>target)
     float dmgDealt = currentAttackDamage * 2 - currentAttackDamage * (target->getCurrentArmor() / 100);
     target->setCurrentHealth(target->getCurrentHealth() - dmgDealt);
     currentHealth += dmgDealt * (80 / 100);
+    LogManager::getInstance().addLog("Penelope uses \"Vampiric Cut\". " + target->getName() + " takes damages and a part of the damages inflicted are used to heal Penelope.", ImVec4(0.6f, 0.85f, 0.6f, 1.0f));
 
     if (artefact) {
         artefact->onInflictedDamage(*this);
@@ -96,7 +99,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             startTurn();
 
             if (artefact && !artefactAlreadyUsed) {
-                artefact->ActingArtefact(*this);
+                artefact->actingArtefact(*this);
                 artefactAlreadyUsed = true;
             }
 
@@ -105,7 +108,10 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Penelope", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Cut"))
@@ -134,12 +140,16 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case PlayerState::CHOOSINGTARGET :
         {
-            ImGui::Begin("Choose enemy target");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
             for (int i = 0; i < enemies.size(); i++)
             {
                 std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -155,6 +165,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -186,7 +197,7 @@ bool Penelope::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::
             endTurn();
 
             if (artefact) {
-                artefact->ActingArtefactEveryTurns(*this);
+                artefact->actingArtefactEveryTurns(*this);
             }
 
             currentState = PlayerState::STARTTURN;

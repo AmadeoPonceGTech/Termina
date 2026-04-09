@@ -7,31 +7,27 @@ class Character;
 
 class AdeptOfTheChaos : public Enemy, public TerminaScript::ScriptableComponent
 {
-public :
-    AdeptOfTheChaos(int floor);
-    AdeptOfTheChaos(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
-
-    void startTurn() override;
-    void endTurn() override;
-    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
-
-    void Start() override;
-    void Update(float deltaTime) override;
-
-    void dropArtefacts() override;
-
     void firstAbility(Character& target);
     void secondAbility(Character& target);
     void thirdAbility();
 
     void fourthAbility(const std::vector<Character*>& targets);
 
-    std::shared_ptr<Artefact> createDrop() override;
-
-private:
-    std::shared_ptr<Enemy> selectedTarget = nullptr;
+    void startTurn() override;
+    void endTurn() override;
 
     float powerAbilityOne = 0.9;
     float powerAbilityTwo = 1.1;
     float powerAbilityFour = 1.5;
+
+public :
+    AdeptOfTheChaos(int floor);
+    AdeptOfTheChaos(Termina::Actor* owner) : TerminaScript::ScriptableComponent(owner) {}
+
+    bool entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    void Start() override;
+    void Update(float deltaTime) override;
+
+    std::shared_ptr<Artefact> createDrop() override;
 };
