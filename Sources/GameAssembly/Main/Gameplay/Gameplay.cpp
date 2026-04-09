@@ -73,7 +73,7 @@ void Gameplay::StartFight() {
                 }
             }
             else {
-
+                spawnBoss = false;
                 int bossToSpawn = bossIndex(rng);
                 if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
@@ -102,7 +102,7 @@ void Gameplay::StartFight() {
                 }
             }
             else {
-
+                spawnBoss = false;
                 int bossToSpawn = bossIndex(rng);
                 if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
@@ -131,7 +131,7 @@ void Gameplay::StartFight() {
                 }
             }
             else {
-
+                spawnBoss = false;
                 int bossToSpawn = bossIndex(rng);
                 if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
@@ -273,6 +273,7 @@ void Gameplay::EndFight() {
         static std::mt19937 rng(rd());
         std::uniform_int_distribution<int> biomeIndex(1, 3);
 
+        biomeCount = 0;
         int biomeChose = biomeIndex(rng);
         if (biomeChose == 1) { currentBiome = EBiome::FOREST; }
         else if (biomeChose == 2) { currentBiome = EBiome::OCEAN; }
