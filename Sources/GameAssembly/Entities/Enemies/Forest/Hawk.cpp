@@ -185,7 +185,7 @@ void Hawk::secondAbility(Enemy& target) {
 }
 
 void Hawk::thirdAbility(Enemy& target) {
-    target.setCurrentHealth(std::max(target.getMaxHealth(), target.getCurrentHealth() + target.getMaxHealth() * 0.05f));
+    target.setCurrentHealth( target.getCurrentHealth() + target.getMaxHealth() * 0.05f);
     LogManager::getInstance().addLog("The passive \"Surprise Rabbit\" of Hawk heals " + target.getName() + " by 5%.", ImVec4(240, 0.518, 0.518, 1));
 }
 
