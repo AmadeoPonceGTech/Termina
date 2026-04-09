@@ -327,7 +327,7 @@ void Gameplay::drawImGui() {
         ImGui::Text("Class : %s", enemy->getStringClass().c_str());
         if (enemy->getIsPoisoned()) {
             ImGui::SameLine(380);
-            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(127, 28, 158, 255)), "Poisoned");
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(36, 10, 51, 255)), "Poisoned");
         }
         if (enemy->getIsBurnt()) {
             ImGui::SameLine(330);
@@ -377,7 +377,7 @@ void Gameplay::drawImGui() {
 
         if (chara->getIsPoisoned()) {
             ImGui::SameLine(380);
-            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(127, 28, 158, 255)), "Poisoned");
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(36, 10, 51, 255)), "Poisoned");
         }
         if (chara->getIsBurnt()) {
             ImGui::SameLine(330);

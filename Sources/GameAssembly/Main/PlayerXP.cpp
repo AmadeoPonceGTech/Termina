@@ -11,7 +11,7 @@ PlayerXP::PlayerXP() {
 
     XPNeededForLvl2 = 100;
     finalXPNeeded = 100000;
-    currentXP = 100;
+    currentXP = 0;
     XPNeeded = XPNeededForLvl2;
 }
 
@@ -281,6 +281,7 @@ bool PlayerXP::upgradeSystem(int level, std::vector<std::shared_ptr<Entity>> cha
                 bonusesToApply.back()->bonusClass = EClass::SUPPORT;
                 upgradeState = EUpgradeState::CHECKINGXP;
             }
+            ImGui::PopStyleColor(3);
             ImGui::End();
             ImGui::PopStyleColor();
 
