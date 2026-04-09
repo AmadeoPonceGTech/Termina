@@ -53,6 +53,8 @@ private:
     int currentEntityIndex = 0;
 
     bool enemySpawned = false;
+    bool destroyCharacter = false;
+    bool destroyEnemy = false;
 
 public:
 
@@ -75,8 +77,7 @@ public:
     bool teamIsComplete();
     bool isInTeam(const std::shared_ptr<Entity>& entity);
 
-    std::vector<std::shared_ptr<Entity>> getActiveCharacters();
-    std::vector<std::shared_ptr<Entity>> getEnemyVector();
+
 
     void setRunState(EGameRunState newState);
     void setRunEnded(bool gameEnded);
@@ -86,7 +87,13 @@ public:
     bool getEnemySpawned() const { return enemySpawned; }
     bool setEnemySpawned(bool newBool);
 
+    bool getDestroyCharacter() const { return destroyCharacter; }
+    bool setDestroyCharacter(bool newBool);
 
+    bool getDestroyEnemy() const { return destroyCharacter; }
+    bool setDestroyEnemy(bool newBool);
 
+    std::vector<std::shared_ptr<Entity> > getActiveCharacters() { return activeCharacters;};
+    std::vector<std::shared_ptr<Entity> > getEnemyVector() {return enemyManager->getEnemies();}
 };
 

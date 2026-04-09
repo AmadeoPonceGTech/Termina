@@ -39,7 +39,6 @@ Gameplay::Gameplay() {
 }
 
 void Gameplay::startRun() {
-
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
             return std::dynamic_pointer_cast<Diane>(e) != nullptr;
         });
@@ -57,6 +56,7 @@ void Gameplay::startRun() {
 }
 
 void Gameplay::startFight() {
+    destroyEnemy = false;
     static std::mt19937 rng(rd());
     std::uniform_int_distribution<int> enemyIndex(1, 4);
     std::uniform_int_distribution<int> bossIndex(1, 2);
@@ -239,6 +239,7 @@ void Gameplay::updateFight()
 }
 
 void Gameplay::endFight() {
+    destroyEnemy = true;
     enemyManager->clearEnemies();
     currentEntityIndex = 0;
     auto it = std::find_if(activeCharacters.begin(), activeCharacters.end(),[](const std::shared_ptr<Entity>& e){
@@ -267,6 +268,7 @@ void Gameplay::endFight() {
         else if (biomeChose == 3) { currentBiome = EBiome::GRAVEYARD; }
     }
     enemySpawned = false;
+
 }
 
 void Gameplay::endRun() {
@@ -468,12 +470,22 @@ void Gameplay::setRunEnded(bool gameEnded) { runEnded = gameEnded; }
 
 bool Gameplay::getRunEnded() const { return runEnded; }
 
-std::vector<std::shared_ptr<Entity> > Gameplay::getActiveCharacters() { return activeCharacters;};
 
-std::vector<std::shared_ptr<Entity> > Gameplay::getEnemyVector() {return enemyManager->getEnemies();}
+
 
 bool Gameplay::setEnemySpawned(bool newBool)
 {
     enemySpawned = newBool;
-    return true;
+    return enemySpawned;
 }
+
+bool Gameplay::setDestroyCharacter(bool newBool) {
+    destroyCharacter = newBool;
+    return destroyCharacter;
+}
+
+bool Gameplay::setDestroyEnemy(bool newBool) {
+    destroyEnemy = newBool;
+    return destroyEnemy;
+}
+

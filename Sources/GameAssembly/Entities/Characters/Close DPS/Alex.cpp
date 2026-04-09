@@ -8,12 +8,12 @@ Alex::Alex()
     entityClass = EClass::CLOSEDDPS;
     description = "Alex, the proud and generous white knight, that charges and slashes with his shield and big sword, defeating the evil.";
 
-    baseHealth = 50;
+    baseHealth = 50000;
     finalHP = 600;
     maxHealth = baseHealth + (finalHP - baseHealth) * ((level - 1) / (maxLevel - 1));
     currentHealth = maxHealth;
 
-    baseAttackDamage = 10.f;
+    baseAttackDamage = 10000.f;
     finalAD = 400;
     maxAttackDamage = baseAttackDamage + (finalAD - baseAttackDamage) * ((level - 1) / (maxLevel - 1));
     currentAttackDamage = baseAttackDamage;

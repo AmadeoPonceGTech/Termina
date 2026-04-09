@@ -39,8 +39,9 @@ public:
     void Start()  override;
     void Update(float deltaTime) override;
 
-    void initRun();
-    void cleanGameEntity();
+    void drawCharacter();
+    void drawEnemy();
+    void cleanGameEntity(std::vector<Termina::Actor*>& _entity);
 
 private :
     std::unique_ptr<Gameplay> gameplay;
@@ -52,9 +53,6 @@ private :
     bool showCharacterPanel = true;
 
     bool runStarted = false;
-
-
-
 
     TerminaScript::Prefab p_Diane;
     TerminaScript::Prefab p_Emilie;
@@ -70,6 +68,6 @@ private :
     TerminaScript::Prefab p_Bear;
 
     std::unordered_map<std::string, TerminaScript::Prefab> characterPrefabMap;
-    std::vector<Termina::Actor*> gameEntity;
-    std::vector<Termina::Actor*> enemyEntity;
+    std::vector<Termina::Actor*> gameActor;
+    std::vector<Termina::Actor*> enemyActor;
 };
