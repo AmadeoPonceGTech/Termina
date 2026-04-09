@@ -71,6 +71,7 @@ public:
     bool HasSameType(const Entity& entity) const;
     void AddToTeam(const std::shared_ptr<Entity>& entity);
     void RemoveFromTeam(const std::shared_ptr<Entity>& entity);
+    std::vector<std::shared_ptr<Entity>>& getActiveCharacters();
 
     bool TeamIsComplete();
     bool IsInTeam(const std::shared_ptr<Entity>& entity);

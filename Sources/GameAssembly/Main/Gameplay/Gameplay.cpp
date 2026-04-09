@@ -458,6 +458,7 @@ void Gameplay::RemoveFromTeam(const std::shared_ptr<Entity>& entity)
     activeCharacters.erase(it);
     std::cout << entity->getName() << " remove from team" << std::endl;
 }
+std::vector<std::shared_ptr<Entity>>& Gameplay::getActiveCharacters() { return activeCharacters; }
 
 
 ////////// Check if Team is Complete or If the character is already in team
