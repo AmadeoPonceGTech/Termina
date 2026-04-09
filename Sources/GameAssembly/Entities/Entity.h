@@ -94,6 +94,10 @@ public:
     int resourcesWon = 1;
     bool artefactAlreadyUsed;
 
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec4 BgColor = ImVec4(0.200f, 0.133f, 0.075f, 1.0f);
+    ImVec4 ItemsColor = ImVec4(0.349f, 0.251f, 0.169f, 1.0f);
+
 #pragma region Getters
 
     std::string getName() const;

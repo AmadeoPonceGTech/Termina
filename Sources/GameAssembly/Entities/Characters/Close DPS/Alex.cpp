@@ -184,7 +184,7 @@ bool Alex::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vect
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::Begin("Choose Ability - Alex", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Sword Slash"))

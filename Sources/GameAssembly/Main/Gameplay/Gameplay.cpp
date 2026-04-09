@@ -290,10 +290,17 @@ void Gameplay::EndRun() {
 }
 
 void Gameplay::drawImGui() {
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec4 BgColor = ImVec4(0.200f, 0.133f, 0.075f, 1.0f);
+    ImVec4 ItemsColor = ImVec4(0.349f, 0.251f, 0.169f, 1.0f);
+
+    float logsWindowWidth = viewport->Size.x / 4.0f;
 
     // ENEMY
-
-    ImGui::Begin("Enemies Stats");
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+    ImGui::SetNextWindowSize(ImVec2(viewport->Size.x - logsWindowWidth, viewport->Size.y / 8.0f));
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+    ImGui::Begin("Enemies Stats", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     ImGui::Columns(4, nullptr, true);
 
@@ -303,6 +310,7 @@ void Gameplay::drawImGui() {
     {
         auto& enemy = enemies[i];
 
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
         ImGui::BeginChild(("Enemy" + std::to_string(i)).c_str(), ImVec2(-1, 70), true);
 
         ImGui::Text("Character: %s                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
@@ -310,6 +318,7 @@ void Gameplay::drawImGui() {
         ImGui::Text("Class : %s", enemy->getStringClass().c_str());
 
         ImGui::EndChild();
+        ImGui::PopStyleColor();
 
         if ((i + 1) % 4 != 0)
             ImGui::NextColumn();
@@ -317,10 +326,14 @@ void Gameplay::drawImGui() {
 
     ImGui::Columns(1);
     ImGui::End();
+    ImGui::PopStyleColor();
 
     // CHARA
 
-    ImGui::Begin("Characters Stats");
+    ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y * 2.0f / 3.0f));
+    ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y * 1.0f / 3.0f));
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+    ImGui::Begin("Characters Stats", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     ImGui::Columns(4, nullptr, true);
 
@@ -330,6 +343,7 @@ void Gameplay::drawImGui() {
     {
         auto& chara = characters[i];
 
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
         ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, 200), true);
 
         ImGui::Text("Character: %s               HP : %.2f", chara->getName().c_str(), chara->getCurrentHealth());
@@ -347,6 +361,7 @@ void Gameplay::drawImGui() {
         ImGui::Text("Speed : %.2f", chara->getCurrentSpeed());
 
         ImGui::EndChild();
+        ImGui::PopStyleColor();
 
         if ((i + 1) % 4 != 0)
             ImGui::NextColumn();
@@ -354,16 +369,25 @@ void Gameplay::drawImGui() {
 
     ImGui::Columns(1);
     ImGui::End();
+    ImGui::PopStyleColor();
 
     // Vector Speed
 
-    ImGui::Begin("Entity Turn Order");
+    ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f));
+    ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y * 1.0f / 3.0f));
+    ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+    ImGui::Begin("Entity Turn Order", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     for (const auto& e : speedManagerVec) {
+        float textWidth = ImGui::CalcTextSize(e->getName().c_str()).x;
+        float avail = ImGui::GetContentRegionAvail().x;
+        ImGui::SetCursorPosX((avail - textWidth) * 0.5f);
         ImGui::Text("%s", e->getName().c_str());
+        ImGui::Separator();
     }
 
     ImGui::End();
+    ImGui::PopStyleColor();
 
     // Inventory
 
