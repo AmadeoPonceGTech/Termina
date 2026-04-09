@@ -29,7 +29,7 @@
 #include "Entities/Enemies/Ocean/Mermaid.h"
 #include "Entities/Enemies/Ocean/Eel.h"
 
-#include "Entities/Enemies/Forest/RunicDear.h"
+#include "Entities/Enemies/Forest/RunicDeer.h"
 #include "Entities/Enemies/Forest/RedDragon.h"
 #include "Entities/Enemies/Graveyard/Gargoyle.h"
 #include "Entities/Enemies/Ocean/Whale.h"
@@ -64,7 +64,7 @@ COMPONENT_MODULE_BEGIN()
     REGISTER_COMPONENT(Eel, "Eel")
 
     //Boss
-    REGISTER_COMPONENT(RunicDear, "RunicDear")
+    REGISTER_COMPONENT(RunicDeer, "RunicDeer")
     REGISTER_COMPONENT(RedDragon, "RedDragon")
     REGISTER_COMPONENT(Gargoyle, "Gargoyle")
     REGISTER_COMPONENT(Whale, "Whale")

@@ -18,7 +18,7 @@
 #include "../../Entities/Enemies/Ocean/Mermaid.h"
 #include "../../Entities/Enemies/Ocean/Eel.h"
 
-#include "../../Entities/Enemies/Forest/RunicDear.h"
+#include "../../Entities/Enemies/Forest/RunicDeer.h"
 #include "../../Entities/Enemies/Forest/RedDragon.h"
 #include "../../Entities/Enemies/Graveyard/Gargoyle.h"
 #include "../../Entities/Enemies/Ocean/Whale.h"
@@ -76,7 +76,7 @@ void Gameplay::startFight() {
             else {
 
                 int bossToSpawn = bossIndex(rng);
-                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
+                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDeer>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
 
                 for (int i = 0; i < 2; i++)
@@ -105,7 +105,7 @@ void Gameplay::startFight() {
             else {
 
                 int bossToSpawn = bossIndex(rng);
-                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
+                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDeer>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
 
                 for (int i = 0; i < 2; i++)
@@ -134,7 +134,7 @@ void Gameplay::startFight() {
             else {
 
                 int bossToSpawn = bossIndex(rng);
-                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDear>(currentLevel); }
+                if (bossToSpawn == 1) { enemyManager->createEnemy<RunicDeer>(currentLevel); }
                 else { enemyManager->createEnemy<RedDragon>(currentLevel); }
 
                 for (int i = 0; i < 2; i++)

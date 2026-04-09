@@ -49,7 +49,17 @@ void Game::Start()
 
     p_Rat = TerminaScript::Prefab("Assets/Prefabs/Rat.trp");
     p_Wolf = TerminaScript::Prefab("Assets/Prefabs/Wolf.trp");
+    p_Hawk = TerminaScript::Prefab("Assets/Prefabs/Hawk.trp");
     p_Bear = TerminaScript::Prefab("Assets/Prefabs/Bear.trp");
+
+    p_Ghost = TerminaScript::Prefab("Assets/Prefabs/Ghost.trp");
+    p_Gargoyle = TerminaScript::Prefab("Assets/Prefabs/Gargoyle.trp");
+    p_Skeleton = TerminaScript::Prefab("Assets/Prefabs/Skeleton.trp");
+
+    p_Dunkleosteus = TerminaScript::Prefab("Assets/Prefabs/Dunkleosteus.trp");
+
+    p_RunicDeer = TerminaScript::Prefab("Assets/Prefabs/RunicDeer.trp");
+    p_RedDragon = TerminaScript::Prefab("Assets/Prefabs/RedDragon.trp");
 
     characterPrefabMap["Diane"] = p_Diane;
     characterPrefabMap["Emilie"] = p_Emilie;
@@ -62,7 +72,18 @@ void Game::Start()
 
     characterPrefabMap["Rat"] = p_Rat;
     characterPrefabMap["Wolf"] = p_Wolf;
+    characterPrefabMap["Hawk"] = p_Hawk;
     characterPrefabMap["Bear"] = p_Bear;
+
+    characterPrefabMap["Ghost"] = p_Ghost;
+    characterPrefabMap["Gargoyle"] = p_Gargoyle;
+    characterPrefabMap["Skeleton"] = p_Skeleton;
+
+    characterPrefabMap["Dunkleosteus"] = p_Dunkleosteus;
+
+    characterPrefabMap["RunicDeer"] = p_RunicDeer;
+    characterPrefabMap["RedDragon"] = p_RedDragon;
+
 #pragma endregion
 }
 

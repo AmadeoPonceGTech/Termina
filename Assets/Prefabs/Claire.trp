@@ -28,10 +28,8 @@
                 {
                     "active": true,
                     "data": {
-                        "material_overrides": {
-                            "0": "Assets\\Models\\Nouveau dossier\\scene_mat0.mat"
-                        },
-                        "model": "Assets\\Models\\Nouveau dossier\\scene.gltf"
+                        "material_overrides": {},
+                        "model": "Assets\\Models\\Claire2\\scene.gltf"
                     },
                     "type": "Mesh Component"
                 },
@@ -41,7 +39,7 @@
                     "type": "Claire"
                 }
             ],
-            "id": "11338074810558870565",
+            "id": "14006458963740423985",
             "name": "Claire",
             "parentId": null
         }

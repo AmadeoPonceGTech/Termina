@@ -65,7 +65,17 @@ private :
 
     TerminaScript::Prefab p_Rat;
     TerminaScript::Prefab p_Wolf;
+    TerminaScript::Prefab p_Hawk;
     TerminaScript::Prefab p_Bear;
+
+    TerminaScript::Prefab p_Ghost;
+    TerminaScript::Prefab p_Gargoyle;
+    TerminaScript::Prefab p_Skeleton;
+
+    TerminaScript::Prefab p_Dunkleosteus;
+
+    TerminaScript::Prefab p_RunicDeer;
+    TerminaScript::Prefab p_RedDragon;
 
     std::unordered_map<std::string, TerminaScript::Prefab> characterPrefabMap;
     std::vector<Termina::Actor*> gameActor;
