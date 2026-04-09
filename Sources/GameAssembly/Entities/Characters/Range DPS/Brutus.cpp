@@ -136,7 +136,10 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Brutus", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Triple Shoot"))
@@ -173,12 +176,16 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
         case PlayerState::CHOOSINGTARGET :
         {
-            ImGui::Begin("Choose enemy target");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
             for (int i = 0; i < enemies.size(); i++)
             {
                 std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -194,6 +201,7 @@ bool Brutus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 

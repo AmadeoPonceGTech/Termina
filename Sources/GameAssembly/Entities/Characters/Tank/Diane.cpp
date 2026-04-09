@@ -121,7 +121,10 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
         }
 
         case PlayerState::CHOOSINGABILITY : {
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Diane", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Shield Charge"))
@@ -150,6 +153,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -157,7 +161,10 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
         {
             if (abilitySelected == 1 or abilitySelected == 2)
             {
-                ImGui::Begin("Choose enemy target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose enemy target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < enemies.size(); i++)
                 {
                     std::string label = enemies[i]->getName() + "##" + std::to_string(i);
@@ -173,10 +180,14 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -192,6 +203,7 @@ bool Diane::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::vec
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }

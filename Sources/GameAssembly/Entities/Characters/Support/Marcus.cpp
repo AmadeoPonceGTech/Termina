@@ -122,7 +122,10 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
 
         case PlayerState::CHOOSINGABILITY : {
 
-            ImGui::Begin("Choose Ability");
+            ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("Choose Ability - Marcus", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
             ImGui::BeginDisabled(!firstAbilityUp);
             if (ImGui::Button("Heal"))
@@ -159,6 +162,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
             ImGui::EndDisabled();
 
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
 
@@ -166,7 +170,10 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
         {
             if (abilitySelected != 4)
             {
-                ImGui::Begin("Choose Ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose Ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     std::string label = characters[i]->getName() + "##" + std::to_string(i);
@@ -182,10 +189,14 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             else
             {
-                ImGui::Begin("Choose ally target");
+                ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y / 8.0f + viewport->Size.y * 1.0f / 3.0f));
+                ImGui::SetNextWindowSize(ImVec2(viewport->Size.x / 10.0f, viewport->Size.y - viewport->Size.y / 8.0f - viewport->Size.y * 1.0f / 3.0f - viewport->Size.y * 1.0f / 3.0f));
+                ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+                ImGui::Begin("Choose ally target", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
                 for (int i = 0; i < characters.size(); i++)
                 {
                     if (characters[i]->getCurrentHealth() <= 0)
@@ -204,6 +215,7 @@ bool Marcus::entityTurn(std::vector<std::shared_ptr<Entity>> characters, std::ve
                 }
 
                 ImGui::End();
+                ImGui::PopStyleColor();
             }
             break;
         }

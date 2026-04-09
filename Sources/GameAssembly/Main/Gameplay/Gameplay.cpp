@@ -346,7 +346,6 @@ void Gameplay::drawImGui() {
     ImGui::PopStyleColor();
 
     // CHARA
-
     ImGui::SetNextWindowPos(ImVec2(0, viewport->Size.y * 2.0f / 3.0f));
     ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y * 1.0f / 3.0f));
     ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
@@ -361,7 +360,7 @@ void Gameplay::drawImGui() {
         auto& chara = characters[i];
 
         ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
-        ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, 200), true);
+        ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, -1), true);
 
         ImGui::Text("Character: %s", chara->getName().c_str());
         ImGui::SameLine(330);

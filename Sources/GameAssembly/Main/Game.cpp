@@ -37,12 +37,18 @@ void Game::Start()
 void Game::Update(float deltaTime)
 {
 
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImVec4 BgColor = ImVec4(0.200f, 0.133f, 0.075f, 1.0f);
+    ImVec4 ItemsColor = ImVec4(0.349f, 0.251f, 0.169f, 1.0f);
+
     switch (gameState)
     {
 
         case EGameState::Title : {
-            ImGui::SetNextWindowSize(ImVec2(1280, 720));
-            ImGui::Begin("MainWindow");
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
             ImGui::Dummy(ImVec2(0,100));
             ImGui::SetWindowFontScale(5.f);
@@ -59,16 +65,18 @@ void Game::Update(float deltaTime)
             if (ImGui::Button("Play")) { gameState = EGameState::Menu; }
 
             ImGui::End();
+            ImGui::PopStyleColor();
             }
             break;
 
         case EGameState::Menu :
         {
-            ImGui::SetNextWindowSize(ImVec2(1280, 720));
-            ImGui::Begin("MainWindow");
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size));
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, BgColor);
+            ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-            ImGui::SetWindowFontScale(1.f);
-
+            ImGui::SetWindowFontScale(2.f);
             ImGui::Text("Select your characters");
             ImGui::SameLine();
             ImGui::BeginDisabled(!gameplay->TeamIsComplete());
@@ -78,9 +86,11 @@ void Game::Update(float deltaTime)
             ImGui::EndDisabled();
 
             // ===== LAYOUT SIMPLE =====
-            ImGui::Columns(2, nullptr, true);
+            ImGui::Columns(2, nullptr, false);
+            ImGui::SetColumnOffset(1, viewport->Size.x / 5.0f + 0.0f);
             // ===== LEFT: LIST =====
-            ImGui::BeginChild("CharacterList", ImVec2(200, 0), true);
+            ImGui::SetWindowFontScale(1.5f);
+            ImGui::BeginChild("CharacterList", ImVec2(viewport->Size.x / 2.0f , 0), true);
             for (int i = 0; i < allCharacters.size(); i++) {
                 if (ImGui::Selectable(allCharacters[i]->getName().c_str(), selectedCharacter == i)) {
                     selectedCharacter = i;
@@ -89,6 +99,7 @@ void Game::Update(float deltaTime)
 
             ImGui::Dummy(ImVec2(0,305));
 
+            ImGui::SetWindowFontScale(1.5f);
             ImGui::Text("Character Selected :");
 
             ImGui::Dummy(ImVec2(0,10));
@@ -101,11 +112,13 @@ void Game::Update(float deltaTime)
             ImGui::NextColumn();
 
             // ===== RIGHT: DETAILS =====
-            ImGui::BeginChild("CharacterDetails", ImVec2(-1, 0), true);
+            ImGui::SetWindowFontScale(3.f);
+            ImGui::BeginChild("CharacterDetails", ImVec2(viewport->Size.x * 4.0f / 5.0f, 0), true, ImGuiWindowFlags_HorizontalScrollbar);
 
             if (selectedCharacter != -1) {
                 auto& character = allCharacters[selectedCharacter];
 
+                ImGui::SetWindowFontScale(1.5f);
                 ImGui::Text("Character: %s", character->getName().c_str());
                 ImGui::Dummy(ImVec2(0,10));
                 ImGui::Text("Level : %i", character->getLevel());
@@ -156,6 +169,7 @@ void Game::Update(float deltaTime)
             ImGui::EndChild();
             ImGui::Columns(1);
             ImGui::End();
+            ImGui::PopStyleColor();
             break;
         }
         case EGameState::Run :
