@@ -90,6 +90,7 @@ void Game::Update(float deltaTime)
             ImGui::SetColumnOffset(1, viewport->Size.x / 5.0f + 0.0f);
             // ===== LEFT: LIST =====
             ImGui::SetWindowFontScale(1.5f);
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
             ImGui::BeginChild("CharacterList", ImVec2(viewport->Size.x / 2.0f , 0), true);
             for (int i = 0; i < allCharacters.size(); i++) {
                 if (ImGui::Selectable(allCharacters[i]->getName().c_str(), selectedCharacter == i)) {
@@ -109,10 +110,12 @@ void Game::Update(float deltaTime)
             }
 
             ImGui::EndChild();
+            ImGui::PopStyleColor();
             ImGui::NextColumn();
 
             // ===== RIGHT: DETAILS =====
             ImGui::SetWindowFontScale(3.f);
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
             ImGui::BeginChild("CharacterDetails", ImVec2(viewport->Size.x * 4.0f / 5.0f, 0), true, ImGuiWindowFlags_HorizontalScrollbar);
 
             if (selectedCharacter != -1) {
@@ -167,6 +170,7 @@ void Game::Update(float deltaTime)
             }
 
             ImGui::EndChild();
+            ImGui::PopStyleColor();
             ImGui::Columns(1);
             ImGui::End();
             ImGui::PopStyleColor();
