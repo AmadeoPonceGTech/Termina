@@ -18,7 +18,7 @@
 #include "../../Entities/Enemies/Ocean/Mermaid.h"
 #include "../../Entities/Enemies/Ocean/Eel.h"
 
-#include "../../Entities/Enemies/Forest/RunicDear.h"
+#include "../../Entities/Enemies/Forest/RunicDeer.h"
 #include "../../Entities/Enemies/Forest/RedDragon.h"
 #include "../../Entities/Enemies/Graveyard/Gargoyle.h"
 #include "../../Entities/Enemies/Ocean/Whale.h"
@@ -34,7 +34,7 @@ Gameplay::Gameplay() {
         playerXP = std::make_unique<PlayerXP>();
     }
 
-    currentBiome = EBiome::FOREST;
+    currentBiome = EBiome::GRAVEYARD;
 
 }
 
@@ -185,9 +185,6 @@ void Gameplay::updateFight()
             finished = true;
         }
 
-        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty() && !finished) {
-            finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
-        }
     if (!aliveCharaVec.empty() && !enemyManager->getEnemies().empty()) {
         finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
     }
@@ -248,8 +245,6 @@ void Gameplay::updateFight()
                 std::sort(speedManagerVec.begin(), speedManagerVec.end(), [](const std::shared_ptr<Entity> a, const std::shared_ptr<Entity> b) { return a->getCurrentSpeed() < b->getCurrentSpeed(); });
             }
         }
-    }
-
     if (enemyManager->getEnemies().empty()) {
         runState = EGameRunState::ENDFIGHT;
     }

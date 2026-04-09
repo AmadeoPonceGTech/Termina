@@ -2,7 +2,7 @@
 #include "../../Characters/Character.h"
 
 AdeptOfTheChaos::AdeptOfTheChaos(int floor) {
-    name = "Adept of the chaos";
+    name = "Adept Of The Chaos";
     entityClass = EClass::RANGEDDPS;
     description = "He's dark, his mind is tortured and he will avenge all of his losses.";
     biome = Biome::GRAVEYARD;

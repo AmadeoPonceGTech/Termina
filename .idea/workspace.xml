@@ -31,9 +31,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="delete useless logs">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_04_2026_09_25_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EndlessRogueMap" beforeDir="false" afterPath="$PROJECT_DIR$/EndlessRogueMap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDeer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDeer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDeer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/RunicDeer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Game.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Game.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +124,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "branch__event__architecture",
     "git.auto.fetch.suggestion.counter": "2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

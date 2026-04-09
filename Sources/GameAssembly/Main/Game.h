@@ -71,8 +71,12 @@ private :
     TerminaScript::Prefab p_Ghost;
     TerminaScript::Prefab p_Gargoyle;
     TerminaScript::Prefab p_Skeleton;
+    TerminaScript::Prefab p_AdeptOfTheChaos;
 
     TerminaScript::Prefab p_Dunkleosteus;
+    TerminaScript::Prefab p_Eel;
+    TerminaScript::Prefab p_Mermaid;
+    TerminaScript::Prefab p_Kelpie;
 
     TerminaScript::Prefab p_RunicDeer;
     TerminaScript::Prefab p_RedDragon;

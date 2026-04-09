@@ -18,7 +18,7 @@ public :
     void Start() override;
     void Update(float deltaTime) override;
 
-    void dropArtefacts() override;
+    void dropArtefacts();
 
     void firstAbility(Character& target);
     void secondAbility(Character& target, Enemy& enemyTarget);
