@@ -35,7 +35,6 @@ Gameplay::Gameplay() {
     }
 
     currentBiome = EBiome::FOREST;
-
 }
 
 void Gameplay::StartRun() {
@@ -174,7 +173,11 @@ void Gameplay::UpdateFight() {
 
         bool finished = false;
 
-        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty()) {
+        if (entity->getIsStun()) {
+            finished = true;
+        }
+
+        if (!aliveCharaVec.empty() and !enemyManager->getEnemies().empty() && !finished) {
             finished = entity->entityTurn(aliveCharaVec, enemyManager->getEnemies());
         }
 
@@ -313,9 +316,23 @@ void Gameplay::drawImGui() {
         ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
         ImGui::BeginChild(("Enemy" + std::to_string(i)).c_str(), ImVec2(-1, 70), true);
 
-        ImGui::Text("Character: %s                    HP : %.0f", enemy->getName().c_str(), enemy->getCurrentHealth());
+        ImGui::Text("Character: %s", enemy->getName().c_str());
+        ImGui::SameLine(150);
+        ImGui::Text("HP : %.2f", enemy->getCurrentHealth());
         ImGui::Dummy(ImVec2(0,5));
         ImGui::Text("Class : %s", enemy->getStringClass().c_str());
+        if (enemy->getIsPoisoned()) {
+            ImGui::SameLine(380);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(127, 28, 158, 255)), "Poisoned");
+        }
+        if (enemy->getIsBurnt()) {
+            ImGui::SameLine(330);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(255, 108, 0, 255)), "Burn");
+        }
+        if (enemy->getIsStun()) {
+            ImGui::SameLine(280);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(128, 128, 128, 255)), "Stun");
+        }
 
         ImGui::EndChild();
         ImGui::PopStyleColor();
@@ -346,12 +363,27 @@ void Gameplay::drawImGui() {
         ImGui::PushStyleColor(ImGuiCol_ChildBg, ItemsColor);
         ImGui::BeginChild(("Character" + std::to_string(i)).c_str(), ImVec2(-1, 200), true);
 
-        ImGui::Text("Character: %s               HP : %.2f", chara->getName().c_str(), chara->getCurrentHealth());
+        ImGui::Text("Character: %s", chara->getName().c_str());
+        ImGui::SameLine(330);
+        ImGui::Text("HP : %.2f", chara->getCurrentHealth());
         ImGui::Dummy(ImVec2(0,5));
         ImGui::Text("Statistics");
         ImVec2 p_min = ImGui::GetItemRectMin();
         ImVec2 p_max = ImGui::GetItemRectMax();
         ImGui::GetWindowDrawList()->AddLine(ImVec2(p_min.x, p_max.y - 1),ImVec2(p_max.x, p_max.y - 1),IM_COL32(255, 255, 255, 255),1.0f );
+
+        if (chara->getIsPoisoned()) {
+            ImGui::SameLine(380);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(127, 28, 158, 255)), "Poisoned");
+        }
+        if (chara->getIsBurnt()) {
+            ImGui::SameLine(330);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(255, 108, 0, 255)), "Burn");
+        }
+        if (chara->getIsStun()) {
+            ImGui::SameLine(280);
+            ImGui::TextColored(ImGui::ColorConvertU32ToFloat4(IM_COL32(128, 128, 128, 255)), "Stun");
+        }
 
         ImGui::Dummy(ImVec2(0,10));
         ImGui::Text("Attack Damage : %.2f", chara->getCurrentAttackDamage());
@@ -359,6 +391,11 @@ void Gameplay::drawImGui() {
         ImGui::Text("Armor : %.2f", chara->getCurrentArmor());
         ImGui::Text("Magic Resistance : %.2f", chara->getCurrentPowerResist());
         ImGui::Text("Speed : %.2f", chara->getCurrentSpeed());
+        ImGui::Dummy(ImVec2(0,5));
+        std::shared_ptr<Character> c = static_pointer_cast<Character>(chara);
+        if (c->getArtefact() != nullptr) {
+            ImGui::Text("Artefact : %s", c->getArtefact()->getName().c_str());
+        }
 
         ImGui::EndChild();
         ImGui::PopStyleColor();
@@ -482,6 +519,7 @@ void Gameplay::RemoveFromTeam(const std::shared_ptr<Entity>& entity)
     activeCharacters.erase(it);
     std::cout << entity->getName() << " remove from team" << std::endl;
 }
+std::vector<std::shared_ptr<Entity>>& Gameplay::getActiveCharacters() { return activeCharacters; }
 
 
 ////////// Check if Team is Complete or If the character is already in team

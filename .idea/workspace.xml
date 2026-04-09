@@ -30,14 +30,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="edit strings to playerXP system">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Close DPS/Alex.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Entity.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/LogManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Gameplay/Gameplay.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Main/Inventory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+    <list default="true" id="1f6597e6-b263-4ce3-a757-0015d1b86ee5" name="Changes" comment="draw artefacts info on chara">
+      <change beforePath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Rat.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Sources/GameAssembly/Entities/Enemies/Forest/Rat.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,12 +59,12 @@
     &quot;assignee&quot;: &quot;0ri0546&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-",
-    "accountId": "ff272a15-d4e0-4649-be0d-234e6e11a02f"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AmadeoPonceGTech/EndlessRogue-Termina-.git&quot;,
+    &quot;accountId&quot;: &quot;3506d733-1a4a-4f6d-83a8-d5617e31580c&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Sources/GameAssembly/Entities/Characters/Character.h" root0="FORCE_HIGHLIGHTING" />
@@ -121,8 +115,8 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ImGuiMasterization&quot;,
-    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;1&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;UI-finishing&quot;,
+    &quot;git.auto.fetch.suggestion.counter&quot;: &quot;2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -162,23 +156,8 @@
       <workItem from="1775026299111" duration="2520000" />
       <workItem from="1775112090624" duration="163000" />
       <workItem from="1775198857203" duration="2479000" />
-      <workItem from="1775717213820" duration="6355000" />
-    </task>
-    <task id="LOCAL-00009" summary="remove if for cleans to marcus">
-      <option name="closed" value="true" />
-      <created>1774001490950</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1774001490950</updated>
-    </task>
-    <task id="LOCAL-00010" summary="added penelope and claire need to finish claire">
-      <option name="closed" value="true" />
-      <created>1774005842751</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1774005842751</updated>
+      <workItem from="1775716999928" duration="1817000" />
+      <workItem from="1775718852550" duration="4759000" />
     </task>
     <task id="LOCAL-00011" summary="finish claire 1st ability">
       <option name="closed" value="true" />
@@ -540,23 +519,39 @@
       <option name="project" value="LOCAL" />
       <updated>1775639495393</updated>
     </task>
-    <task id="LOCAL-00056" summary="added colors to in game bonuses">
+    <task id="LOCAL-00056" summary="merged playerXpSystem into main">
       <option name="closed" value="true" />
-      <created>1775645240021</created>
+      <created>1775644462547</created>
       <option name="number" value="00056" />
       <option name="presentableId" value="LOCAL-00056" />
       <option name="project" value="LOCAL" />
-      <updated>1775645240021</updated>
+      <updated>1775644462547</updated>
     </task>
-    <task id="LOCAL-00057" summary="edit strings to playerXP system">
+    <task id="LOCAL-00057" summary="adjusted title screen + selection screen">
       <option name="closed" value="true" />
-      <created>1775718465530</created>
+      <created>1775719429149</created>
       <option name="number" value="00057" />
       <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1775718465530</updated>
+      <updated>1775719429149</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="finished ui correction with printing status effect on characters and enemies">
+      <option name="closed" value="true" />
+      <created>1775722593219</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1775722593219</updated>
+    </task>
+    <task id="LOCAL-00059" summary="draw artefacts info on chara">
+      <option name="closed" value="true" />
+      <created>1775723597899</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1775723597899</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,8 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added malicious eye artefact" />
-    <MESSAGE value="added bear's salmon and cursed shield artefact" />
     <MESSAGE value="fix" />
     <MESSAGE value="added inventory" />
     <MESSAGE value="added CasperSEncyclopedia artefact" />
@@ -609,9 +602,11 @@
     <MESSAGE value="added Great Bear Medal artefact" />
     <MESSAGE value="fix returns in CreateArtefact functions" />
     <MESSAGE value="update logs" />
-    <MESSAGE value="added colors to in game bonuses" />
-    <MESSAGE value="edit strings to playerXP system" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit strings to playerXP system" />
+    <MESSAGE value="merged playerXpSystem into main" />
+    <MESSAGE value="adjusted title screen + selection screen" />
+    <MESSAGE value="finished ui correction with printing status effect on characters and enemies" />
+    <MESSAGE value="draw artefacts info on chara" />
+    <option name="LAST_COMMIT_MESSAGE" value="draw artefacts info on chara" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
